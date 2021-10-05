@@ -83,7 +83,7 @@ public class AdminLoginServlet extends HttpServlet {
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password!");
             //response.sendRedirect("Login.jsp");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("admin/AminLogin.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", a);

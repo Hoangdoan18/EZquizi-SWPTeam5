@@ -39,7 +39,7 @@ public class UsersAddServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         UsersDAO dao = new UsersDAO();
         dao.addUser(username, password, email, name, Integer.parseInt(age), Integer.parseInt(phone));
-        response.sendRedirect("UsersCRUD");
+        response.sendRedirect("admin/UsersCRUD");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

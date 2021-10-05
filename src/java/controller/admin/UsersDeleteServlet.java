@@ -36,7 +36,7 @@ public class UsersDeleteServlet extends HttpServlet {
         String username = request.getParameter("username");
         UsersDAO dao = new UsersDAO();
         dao.delete(username);
-        response.sendRedirect("./admin/UsersCRUD.jsp");
+        response.sendRedirect("admin/UsersCRUD.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
