@@ -31,7 +31,7 @@ public class EmailController {
 
     // Those are the values that have the email information
      public void Send(String ToMail,String username,String name){
-         String link = "http://localhost:8080/SWP_Team5/resetPassword.jsp";
+         String link = "http://localhost:8080/SWP_Team5/EZquizi/resetPass.jsp";
          String m_text = "<table style=\"width: 100% !important\" >\n" +
 "            <tbody>\n" +
 "                <tr>\n" +

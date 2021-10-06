@@ -19,22 +19,22 @@
                 <div class="col-lg-10 my-auto myShadow">
                     <div class="row">
                         <div class="col-lg-7 bg-white p-4">
-                            <form action="ResetPasswordServlet?name=<%= request.getParameter("name")%>" method="post" class="px-3" id="changepw-form">
+                            <form action="ResetPasswordServlet?username=<%= request.getParameter("username")%>" method="post" class="px-3" id="changepw-form">
                                 <div class="input-group input-group-lg form-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text rounded-0"><i class="fas fa-key fa-lg fa-fw"></i></span>
                                     </div>
-                                    <input type="password" name="oldpass" id="password"  class="form-control rounded-0"  placeholder="Your Old Password" required />
+                                    <input type="password" name="newpass" id="password"  class="form-control rounded-0"  placeholder="Your New Password" required />
                                 </div>
                                 <div class="input-group input-group-lg form-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text rounded-0"><i class="fas fa-key fa-lg fa-fw"></i></span>
                                     </div>
-                                    <input type="password" name="newpass" id="confirm-password" class="form-control rounded-0"  placeholder="Your New Password" required />
+                                    <input type="password" name="newpass2" id="confirm-password" class="form-control rounded-0"  placeholder="Confirm Password" required />
                                 </div>
-                                <p class="text-danger">${mess}</p>
+                                
                                 <div class="form-group">
-                                    <input type="submit" id="login-btn" value="Change Your Password" class="btn btn-primary btn-lg btn-block myBtn" />
+                                    <input type="submit" id="login-btn" value="Reset Your Password" class="btn btn-primary btn-lg btn-block myBtn" />
                                 </div>
                             </form>
                         </div>

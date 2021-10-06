@@ -31,9 +31,13 @@
         <servlet-name>AccountServlet</servlet-name>
         <servlet-class>controller.user.AccountServlet</servlet-class>
     </servlet>
-     <servlet>
+    <servlet>
         <servlet-name>EmailControl</servlet-name>
         <servlet-class>controller.user.EmailControl</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <servlet-class>controller.user.ResetPasswordServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UsersCRUDServlet</servlet-name>
@@ -58,6 +62,10 @@
     <servlet-mapping>
         <servlet-name>EmailControl</servlet-name>
         <url-pattern>/EmailControl</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ResetPasswordServlet</servlet-name>
+        <url-pattern>/ResetPasswordServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

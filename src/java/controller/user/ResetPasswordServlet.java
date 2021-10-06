@@ -9,18 +9,15 @@ import dal.UsersDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.Users;
 
 /**
  *
  * @author Admin
  */
-@WebServlet(name = "ResetPasswordServlet", urlPatterns = {"/resetPassword"})
 public class ResetPasswordServlet extends HttpServlet {
 
     /**
@@ -35,29 +32,17 @@ public class ResetPasswordServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+        String newpass = request.getParameter("newpass");
+        String newpass2 = request.getParameter("newpass2");
         String name = request.getParameter("username");
-//        HttpSession session = request.getSession();
-//        Users user = (Users) session.getAttribute("name");
         UsersDAO edao = new UsersDAO();
         Users acc = edao.getUsername(name);
-        if(acc == null){
-//            acc.setPassword(npass);
-//            edao.editUsers(acc);
-            response.sendRedirect("login.jsp");
-        }else{
-            String oldpass = request.getParameter("oldpass");
-            String newpass = request.getParameter("newpass");
-            if (oldpass.equals(acc.getPassword())) {       
-            request.setAttribute("mess", "Change password sucess, please login again");
-            edao.changePass(newpass, name);
-            request.getRequestDispatcher("login.jsp").forward(request, response);                 
-        } else{
-             request.setAttribute("mess", "Change password fail, please check again");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+        if (acc != null) {
+            acc.setPassword(newpass);
+            edao.updatePass(acc);
         }
-        }
-        //
+        request.setAttribute("mess", "Change password sucess, please login again");
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -100,8 +85,3 @@ public class ResetPasswordServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-
-
-
-
-

@@ -146,10 +146,33 @@ public class UsersDAO {
             ps.setString(1, username);
             ps.executeUpdate();
         } catch (Exception e) {
+       
+        }            
+    }
+    public void updatePass(Users acc){
+        String query = "UPDATE Users \n"
+                + "SET [username] = ?,\n"
+                + "[password] = ?,\n"
+                + "email = ?,\n"
+                + "name = ?,\n"
+                + "age = ?, \n"
+                + "phone = ?, \n"
+                + "admin = 0 \n"
+                + "WHERE username =?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, acc.getUsername());
+            ps.setString(2, acc.getPassword());
+            ps.setString(3, acc.getEmail());
+            ps.setString(4, acc.getName());
+            ps.setInt(5, acc.getAge());
+            ps.setInt(6, acc.getPhone());
+            ps.setString(7, acc.getUsername());
+            ps.executeUpdate();
+        } catch (Exception e) {
         }
     }
-    
-
 //    public static void main(String[] args) {
 //        UsersDAO dao = new UsersDAO();
 //        dao.getAcc("admin");

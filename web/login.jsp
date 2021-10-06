@@ -66,7 +66,7 @@
                         <div class="col-lg-7 bg-white p-4">
                             <h1  class="text-center font-weight-bold text-primary">Forgot Your Password?</h1>
                             <hr class="my-3" />
-                            <p class="lead text-center text-secondary">To reset your password, enter the registered e-mail adddress and we will send you password reset instructions on your e-mail!</p>
+                            <p class="lead text-center text-secondary">To reset your password, enter the registered e-mail address and we will send you password reset instructions on your e-mail!</p>
                             <form action="EmailControl" method="post" class="px-3" id="forgot-form">
                                 <div id="forgotAlert"></div>
                                 <div class="input-group input-group-lg form-group">
