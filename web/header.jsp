@@ -20,7 +20,7 @@
                         <c:if test="${sessionScope.account == null}">
                         <div class="navbar-header">
                             <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                            <a href="#" class="navbar-brand">EzQuizi</a>
+                            <a href="index.jsp" class="navbar-brand">EzQuizi</a>
                         </div>
                         
                         <div class="navbar-collapse collapse" id="mobile_menu">
@@ -37,11 +37,11 @@
                             </ul>
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <form action="" class="navbar-form">
+                                    <form action="search" class="navbar-form">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                                <span class="input-group-addon"><button type="submit" class="glyphicon glyphicon-search" style="border: 0px;" ></button></span>
                                             </div>
                                         </div>
                                     </form>
@@ -56,7 +56,6 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="login.jsp">Login</a></li>
                                         <li><a href="signup.jsp">Sign Up</a></li>
-                                        <li><a href="AdminLogin.jsp">Admin Login</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -65,15 +64,15 @@
                         <c:if test="${sessionScope.account != null}">
                             <div class="navbar-header">
                             <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                            <a href="#" class="navbar-brand">EzQuizi</a>
+                            <a href="index.jsp" class="navbar-brand">EzQuizi</a>
                         </div>
                         
                         <div class="navbar-collapse collapse" id="mobile_menu">
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">My Subject <span class="caret"></span></a>
+                                <li><a href="UserSubjectServlet?username=${sessionScope.account}" class="dropdown-toggle" data-toggle="dropdown">My Subject <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="#">About One</a></li>
+                                        <li><a href="UserSubjectServlet?username=${account.username}">Your Subjects</a></li>
                                         <li><a href="#">About Two</a></li>
                                         <li><a href="#">About Three</a></li>
                                         
@@ -82,11 +81,11 @@
                             </ul>
                             <ul class="nav navbar-nav">
                                 <li>
-                                    <form action="" class="navbar-form">
+                                    <form action="search" class="navbar-form">
                                         <div class="form-group">
                                             <div class="input-group">
                                                 <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                                                <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+                                                <span class="input-group-addon"><button type="submit" class="glyphicon glyphicon-search" style="border: 0px;" ></button></span>
                                             </div>
                                         </div>
                                     </form>
@@ -98,6 +97,7 @@
                                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span> Hello ${account.name}<span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="UsersProfile.jsp">User Profile</a></li>
+                                        <li><a href="ProjectServlet">Manage Project</a><li>
                                         <li><a href="logout">Log_out</a></li>
                                     </ul>
                                 </li>

@@ -27,10 +27,10 @@
             <div class="container"  >
                 <lu> <div style="font-size: 20px; margin-bottom: 20px;"> Sort by:</div> </lu>
                 <c:forEach var="o" items="${ListC}">
-                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="category?cid=${o.cid}"> ${o.name} </a></lu>
+                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="category?cid=${o.cateID}&username=${account.username}"> ${o.cateName} </a></lu>
                 </c:forEach>
-                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="sort" > Date </a></lu>
-                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="SubjectListServlet" > All </a></lu>
+                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="sort?username=${account.username}" > Date </a></lu>
+                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="UserSubjectServlet?username=${account.username}" > All </a></lu>
             </div>
         </nav>
         <!-------------------------------> 
@@ -39,7 +39,7 @@
             <nav aria-label="Page navigation example" style="margin-top: 50px" >
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="SubjectListServlet?page=${i}">${i}</a></li>
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="UserSubjectServlet?page=${i}&username=${account.username}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>
@@ -54,9 +54,6 @@
                             <div class="card-title" style="font-size: 20px; margin-bottom: 10px "> 
                                 <a href="#">${o.username}</a> 
                             </div>
-                            <div class="card-title" style="font-size: 30px; margin-bottom: 10px; float: right; ">
-                                <a href="#" style="text-decoration: none; border: 1px;">Subscribe</a>
-                            </div>
                             <div class="card-sub-title"> ${o.cateID}
                             </div>
                             <div class="card-desc"> ${o.date}
@@ -69,7 +66,7 @@
             <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="SubjectListServlet?page=${i}">${i}</a></li>
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="UserSubjectServlet?page=${i}&username=${account.username}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>
