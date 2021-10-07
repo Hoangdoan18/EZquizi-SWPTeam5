@@ -27,7 +27,7 @@
             <div class="container"  >
                 <lu> <div style="font-size: 20px; margin-bottom: 20px;"> Sort by:</div> </lu>
                 <c:forEach var="o" items="${ListC}">
-                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="category?cid=${o.cid}"> ${o.name} </a></lu>
+                <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="category?cid=${o.cateID}"> ${o.cateName} </a></lu>
                 </c:forEach>
                 <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="sort" > Date </a></lu>
                 <lu> <a style="border: 3px; margin-right: 40px; font-size: 20px;text-decoration: none; " href="SubjectListServlet" > All </a></lu>

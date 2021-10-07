@@ -32,7 +32,7 @@
                                     </div>
                                     <input type="password" name="newpass2" id="confirm-password" class="form-control rounded-0"  placeholder="Confirm Password" required />
                                 </div>
-                                
+                                <p class="text-danger">${mess4}</p>
                                 <div class="form-group">
                                     <input type="submit" id="login-btn" value="Reset Your Password" class="btn btn-primary btn-lg btn-block myBtn" />
                                 </div>

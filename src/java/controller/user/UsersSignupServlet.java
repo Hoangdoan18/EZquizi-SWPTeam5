@@ -67,29 +67,23 @@ public class UsersSignupServlet extends HttpServlet {
         String pass = request.getParameter("newpass");
         String repass = request.getParameter("repass");
         String name = request.getParameter("newname");
-//        String age = request.getParameter("newage");
         int age = Integer.parseInt(request.getParameter("newage"));
         String email = request.getParameter("newemail");
-        //String phone = request.getParameter("phone");
         int phone = Integer.parseInt(request.getParameter("newphone").toString());
 
         LoginSignupDAO udao = new LoginSignupDAO();
         if (user.length() < 3) {
             request.setAttribute("mess1", "Username must have more than 3 letter");
-            //request.setAttribute("alert", "<script>alert('Invalid username')</script>");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else if (!pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
             //mật khẩu bao gồm chữ thường, chữ hoa và 3 kí tự trở lên 
             request.setAttribute("mess2", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
-            //request.setAttribute("alert", "<script>alert('Invalid password')</script>");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else if (udao.check(user)) {
             request.setAttribute("mess1", "Username taken");
-            //request.setAttribute("alert", "<script>alert('Username taken')</script>");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else if (!pass.equals(repass)) {
             request.setAttribute("mess3", "Password does not match!");
-            //request.setAttribute("alert", "<script>alert('Password does not match')</script>");
             request.getRequestDispatcher("signup.jsp").forward(request, response);
         } else {
             udao.addUser(user, pass, email, name, age, phone);

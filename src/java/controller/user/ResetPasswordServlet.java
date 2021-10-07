@@ -37,12 +37,18 @@ public class ResetPasswordServlet extends HttpServlet {
         String name = request.getParameter("username");
         UsersDAO edao = new UsersDAO();
         Users acc = edao.getUsername(name);
-        if (acc != null) {
+        if (!newpass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
+            request.setAttribute("mess4", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
+            request.getRequestDispatcher("resetPass.jsp").forward(request, response);
+        } else if (!newpass.equals(newpass2)) {
+            request.setAttribute("mess4", "Password does not match!");
+            request.getRequestDispatcher("resetPass.jsp").forward(request, response);
+        } else if(acc != null){
             acc.setPassword(newpass);
             edao.updatePass(acc);
+            request.setAttribute("mess", "Change password sucess, please login again");
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-        request.setAttribute("mess", "Change password sucess, please login again");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
