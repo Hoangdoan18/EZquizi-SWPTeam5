@@ -37,7 +37,8 @@ public class UsersDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getInt(7)));
+                        rs.getInt(7),
+                        rs.getInt(8)));
             }
             return list;
         } catch (Exception e) {
@@ -77,7 +78,7 @@ public class UsersDAO {
 
     public void addUser(String username, String password, String email, String name, int age, int phone) {
         String query = "insert into Users\n"
-                + "values(?,?,?,?,?,?,0)";
+                + "values(?,?,?,?,?,?,1,0)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -100,6 +101,7 @@ public class UsersDAO {
                 + "name = ?,\n"
                 + "age = ?, \n"
                 + "phone = ?, \n"
+                + "active = 1, \n"
                 + "admin = 0 \n"
                 + "WHERE username =?";
         try {
@@ -131,7 +133,8 @@ public class UsersDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getInt(7));
+                        rs.getInt(7),
+                        rs.getInt(8));
             }
         } catch (Exception e) {
         }
@@ -157,6 +160,7 @@ public class UsersDAO {
                 + "name = ?,\n"
                 + "age = ?, \n"
                 + "phone = ?, \n"
+                + "active = 1, \n"
                 + "admin = 0 \n"
                 + "WHERE username =?";
         try {

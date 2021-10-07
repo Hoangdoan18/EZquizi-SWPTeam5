@@ -12,18 +12,19 @@ package model;
 public class Users {
 
     private String username, password, email, name;
-    private int age, phone, admin;
+    private int age, phone, active, admin;
 
     public Users() {
     }
 
-    public Users(String username, String password, String email, String name, int age, int phone, int admin) {
+    public Users(String username, String password, String email, String name, int age, int phone, int active, int admin) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.name = name;
         this.age = age;
         this.phone = phone;
+        this.active = active;
         this.admin = admin;
     }
 
@@ -74,6 +75,13 @@ public class Users {
     public void setPhone(int phone) {
         this.phone = phone;
     }
+    public int getActive() {
+        return phone;
+    }
+
+    public void setActive(int active) {
+        this.active = active;
+    }
 
     public int getAdmin() {
         return admin;
@@ -85,8 +93,9 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" + "username=" + username + ", password=" + password + ", email=" + email + ", name=" + name + ", age=" + age + ", phone=" + phone + ", admin=" + admin + '}';
+        return "Users{" + "username=" + username + ", password=" + password + ", email=" + email + ", name=" + name + ", age=" + age + ", phone=" + phone + ", active=" + active + ", admin=" + admin + '}';
     }
+
     
     
 

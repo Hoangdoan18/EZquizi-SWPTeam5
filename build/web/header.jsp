@@ -25,7 +25,7 @@
                         
                         <div class="navbar-collapse collapse" id="mobile_menu">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
+                                <li class="active"><a href="index.jsp">Home</a></li>
                                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">My Subject <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">About One</a></li>
@@ -70,7 +70,7 @@
                         
                         <div class="navbar-collapse collapse" id="mobile_menu">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Home</a></li>
+                                <li class="active"><a href="index.jsp">Home</a></li>
                                 <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">My Subject <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
                                         <li><a href="#">About One</a></li>

@@ -38,7 +38,8 @@ public class LoginSignupDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getInt(6),
-                        rs.getInt(7));
+                        rs.getInt(7),
+                        rs.getInt(8));
             }
         } catch (Exception e) {
         }
@@ -80,7 +81,7 @@ public class LoginSignupDAO {
     
     public void addUser(String username, String password, String email, String name, int age, int phone) {
         String query = "insert into Users\n"
-                + "values(?,?,?,?,?,?,0)";
+                + "values(?,?,?,?,?,?,1,0)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);

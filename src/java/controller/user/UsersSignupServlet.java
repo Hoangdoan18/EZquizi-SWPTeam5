@@ -90,7 +90,7 @@ public class UsersSignupServlet extends HttpServlet {
             Users a = udao.login(user, pass);
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
-            response.sendRedirect("home.jsp");
+            response.sendRedirect("index.jsp");
         }
     }
 
