@@ -77,7 +77,7 @@ public class AccountServlet extends HttpServlet {
         udao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), Integer.parseInt(newphone), newusername);
         //udao.update(newusername, newpassword, newemail, newname, Integer.parseInt(newage), Integer.parseInt(newphone));
         //response.sendRedirect("account");
-        request.getRequestDispatcher("UsersProfile.jsp").forward(request, response);
+        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
     }
 
     /**

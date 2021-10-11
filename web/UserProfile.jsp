@@ -35,7 +35,7 @@
         <jsp:include page="header.jsp"/>
     </head>
 
-    <body id="page-top">
+    <body id="page-top" style="margin-top: 30px;">
         
         <div id="wrapper">
             <div class="d-flex flex-column" id="content-wrapper">
@@ -121,23 +121,23 @@
                                                             <div class="form-group"><label for="name"><strong>Name</strong><br></label><input class="form-control" type="text" id="username" name="name" value="${account.name}" ></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" name="email" value="${account.name}"></div>
+                                                            <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" name="email" value="${account.email}"></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <div class="form-group"><label for="first_name"><strong>Age</strong><br></label><input class="form-control" type="text" id="first_name" name="age" value="${account.name}"></div>
+                                                            <div class="form-group"><label for="first_name"><strong>Age</strong><br></label><input class="form-control" type="text" id="first_name" name="age" value="${account.age}"></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="last_name"><strong>Phone</strong><br></label><input class="form-control" type="text" id="last_name" name="phone" value="${account.name}"></div>
+                                                            <div class="form-group"><label for="last_name"><strong>Phone</strong><br></label><input class="form-control" type="text" id="last_name" name="phone" value="${account.phone}"></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <div class="form-group"><label for="username"><strong>Username</strong><br></label><input class="form-control" type="text" id="username" name="username" value="${account.name}" readonly></div>
+                                                            <div class="form-group"><label for="username"><strong>Username</strong><br></label><input class="form-control" type="text" id="username" name="username" value="${account.username}" readonly></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="email" name="password" value="${account.name}" readonly></div>
+                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="email" name="password" value="${account.password}" readonly></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>

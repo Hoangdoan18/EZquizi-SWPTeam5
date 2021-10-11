@@ -11,7 +11,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <title>Blank Page - Brand</title>
+        <title>Header </title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.0.5/css/sb-admin-2.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
@@ -21,11 +21,21 @@
         <link rel="stylesheet" href="assets/css/icon-star-empty.css">
         <link rel="stylesheet" href="assets/css/Pages-Navbar.css">
         <link rel="stylesheet" href="assets/css/Search-Input-responsive.css">
+        <style>
+            .dropdown:hover>.dropdown-menu {
+                display: block;
+            }
+            .dropdown > .dropdown-toggle:active {
+                /*Without this, clicking will make it sticky*/
+                pointer-events: none;
+            }
+        </style>
     </head>
 
     <body id="page-top" style="border-color: rgba(19,31,36,0.91);">
+        <div class="fluid-container" style="padding: 0px;">
         <c:if test="${account!=null}">
-            <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean white-links" style="background: rgba(19,31,36,0.91);color: white;">
+            <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean white-links" style="background: rgb(82,58,133); color: white;">
                 <div class="container"><a class="navbar-brand" id="company-name" href="index.html">AURORA</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="SetNavBackground();"><span class="sr-only">Toggle navigation</span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" style="color: white;font-size: 30px;">
                         <path d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z" fill="currentColor"></path>
                         <path d="M2 12.0322C2 11.4799 2.44772 11.0322 3 11.0322H21C21.5523 11.0322 22 11.4799 22 12.0322C22 12.5845 21.5523 13.0322 21 13.0322H3C2.44772 13.0322 2 12.5845 2 12.0322Z" fill="currentColor"></path>
@@ -37,13 +47,17 @@
                             <li class="nav-item"></li>
                             <li class="nav-item"></li>
                             <li class="nav-item"></li>
-                            <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="login.html">Create</a></li>
+                            <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="#">Create</a></li>
                             <li class="nav-item"></li>
-                            <li class="nav-item dropdown show"><a class="dropdown-toggle nav-link" aria-expanded="true" data-toggle="dropdown" href="#">My Subject</a>
-                                <div class="dropdown-menu show"><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">First Item</a><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
+                            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
+                                <div class="dropdown-menu"><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">First Item</a>
+                                    <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
+                                    <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
                             </li>
                             <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Name</a>
-                                <div class="dropdown-menu"><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Profile</a><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Log_out</a></div>
+                                <div class="dropdown-menu"><a class="dropdown-item" href="UserProfile.jsp" style="color: rgb(0,0,0);">Profile</a>
+                                    <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
+                                    <a class="dropdown-item" href="logout" style="color: rgb(0,0,0);">Log_out</a></div>
                             </li>
                         </ul>
                     </div>
@@ -57,7 +71,7 @@
                 </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
             </div>
             <div class="container-fluid" style="padding: 0px;">
-                <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean white-links" style="background: rgba(19,31,36,0.91);color: white;">
+                <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean white-links" style="background:rgb(82,58,133);color: white;">
                     <div class="container"><a class="navbar-brand" id="company-name" href="index.html">AURORA</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="SetNavBackground();"><span class="sr-only">Toggle navigation</span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" style="color: white;font-size: 30px;">
                             <path d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z" fill="currentColor"></path>
                             <path d="M2 12.0322C2 11.4799 2.44772 11.0322 3 11.0322H21C21.5523 11.0322 22 11.4799 22 12.0322C22 12.5845 21.5523 13.0322 21 13.0322H3C2.44772 13.0322 2 12.5845 2 12.0322Z" fill="currentColor"></path>
@@ -69,14 +83,15 @@
                                 <li class="nav-item"></li>
                                 <li class="nav-item"></li>
                                 <li class="nav-item"></li>
-                                <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="login.html">Login</a></li>
-                                <li class="nav-item"><a class="btn btn-success move-left-xs-sm-md" role="button" href="register.html">Sign Up</a></li>
+                                <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="login.jsp">Login</a></li>
+                                <li class="nav-item"><a class="btn btn-success move-left-xs-sm-md" role="button" href="signup.jsp">Sign Up</a></li>
                             </ul>
                         </div>
                     </div>
                 </nav>
             </div>
         </c:if>
+        </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bs-init.js"></script>
