@@ -50,7 +50,8 @@
                             <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="#">Create</a></li>
                             <li class="nav-item"></li>
                             <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
-                                <div class="dropdown-menu"><a class="dropdown-item" href="#" style="color: rgb(0,0,0);">First Item</a>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="UserSubjectServlet?username=${account.username}"style="color: rgb(0,0,0);">First Item</a>
                                     <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
                                     <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
                             </li>
