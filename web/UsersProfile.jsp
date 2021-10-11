@@ -7,14 +7,18 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <script src="mycode.js"></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <title>Profile - Brand</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.0.5/css/sb-admin-2.min.css">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
+        <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+        <link rel="stylesheet" href="assets/fonts/font-awesome.min.css">
+        <link rel="stylesheet" href="assets/fonts/fontawesome5-overrides.min.css">
+        <link rel="stylesheet" href="assets/css/icon-star-empty.css">
         <script>
             function check() {
                 var confirm = prompt("Enter your old password");
@@ -28,51 +32,152 @@
                 }
             }
         </script>
-        <title>Profile</title>
+        <jsp:include page="header.jsp"/>
     </head>
-    <center>
-        <body>
 
-            <%@include file="header.jsp" %>
+    <body id="page-top">
+        
+        <div id="wrapper">
+            <div class="d-flex flex-column" id="content-wrapper">
+                <div id="content">
+                    <div class="container-fluid">
+                        <h3 class="text-dark mb-4">Profile</h3>
+                        <div class="row mb-3">
+                            <div class="col-lg-4">
+                                <div class="card mb-3">
+                                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4" src="assets/img/dogs/image2.jpeg" width="160" height="160">
+                                        <div class="mb-3"><button class="btn btn-primary btn-sm" type="button">Change Photo</button></div>
+                                    </div>
+                                </div>
+                                <div class="card shadow mb-4">
+                                    <div class="card-header py-3">
+                                        <h6 class="text-primary font-weight-bold m-0">Projects</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <h4 class="small font-weight-bold">Server migration<span class="float-right">20%</span></h4>
+                                        <div class="progress progress-sm mb-3">
+                                            <div class="progress-bar bg-danger" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%;"><span class="sr-only">20%</span></div>
+                                        </div>
+                                        <h4 class="small font-weight-bold">Sales tracking<span class="float-right">40%</span></h4>
+                                        <div class="progress progress-sm mb-3">
+                                            <div class="progress-bar bg-warning" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%;"><span class="sr-only">40%</span></div>
+                                        </div>
+                                        <h4 class="small font-weight-bold">Customer Database<span class="float-right">60%</span></h4>
+                                        <div class="progress progress-sm mb-3">
+                                            <div class="progress-bar bg-primary" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;"><span class="sr-only">60%</span></div>
+                                        </div>
+                                        <h4 class="small font-weight-bold">Payout Details<span class="float-right">80%</span></h4>
+                                        <div class="progress progress-sm mb-3">
+                                            <div class="progress-bar bg-info" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;"><span class="sr-only">80%</span></div>
+                                        </div>
+                                        <h4 class="small font-weight-bold">Account setup<span class="float-right">Complete!</span></h4>
+                                        <div class="progress progress-sm mb-3">
+                                            <div class="progress-bar bg-success" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;"><span class="sr-only">100%</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="row mb-3 d-none">
+                                    <div class="col">
+                                        <div class="card text-white bg-primary shadow">
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col">
+                                                        <p class="m-0">Peformance</p>
+                                                        <p class="m-0"><strong>65.2%</strong></p>
+                                                    </div>
+                                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                                </div>
+                                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="card text-white bg-success shadow">
+                                            <div class="card-body">
+                                                <div class="row mb-2">
+                                                    <div class="col">
+                                                        <p class="m-0">Peformance</p>
+                                                        <p class="m-0"><strong>65.2%</strong></p>
+                                                    </div>
+                                                    <div class="col-auto"><i class="fas fa-rocket fa-2x"></i></div>
+                                                </div>
+                                                <p class="text-white-50 small m-0"><i class="fas fa-arrow-up"></i>&nbsp;5% since last month</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="card shadow mb-3">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 font-weight-bold">User Settings</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="AccountServlet?action=info" method="post">
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="name"><strong>Name</strong><br></label><input class="form-control" type="text" id="username" name="name" value="${account.name}" ></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="email"><strong>Email Address</strong></label><input class="form-control" type="email" id="email" name="email" value="${account.name}"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="first_name"><strong>Age</strong><br></label><input class="form-control" type="text" id="first_name" name="age" value="${account.name}"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="last_name"><strong>Phone</strong><br></label><input class="form-control" type="text" id="last_name" name="phone" value="${account.name}"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="username"><strong>Username</strong><br></label><input class="form-control" type="text" id="username" name="username" value="${account.name}" readonly></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="email" name="password" value="${account.name}" readonly></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div class="card shadow">
+                                            <div class="card-header py-3">
+                                                <p class="text-primary m-0 font-weight-bold">Change password</p>
+                                            </div>
+                                            <div class="card-body">
+                                                <form action="AccountServlet?action=pass" method="post"> 
+                                                    <div class="form-group"><label for="address"><strong>Old password</strong></label><input class="form-control" type="text" id="oldpass" name="oldpass"></div>
+                                                    <div class="form-row">
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="city"><strong>New password</strong><br></label><input class="form-control" type="text" id="city" name="newpass"></div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <div class="form-group"><label for="country"><strong>Confirm password</strong></label><input class="form-control" type="text" id="country" name="confirmpass"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Change password</button></div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card shadow mb-5"></div>
+                    </div>
+                </div>
+                <jsp:include page="footer.jsp"/>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+        </div>
+        <script src="assets/js/jquery.min.js"></script>
+        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="assets/js/bs-init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.js"></script>
+        <script src="assets/js/theme.js"></script>
+    </body>
 
-
-            <form class = "container" action="account" onsubmit="return check()" method="post">
-                <h3>Thông tin tài khoản</h3>
-                <div class="form-group">
-                    <label>Username</label>
-                    <input type="text" class="form-control" name="username" 		value="${account.username}" readonly>
-                </div>
-                <div class="form-group">
-                    <input type="password" style="display: none;" class="form-control" id="oldpass" value="${sessionScope}">
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="pass" value="${account.password}">
-                </div>
-                <div class="form-group">
-                    <label>Name </label>
-                    <input type="email" class="form-control" name="name" value="${account.name}">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" class="form-control" name="email" value="${account.email}">
-                </div>
-                <div class="form-group">
-                    <label>Age </label>
-                    <input type="text" class="form-control" name="address" value="${account.age}">
-                </div>
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input type="text" class="form-control" name="phone" value="${account.phone}">
-                </div>
-                <input type="submit" class="btn btn-primary" value="Save"/>
-                <small id="emailHelp" class="form-text text-muted">Thông tin sẽ được bảo mật</small>
-            </form>
-
-
-
-            <%@include file="footer.jsp" %>
-
-        </body>
-    </center>
 </html>
