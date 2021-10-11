@@ -69,7 +69,8 @@ public class UserSignupServlet extends HttpServlet {
         String name = request.getParameter("newname");
         int age = Integer.parseInt(request.getParameter("newage"));
         String email = request.getParameter("newemail");
-        int phone = Integer.parseInt(request.getParameter("newphone").toString());
+        //int phone = Integer.parseInt(request.getParameter("newphone").toString());
+        String phone = request.getParameter("newphone");
 
         LoginSignupDAO udao = new LoginSignupDAO();
         if (user.length() < 3) {

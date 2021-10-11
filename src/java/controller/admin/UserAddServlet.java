@@ -38,7 +38,7 @@ public class UserAddServlet extends HttpServlet {
         String age = request.getParameter("age");
         String phone = request.getParameter("phone");
         UserDAO dao = new UserDAO();
-        dao.addUser(username, password, email, name, Integer.parseInt(age), Integer.parseInt(phone));
+        dao.addUser(username, password, email, name, Integer.parseInt(age), phone);
         response.sendRedirect("admin/UserCRUD");
     }
 

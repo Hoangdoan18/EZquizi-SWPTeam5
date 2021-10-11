@@ -74,7 +74,7 @@ public class AccountServlet extends HttpServlet {
         String newname = request.getParameter("name");
         String newage = request.getParameter("age");
         String newphone = request.getParameter("phone");
-        udao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), Integer.parseInt(newphone), newusername);
+        udao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), newphone, newusername);
         //udao.update(newusername, newpassword, newemail, newname, Integer.parseInt(newage), Integer.parseInt(newphone));
         //response.sendRedirect("account");
         request.getRequestDispatcher("UserProfile.jsp").forward(request, response);

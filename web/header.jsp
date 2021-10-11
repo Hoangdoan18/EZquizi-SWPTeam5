@@ -54,7 +54,7 @@
                                     <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
                                     <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
                             </li>
-                            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Name</a>
+                            <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Hello ${account.name}</a>
                                 <div class="dropdown-menu"><a class="dropdown-item" href="UserProfile.jsp" style="color: rgb(0,0,0);">Profile</a>
                                     <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
                                     <a class="dropdown-item" href="logout" style="color: rgb(0,0,0);">Log_out</a></div>

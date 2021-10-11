@@ -36,7 +36,7 @@ public class UserDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getInt(5),
-                        rs.getInt(6),
+                        rs.getString(6),
                         rs.getInt(7),
                         rs.getInt(8)));
             }
@@ -76,7 +76,7 @@ public class UserDAO {
         return t;
     }
 
-    public void addUser(String username, String password, String email, String name, int age, int phone) {
+    public void addUser(String username, String password, String email, String name, int age, String phone) {
         String query = "insert into Users\n"
                 + "values(?,?,?,?,?,?,1,0)";
         try {
@@ -87,13 +87,13 @@ public class UserDAO {
             ps.setString(3, email);
             ps.setString(4, name);
             ps.setInt(5, age);
-            ps.setInt(6, phone);
+            ps.setString(6, phone);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public void edit(String newusername, String newpassword, String newemail, String newname, int newage, int newphone, String username) {
+    public void edit(String newusername, String newpassword, String newemail, String newname, int newage, String newphone, String username) {
         String query = "UPDATE Users \n"
                 + "SET [username] = ?,\n"
                 + "[password] = ?,\n"
@@ -112,7 +112,7 @@ public class UserDAO {
             ps.setString(3, newemail);
             ps.setString(4, newname);
             ps.setInt(5, newage);
-            ps.setInt(6, newphone);
+            ps.setString(6, newphone);
             ps.setString(7, username);
             ps.executeUpdate();
         } catch (Exception e) {
@@ -132,7 +132,7 @@ public class UserDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getInt(5),
-                        rs.getInt(6),
+                        rs.getString(6),
                         rs.getInt(7),
                         rs.getInt(8));
             }
@@ -171,7 +171,7 @@ public class UserDAO {
             ps.setString(3, acc.getEmail());
             ps.setString(4, acc.getName());
             ps.setInt(5, acc.getAge());
-            ps.setInt(6, acc.getPhone());
+            ps.setString(6, acc.getPhone());
             ps.setString(7, acc.getUsername());
             ps.executeUpdate();
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class UserEditServlet extends HttpServlet {
         String newphone = request.getParameter("phone");
         String username = request.getParameter("username");
         UserDAO dao = new UserDAO();
-        dao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage),Integer.parseInt(newphone), username);
+        dao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), newphone, username);
         response.sendRedirect("./admin/UserCRUD.jsp");
     }
 

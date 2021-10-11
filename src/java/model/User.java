@@ -11,13 +11,13 @@ package model;
  */
 public class User {
 
-    private String username, password, email, name;
-    private int age, phone, active, admin;
+    private String username, password, email, phone, name;
+    private int age, active, admin;
 
     public User() {
     }
 
-    public User(String username, String password, String email, String name, int age, int phone, int active, int admin) {
+    public User(String username, String password, String email, String name, int age, String phone, int active, int admin) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -68,15 +68,15 @@ public class User {
         this.age = age;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
     public int getActive() {
-        return phone;
+        return active;
     }
 
     public void setActive(int active) {

@@ -37,7 +37,7 @@ public class LoginSignupDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getInt(5),
-                        rs.getInt(6),
+                        rs.getString(6),
                         rs.getInt(7),
                         rs.getInt(8));
             }
@@ -79,7 +79,7 @@ public class LoginSignupDAO {
 //        return false;
     }
     
-    public void addUser(String username, String password, String email, String name, int age, int phone) {
+    public void addUser(String username, String password, String email, String name, int age, String phone) {
         String query = "insert into Users\n"
                 + "values(?,?,?,?,?,?,1,0)";
         try {
@@ -90,7 +90,7 @@ public class LoginSignupDAO {
             ps.setString(3, email);
             ps.setString(4, name);
             ps.setInt(5, age);
-            ps.setInt(6, phone);
+            ps.setString(6, phone);
             ps.executeUpdate();
         } catch (Exception e) {
         }
