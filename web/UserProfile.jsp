@@ -35,9 +35,9 @@
         <jsp:include page="header.jsp"/>
     </head>
 
-    <body id="page-top" style="margin-top: 30px;">
+    <body id="page-top" >
         
-        <div id="wrapper">
+        <div id="wrapper" style="padding-top: 40px">
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
                     <div class="container-fluid">
