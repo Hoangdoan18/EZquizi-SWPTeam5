@@ -39,6 +39,10 @@
         <servlet-name>ResetPasswordServlet</servlet-name>
         <servlet-class>controller.user.ResetPasswordServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubjectDetailServlet</servlet-name>
+        <servlet-class>controller.subject.SubjectDetailServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsersCRUDServlet</servlet-name>
         <url-pattern>/admin/UsersCRUD</url-pattern>
@@ -66,6 +70,10 @@
     <servlet-mapping>
         <servlet-name>ResetPasswordServlet</servlet-name>
         <url-pattern>/ResetPasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectDetailServlet</servlet-name>
+        <url-pattern>/SubjectDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
