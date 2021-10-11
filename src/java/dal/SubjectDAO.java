@@ -13,13 +13,13 @@ import java.util.List;
 import model.Category;
 import model.Subject;
 
-
 /**
  *
  * @author Admin
  */
 public class SubjectDAO {
-      Connection conn = null;
+
+    Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
@@ -31,7 +31,7 @@ public class SubjectDAO {
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
+                list.add(new Subject(rs.getInt(1), rs.getString(2),
                         rs.getInt(3),
                         rs.getString(4),
                         rs.getString(5)));
@@ -42,43 +42,45 @@ public class SubjectDAO {
         return null;
 
     }
+
     public List<Subject> getSubjectByDate(String username) {
         String query1 = "select * from Subject where username = ? order by date desc ";
         String query2 = "select * from Subject order by date desc ";
         List<Subject> list = new ArrayList<>();
-        if(username == null || username.trim().length()==0){
+        if (username == null || username.trim().length() == 0) {
             try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query2);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
+                conn = new DBContext().getConnection();
+                ps = conn.prepareStatement(query2);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getInt(3),
+                            rs.getString(4),
+                            rs.getString(5)));
+                }
+                return list;
+            } catch (Exception e) {
             }
-            return list;
-        } catch (Exception e) {
-        }
-        }else{
+        } else {
             try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query1);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
+                conn = new DBContext().getConnection();
+                ps = conn.prepareStatement(query1);
+                ps.setString(1, username);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getInt(3),
+                            rs.getString(4),
+                            rs.getString(5)));
+                }
+                return list;
+            } catch (Exception e) {
             }
-            return list;
-        } catch (Exception e) {
-        }
         }
         return null;
 
     }
+
     public static void main(String[] args) {
         SubjectDAO sdao = new SubjectDAO();
         List<Subject> list = sdao.getSubjectByDate("");
@@ -86,6 +88,7 @@ public class SubjectDAO {
             System.out.println(o);
         }
     }
+
     public List<Subject> getSubjectByUsername(String username) {
         String query = "SELECT * from Subject where username= ? ";
         List<Subject> list = new ArrayList<>();
@@ -95,7 +98,7 @@ public class SubjectDAO {
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
+                list.add(new Subject(rs.getInt(1), rs.getString(2),
                         rs.getInt(3),
                         rs.getString(4),
                         rs.getString(5)));
@@ -106,41 +109,42 @@ public class SubjectDAO {
         return null;
 
     }
+
     public List<Subject> getSubjectByCategory(String cid, String username) {
         String query1 = "SELECT * from Subject where cateID = ? and username = ?";
         String query2 = "SELECT * from Subject where cateID = ?";
         List<Subject> list = new ArrayList<>();
-        if(username == null || username.trim().length()==0){
+        if (username == null || username.trim().length() == 0) {
             try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query2);
-            ps.setString(1, cid);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
+                conn = new DBContext().getConnection();
+                ps = conn.prepareStatement(query2);
+                ps.setString(1, cid);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getInt(3),
+                            rs.getString(4),
+                            rs.getString(5)));
+                }
+                return list;
+            } catch (Exception e) {
             }
-            return list;
-        } catch (Exception e) {
-        }
-        }else{
+        } else {
             try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query1);
-            ps.setString(1, cid);
-            ps.setString(2, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
+                conn = new DBContext().getConnection();
+                ps = conn.prepareStatement(query1);
+                ps.setString(1, cid);
+                ps.setString(2, username);
+                rs = ps.executeQuery();
+                while (rs.next()) {
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getInt(3),
+                            rs.getString(4),
+                            rs.getString(5)));
+                }
+                return list;
+            } catch (Exception e) {
             }
-            return list;
-        } catch (Exception e) {
-        }
         }
         return null;
 
@@ -182,18 +186,19 @@ public class SubjectDAO {
 //        
 //    }
 //    }
+
     public List<Subject> searchSubject(String searchValue) {
-        String query = "   select * from Subject\n" +
-"  where subjectTitle like N? or username like ? ";
+        String query = "   select * from Subject\n"
+                + "  where subjectTitle like N? or username like ? ";
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
-            ps.setString(1, "%"+searchValue+"%");
-            ps.setString(2, "%"+searchValue+"%");
+            ps.setString(1, "%" + searchValue + "%");
+            ps.setString(2, "%" + searchValue + "%");
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),rs.getString(2),
+                list.add(new Subject(rs.getInt(1), rs.getString(2),
                         rs.getInt(3),
                         rs.getString(4),
                         rs.getString(5)));
@@ -211,6 +216,7 @@ public class SubjectDAO {
 //            System.out.println(o);
 //        }
 //    }
+
     public List<Category> getCategory() {
         String query = "SELECT * from Category";
         List<Category> list = new ArrayList<>();
@@ -228,8 +234,6 @@ public class SubjectDAO {
         return null;
 
     }
-    
-   
 
     public List<Subject> getSubjectByPage(List<Subject> list, int start, int end) {
         List<Subject> t = new ArrayList<>();
@@ -239,7 +243,7 @@ public class SubjectDAO {
         return t;
     }
 
-    public void addSubject(String subjectTitle, int cateID, String username ) {
+    public void addSubject(String subjectTitle, int cateID, String username) {
         String query = "insert into Subject(subjectTitle,cateID,username,[date]) values"
                 + "(N?,?,?,CAST( GETDATE() AS Date ))";
         try {
@@ -301,5 +305,80 @@ public class SubjectDAO {
 //        } catch (Exception e) {
 //        }
 //    }
-    
+    public Subject getSubjectByID(int subjectID) {
+        String query = "SELECT * from Subject where subjectID = ?";
+        Subject s = new Subject();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                s.setSubjectID(rs.getInt(1));
+                s.setSubjectTitle(rs.getString(2));
+                s.setCateID(rs.getInt(3));
+                s.setUsername(rs.getString(4));
+                s.setDate(rs.getString(5));
+            }
+        } catch (Exception e) {
+        }
+        return s;
+
+    }
+
+    public List<Subject> getSubjectByCategory(String cid) {
+        String query = "SELECT * from Subject where cateID = ? ";
+        List<Subject> list = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, cid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Subject(rs.getInt(1), rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
+
+    }
+
+    public Subject getNumOfTerm(int subjectID) {
+        String query = "SELECT COUNT(Term) AS numOfTerm FROM Subjectdetail\n"
+                + "WHERE subjectID=?;";
+        Subject n = new Subject();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                n.setNumOfTerm(rs.getInt(1));
+            }
+        } catch (Exception e) {
+        }
+        return n;
+    }
+
+    public Subject getRating(int subjectID) {
+        String query = "SELECT cast(AVG(rating) as decimal(2,1))\n"
+                + "FROM Rating\n"
+                + "WHERE SubjectID = ?";
+        Subject r = new Subject();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                r.setRating(rs.getFloat(1));
+            }
+        } catch (Exception e) {
+        }
+        return r;
+    }
 }
