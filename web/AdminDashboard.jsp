@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="assets/css/icon-star-empty.css">
 </head>
 <body id="page-top">
+    <jsp:include page="header.jsp"/>
     <div id="wrapper">
         <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0" style="background: rgb(2,70,108);">
             <div class="container-fluid d-flex flex-column p-0">
