@@ -3,25 +3,26 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.admin;
+package controller.user;
 
-import dal.LoginSignupDAO;
+import javax.servlet.annotation.WebServlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import dal.LoginSignupDAO;
 import model.User;
 
 /**
  *
- * @author USER
+ * @author Admin
  */
-@WebServlet(name = "AdminLoginServlet", urlPatterns = {"/admin/login"})
-public class AdminLoginServlet extends HttpServlet {
+@WebServlet(name = "UsersLoginServlet", urlPatterns = {"/login"})
+public class UserLoginServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,6 +33,7 @@ public class AdminLoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -40,10 +42,10 @@ public class AdminLoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminLoginServlet</title>");            
+            out.println("<title>Servlet UsersLoginServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AdminLoginServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UsersLoginServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +63,19 @@ public class AdminLoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect("AdminLogin.jsp");
+        Cookie arr[] = request.getCookies();
+        if (arr != null) {
+            for (Cookie o : arr) {
+                if (o.getName().equals("userC")) {
+                    request.setAttribute("user", o.getValue());
+                }
+                if (o.getName().equals("passC")) {
+                    request.setAttribute("pass", o.getValue());
+                }
+            }
+        }
+        //set sang form
+        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     /**
@@ -83,10 +97,25 @@ public class AdminLoginServlet extends HttpServlet {
         if (a == null) {
             request.setAttribute("mess", "Wrong username or password!");
             //response.sendRedirect("Login.jsp");
-            request.getRequestDispatcher("admin/AminLogin.jsp").forward(request, response);
+            request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("account", a);
+            //luu tren Cookie
+            Cookie u = new Cookie("userC", username);
+            Cookie p = new Cookie("passC", password);
+            //set age
+            u.setMaxAge(24 * 60 * 60);
+
+            if (remember != null) {
+                p.setMaxAge(24 * 60 * 60);
+            } else {
+                p.setMaxAge(0);
+            }
+            //luu tren web
+            response.addCookie(u);
+            response.addCookie(p);
+            response.sendRedirect("index.jsp");
         }
     }
 

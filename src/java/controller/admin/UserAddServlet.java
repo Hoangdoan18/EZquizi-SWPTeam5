@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.admin;
 
 import dal.UserDAO;
 import java.io.IOException;
@@ -12,13 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-public class EmailControl extends HttpServlet {
+public class UserAddServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +31,15 @@ public class EmailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String username = request.getParameter("username");
         String email = request.getParameter("email");
-        UserDAO edao = new UserDAO();
-        EmailController send = new EmailController();
-        for(User acc: edao.getUsersCRUD()){
-            if(acc.getEmail().equals(email)){
-                send.Send(email, acc.getUsername(), acc.getName());
-                break;
-            }
-        }
-        request.setAttribute("mess", "Check your mail!");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        String age = request.getParameter("age");
+        String phone = request.getParameter("phone");
+        UserDAO dao = new UserDAO();
+        dao.addUser(username, password, email, name, Integer.parseInt(age), Integer.parseInt(phone));
+        response.sendRedirect("admin/UsersCRUD");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

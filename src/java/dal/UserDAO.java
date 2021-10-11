@@ -11,27 +11,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Users;
+import model.User;
 
 /**
  *
  * @author ADMIN
  */
-public class UsersDAO {
+public class UserDAO {
 
     Connection conn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<Users> getUsersCRUD() {
+    public List<User> getUsersCRUD() {
         String query = "SELECT * from Users";
-        List<Users> list = new ArrayList<>();
+        List<User> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Users(rs.getString(1),
+                list.add(new User(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -58,9 +58,9 @@ public class UsersDAO {
         } catch (Exception e) {
         }
     }
-//    public Users getAcc(String uname) {
+//    public User getAcc(String uname) {
 //
-//        for (Users a : getUsers()) {
+//        for (User a : getUsers()) {
 //            if (a.getUsername().equals(uname)) {
 //                return a;
 //            }
@@ -68,8 +68,8 @@ public class UsersDAO {
 //        return null;
 //    }
 
-    public List<Users> getUsersByPage(List<Users> list, int start, int end) {
-        List<Users> t = new ArrayList<>();
+    public List<User> getUsersByPage(List<User> list, int start, int end) {
+        List<User> t = new ArrayList<>();
         for (int i = start; i < end; i++) {
             t.add(list.get(i));
         }
@@ -119,7 +119,7 @@ public class UsersDAO {
         }
     }
 
-    public Users getUsername(String username) {
+    public User getUsername(String username) {
         String query = "SELECT * FROM dbo.Users WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
@@ -127,7 +127,7 @@ public class UsersDAO {
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Users(rs.getString(1),
+                return new User(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -152,7 +152,7 @@ public class UsersDAO {
        
         }            
     }
-    public void updatePass(Users acc){
+    public void updatePass(User acc){
         String query = "UPDATE Users \n"
                 + "SET [username] = ?,\n"
                 + "[password] = ?,\n"
@@ -178,7 +178,7 @@ public class UsersDAO {
         }
     }
 //    public static void main(String[] args) {
-//        UsersDAO dao = new UsersDAO();
+//        UserDAO dao = new UserDAO();
 //        dao.getAcc("admin");
 //        dao.update("bao1","123","bao@gmail.com","bao",21,123456789,"bao");
 //
@@ -187,7 +187,7 @@ public class UsersDAO {
 //        dao.edit("quangdx", "quang", "quangdx@gmail.com", "Đỗ Xuân Quang", 20, 1234567890, "1");
 //       dao.delete("username");
 //        List<Users> listA = dao.getUsers();
-//        for (Users o : listA) {
+//        for (User o : listA) {
 //            System.out.println(o);
 //       }
 //    }

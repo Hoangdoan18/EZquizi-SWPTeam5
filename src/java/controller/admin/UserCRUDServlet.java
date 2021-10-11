@@ -3,25 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.admin;
 
-import dal.LoginSignupDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Users;
+import model.User;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-@WebServlet(name = "UsersSignupServlet", urlPatterns = {"/signup"})
-public class UsersSignupServlet extends HttpServlet {
+public class UserCRUDServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,7 +32,32 @@ public class UsersSignupServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
+        UserDAO dao = new UserDAO();
+        List<User> list = dao.getUsersCRUD();
+        int size = list.size();
+        int numperPage = 5;
+        int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
+        String spage = request.getParameter("page");
+        int page;
+        if (spage == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(spage);
+        }
+
+        int start, end;
+        start = (page - 1) * numperPage;
+        end = Math.min(size, page * numperPage);
+        List<User> arr = dao.getUsersByPage(list, start, end);
+
+        request.setAttribute("num", numPage);
+        request.setAttribute("listU", arr);
+        request.setAttribute("page", page);
+        
+        request.getRequestDispatcher("admin/UsersCRUD.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -49,7 +72,7 @@ public class UsersSignupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("signup.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -63,35 +86,7 @@ public class UsersSignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String user = request.getParameter("newuser");
-        String pass = request.getParameter("newpass");
-        String repass = request.getParameter("repass");
-        String name = request.getParameter("newname");
-        int age = Integer.parseInt(request.getParameter("newage"));
-        String email = request.getParameter("newemail");
-        int phone = Integer.parseInt(request.getParameter("newphone").toString());
-
-        LoginSignupDAO udao = new LoginSignupDAO();
-        if (user.length() < 3) {
-            request.setAttribute("mess1", "Username must have more than 3 letter");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else if (!pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
-            //mật khẩu bao gồm chữ thường, chữ hoa và 3 kí tự trở lên 
-            request.setAttribute("mess2", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else if (udao.check(user)) {
-            request.setAttribute("mess1", "Username taken");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else if (!pass.equals(repass)) {
-            request.setAttribute("mess3", "Password does not match!");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-        } else {
-            udao.addUser(user, pass, email, name, age, phone);
-            Users a = udao.login(user, pass);
-            HttpSession session = request.getSession();
-            session.setAttribute("account", a);
-            response.sendRedirect("index.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -105,4 +100,3 @@ public class UsersSignupServlet extends HttpServlet {
     }// </editor-fold>
 
 }
-

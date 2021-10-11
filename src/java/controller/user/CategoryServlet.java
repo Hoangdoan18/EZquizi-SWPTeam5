@@ -5,20 +5,24 @@
  */
 package controller.user;
 
-import dal.UserDAO;
+import dal.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
+import model.Category;
+import model.Subject;
 
 /**
  *
  * @author Admin
  */
-public class EmailControl extends HttpServlet {
+@WebServlet(name = "categoryServlet", urlPatterns = {"/category"})
+public class CategoryServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,19 +35,40 @@ public class EmailControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        UserDAO edao = new UserDAO();
-        EmailController send = new EmailController();
-        for(User acc: edao.getUsersCRUD()){
-            if(acc.getEmail().equals(email)){
-                send.Send(email, acc.getUsername(), acc.getName());
-                break;
-            }
+           response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+            String username = request.getParameter("username");
+            String cateID = request.getParameter("cid");
+            SubjectDAO sdao = new SubjectDAO();
+            List<Subject> listS = sdao.getSubjectByCategory(cateID,username);
+             int size = listS.size();
+        int numperPage = 5;
+        int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
+        String spage = request.getParameter("page");
+        int page;
+        if (spage == null) {
+            page = 1;
+        } else {
+            page = Integer.parseInt(spage);
         }
-        request.setAttribute("mess", "Check your mail!");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
-    }
+
+        int start, end;
+        start = (page - 1) * numperPage;
+        end = Math.min(size, page * numperPage);
+        List<Subject> arr = sdao.getSubjectByPage(listS, start, end);  
+     
+        List<Category> ListC = sdao.getCategory();
+        
+        request.setAttribute("num", numPage);
+        request.setAttribute("ListC", ListC);
+        request.setAttribute("listS", arr);
+        request.setAttribute("page", page);
+        if(username == null || username.trim().length()==0){
+            request.getRequestDispatcher("SubjectList.jsp").forward(request, response);
+        }else{
+            request.getRequestDispatcher("UserList.jsp").forward(request, response);
+        }
+}
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

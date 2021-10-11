@@ -5,7 +5,7 @@
  */
 package controller.user;
 
-import dal.UsersDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Users;
+import model.User;
 
 /**
  *
@@ -50,7 +50,7 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Users acc = (Users) session.getAttribute("account");
+        User acc = (User) session.getAttribute("account");
         request.getRequestDispatcher("UsersProfile.jsp").forward(request, response);
     }
 
@@ -66,7 +66,7 @@ public class AccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        UsersDAO udao = new UsersDAO();
+        UserDAO udao = new UserDAO();
         PrintWriter out = response.getWriter();
         String newusername = request.getParameter("username");
         String newpassword = request.getParameter("pass");

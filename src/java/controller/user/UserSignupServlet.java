@@ -5,20 +5,23 @@
  */
 package controller.user;
 
-import dal.UserDAO;
+import dal.LoginSignupDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.User;
 
 /**
  *
  * @author Admin
  */
-public class EmailControl extends HttpServlet {
+@WebServlet(name = "UsersSignupServlet", urlPatterns = {"/signup"})
+public class UserSignupServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,17 +35,6 @@ public class EmailControl extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        UserDAO edao = new UserDAO();
-        EmailController send = new EmailController();
-        for(User acc: edao.getUsersCRUD()){
-            if(acc.getEmail().equals(email)){
-                send.Send(email, acc.getUsername(), acc.getName());
-                break;
-            }
-        }
-        request.setAttribute("mess", "Check your mail!");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,7 +49,7 @@ public class EmailControl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("signup.jsp").forward(request, response);
     }
 
     /**
@@ -71,7 +63,35 @@ public class EmailControl extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String user = request.getParameter("newuser");
+        String pass = request.getParameter("newpass");
+        String repass = request.getParameter("repass");
+        String name = request.getParameter("newname");
+        int age = Integer.parseInt(request.getParameter("newage"));
+        String email = request.getParameter("newemail");
+        int phone = Integer.parseInt(request.getParameter("newphone").toString());
+
+        LoginSignupDAO udao = new LoginSignupDAO();
+        if (user.length() < 3) {
+            request.setAttribute("mess1", "Username must have more than 3 letter");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (!pass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
+            //mật khẩu bao gồm chữ thường, chữ hoa và 3 kí tự trở lên 
+            request.setAttribute("mess2", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (udao.check(user)) {
+            request.setAttribute("mess1", "Username taken");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else if (!pass.equals(repass)) {
+            request.setAttribute("mess3", "Password does not match!");
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        } else {
+            udao.addUser(user, pass, email, name, age, phone);
+            User a = udao.login(user, pass);
+            HttpSession session = request.getSession();
+            session.setAttribute("account", a);
+            response.sendRedirect("index.jsp");
+        }
     }
 
     /**
@@ -85,3 +105,4 @@ public class EmailControl extends HttpServlet {
     }// </editor-fold>
 
 }
+

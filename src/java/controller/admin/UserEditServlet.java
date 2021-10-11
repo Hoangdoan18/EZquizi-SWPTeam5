@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.admin;
 
 import dal.UserDAO;
 import java.io.IOException;
@@ -12,13 +12,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-public class EmailControl extends HttpServlet {
+public class UserEditServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,18 +30,19 @@ public class EmailControl extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String email = request.getParameter("email");
-        UserDAO edao = new UserDAO();
-        EmailController send = new EmailController();
-        for(User acc: edao.getUsersCRUD()){
-            if(acc.getEmail().equals(email)){
-                send.Send(email, acc.getUsername(), acc.getName());
-                break;
-            }
-        }
-        request.setAttribute("mess", "Check your mail!");
-        request.getRequestDispatcher("login.jsp").forward(request, response);
+        String newusername = request.getParameter("username");
+        String newpassword = request.getParameter("password");
+        String newemail = request.getParameter("email");
+        String newname = request.getParameter("name");
+        String newage = request.getParameter("age");
+        String newphone = request.getParameter("phone");
+        String username = request.getParameter("username");
+        UserDAO dao = new UserDAO();
+        dao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage),Integer.parseInt(newphone), username);
+        response.sendRedirect("./admin/UsersCRUD.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Users;
+import model.User;
 
 /**
  *
@@ -23,7 +23,7 @@ public class LoginSignupDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public Users login(String username, String password) {
+    public User login(String username, String password) {
         String query = "SELECT * from dbo.[Users] WHERE [username]= ? AND [password] = ?";
         try {
             conn = new DBContext().getConnection();
@@ -32,7 +32,7 @@ public class LoginSignupDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return new Users(rs.getString(1),
+                return new User(rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -61,10 +61,10 @@ public class LoginSignupDAO {
                 Logger.getLogger(LoginSignupDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
             return false;
-//        Users user=null;
+//        User user=null;
 //            try {
 //                conn = new DBContext().getConnection();
-//                ps = conn.prepareStatement("SELECT * from dbo.[Users] WHERE [username]=?");
+//                ps = conn.prepareStatement("SELECT * from dbo.[User] WHERE [username]=?");
 //                ps.setString(1, username);
 //                rs = ps.executeQuery();
 //                while(rs.next())
@@ -97,14 +97,14 @@ public class LoginSignupDAO {
     }
     
      public static void main(String[] args) {
-        UsersDAO dao = new UsersDAO();
+        UserDAO dao = new UserDAO();
 
   //      dao.addUser("username","123", "email", "name", 1, 123);
  //       dao.addUser("1","123", "email", "name", 1, 123);
   //      dao.edit("quangdx", "quang", "quangdx@gmail.com", "Đỗ Xuân Quang", 20, 1234567890, "1");
      dao.delete("username");
  //       List<Users> listA = dao.getUsersCRUD();
- //       for (Users o : listA) {
+ //       for (User o : listA) {
   //          System.out.println(o);
  //       }
     }

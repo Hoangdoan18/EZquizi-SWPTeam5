@@ -5,14 +5,14 @@
  */
 package controller.user;
 
-import dal.UsersDAO;
+import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Users;
+import model.User;
 
 /**
  *
@@ -35,8 +35,8 @@ public class ResetPasswordServlet extends HttpServlet {
         String newpass = request.getParameter("newpass");
         String newpass2 = request.getParameter("newpass2");
         String name = request.getParameter("username");
-        UsersDAO edao = new UsersDAO();
-        Users acc = edao.getUsername(name);
+        UserDAO edao = new UserDAO();
+        User acc = edao.getUsername(name);
         if (!newpass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
             request.setAttribute("mess4", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
             request.getRequestDispatcher("resetPass.jsp").forward(request, response);

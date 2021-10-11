@@ -10,22 +10,22 @@
     </filter-mapping>
     <servlet>
         <servlet-name>UsersCRUDServlet</servlet-name>
-        <servlet-class>controller.admin.UsersCRUDServlet</servlet-class>
+        <servlet-class>controller.admin.UserCRUDServlet</servlet-class>
     </servlet>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>UsersAddServlet</servlet-name>
-        <servlet-class>controller.admin.UsersAddServlet</servlet-class>
+        <servlet-class>controller.admin.UserAddServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UsersEditServlet</servlet-name>
-        <servlet-class>controller.admin.UsersEditServlet</servlet-class>
+        <servlet-class>controller.admin.UserEditServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UsersDeleteServlet</servlet-name>
-        <servlet-class>controller.admin.UsersDeleteServlet</servlet-class>
+        <servlet-class>controller.admin.UserDeleteServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AccountServlet</servlet-name>

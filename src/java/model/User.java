@@ -9,15 +9,15 @@ package model;
  *
  * @author ADMIN
  */
-public class Users {
+public class User {
 
     private String username, password, email, name;
     private int age, phone, active, admin;
 
-    public Users() {
+    public User() {
     }
 
-    public Users(String username, String password, String email, String name, int age, int phone, int active, int admin) {
+    public User(String username, String password, String email, String name, int age, int phone, int active, int admin) {
         this.username = username;
         this.password = password;
         this.email = email;
