@@ -57,7 +57,7 @@ public class UserCRUDServlet extends HttpServlet {
         request.setAttribute("listU", arr);
         request.setAttribute("page", page);
         
-        request.getRequestDispatcher("admin/UsersCRUD.jsp").forward(request, response);
+        request.getRequestDispatcher("admin/UserCRUD.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
