@@ -189,7 +189,7 @@ public class SubjectDAO {
 
     public List<Subject> searchSubject(String searchValue) {
         String query = "   select * from Subject\n"
-                + "  where subjectTitle like N? or username like ? ";
+                + "  where subjectTitle like ? or username like ? ";
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();

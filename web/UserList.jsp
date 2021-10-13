@@ -44,24 +44,36 @@
                         </ul>
                     </nav>
             <c:forEach items="${listS}" var="o" varStatus="i">
-           
-            <div class="cards" style="display: block"  >
-                    <!--FORM IMAGE EACH CARD--> 
-                    <div class="card"  style="width: 100%" >
-                        <div class="card-body">
-                            <div class="card-title" style="font-size: 50px; margin-bottom: 10px "> ${o.subjectTitle}
-                            </div>
-                            <div class="card-title" style="font-size: 20px; margin-bottom: 10px "> 
-                                <a href="#">${o.username}</a> 
-                            </div>
-                            <div class="card-sub-title"> ${o.cateID}
-                            </div>
-                            <div class="card-desc"> ${o.date}
+                    <div class="cards" style="display: block"  >
+                        <!--FORM IMAGE EACH CARD--> 
+                        <div class="card"  style="width: 100%" >
+                            <div class="card-body">
+                                <div class="card-title" style="font-size: 50px; margin-bottom: 10px ">
+                                    <a href="SubjectDetail?subjectID=${o.subjectID}&termsort=0">${o.subjectTitle}</a>
+                                </div>
+                                <div class="card-title" style="font-size: 20px; margin-bottom: 10px "> 
+                                    <a href="#">${o.username}</a> 
+                                </div>
+                                <div class="card-title" style="font-size: 30px; margin-bottom: 10px; float: right; ">
+                                    <a href="#" style="text-decoration: none; border: 1px;">Subscribe</a>
+                                </div>
+                                <div class="card-sub-title"> ${o.cateID}
+                                </div>
+                                <div class="card-desc"> ${o.date}
+                                </div>
+                                <div style=" background-color: #523a85; position: absolute; right: 6%; top:7%;
+                                     width: 4.5%; height: 7.6%; border-radius: 5px ">
+                                    <a href="#" style="text-decoration: none; color: white; font-weight: bold; left: 7px; position: absolute;">Delete</a>
+                                </div>
+                                <div style=" background-color: #523a85; position: absolute; right: 1%; top:7%;
+                                     width: 4.5%; height: 7.6%; border-radius: 5px ">
+                                    <a href="SubjectDetail?subjectID=${o.subjectID}&termsort=0" style="text-decoration: none; color: white; font-weight: bold; left: 7px; position: absolute;">Update</a>
+                                </div>
                             </div>
                         </div>
+                        <!------------------------------->
                     </div>
-                    <!------------------------------->
-            </div>
+           
                  </c:forEach>
             <nav aria-label="Page navigation example">
                         <ul class="pagination">
