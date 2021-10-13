@@ -42,7 +42,12 @@
                             <path d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z" fill="currentColor"></path>
                             </svg></button>
                         <div class="collapse navbar-collapse" id="navcol-1">
-                            <div class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area"><i class="fas fa-search float-left search-icon"></i><input class="float-left float-sm-right custom-search-input" type="search" placeholder="Type to filter by address"></div>
+                             <form action="search" class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
+                            <div class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
+                                <button class="fas fa-search float-left search-icon" style="background: transparent; border: 0px;"></button>
+                                <input class="float-left float-sm-right custom-search-input" type="search" name="search" placeholder="Type to filter by address">
+                            </div>
+                             </form>
                             <ul class="navbar-nav">
                                 <li class="nav-item"></li>
                                 <li class="nav-item"></li>
@@ -73,7 +78,7 @@
                             <path d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z" fill="currentColor"></path>
                             </svg></button>
                         <div class="collapse navbar-collapse" id="navcol-1">
-                            <form action="search">
+                            <form action="search" class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
                             <div class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
                                 <button class="fas fa-search float-left search-icon" style="background: transparent; border: 0px;"></button>
                                 <input class="float-left float-sm-right custom-search-input" type="search" name="search" placeholder="Type to filter by address">
@@ -110,7 +115,7 @@
                                 <path d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z" fill="currentColor"></path>
                                 </svg></button>
                             <div class="collapse navbar-collapse" id="navcol-1">
-                                <form action="search">
+                                <form action="search" class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
                             <div class="float-left float-md-right mr-auto mt-5 mt-md-0 search-area">
                                 <button class="fas fa-search float-left search-icon" style="background: transparent; border: 0px;"></button>
                                 <input class="float-left float-sm-right custom-search-input" type="search" name="search" placeholder="Type to filter by address">
