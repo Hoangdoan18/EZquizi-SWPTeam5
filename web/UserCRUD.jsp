@@ -26,14 +26,14 @@
                                 <h2>Users Managements</h2>
                             </div>
                             <div class="col-sm-2 text-center">
-                                <a href="UsersAdd.jsp" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>						
+                                <a href="UserAdd.jsp" class="btn btn-success" ><i class="material-icons">&#xE147;</i> <span>Thêm</span></a>						
                             </div>
                         </div>
                     </div>
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="/admin/UsersCRUD?page=${i}">${i}</a></li>
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="adminUserCRUD?page=${i}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>
@@ -57,11 +57,11 @@
                                     <td>${o.age}</td>
                                     <td>${o.phone}</td>
                                     <td>
-                                        <a href="/admin/UsersEdit.jsp?username=${o.username}">
+                                        <a href="UserEdit.jsp?username=${o.username}">
                                             <button type="button" class="btn btn-primary">Edit</button>
                                         </a>
 
-                                        <a href="/admin/UsersDelete?username=${o.username}" onclick="return confirm('Are you sure you want to delete this item?')">
+                                        <a href="adminUserDelete?username=${o.username}" onclick="return confirm('Are you sure you want to delete this item?')">
                                             <button type="button" class="btn btn-danger">Delete</button>
                                         </a>
                                     </td>
@@ -72,7 +72,7 @@
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="/admin/UsersCRUD?page=${i}">${i}</a></li>
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?"active":""}" href="adminUserCRUD?page=${i}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>  

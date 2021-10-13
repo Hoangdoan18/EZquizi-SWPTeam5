@@ -29,7 +29,7 @@
         <title>Edit</title>
     </head>
     <body>
-        <form class="container" action="adminUsersEdit?username=${param.username}" method="post">
+        <form class="container" action="adminUserEdit?username=${param.username}" method="post">
             <h3>Edit User's Information</h3>
             <div class="form-group">
                 <label>Username</label>

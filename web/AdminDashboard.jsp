@@ -27,7 +27,7 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="AdminDashboard.jsp"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="UserCRUD.jsp"><i class="fas fa-user"></i><span>User CRUD</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminUserCRUD"><i class="fas fa-user"></i><span>User CRUD</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="UserSubjectServlet?username=${admin.username}"><i class="fas fa-table"></i><span>Subject CRUD</span></a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i><span>More</span></a></li>

@@ -38,7 +38,7 @@ public class UserCRUDServlet extends HttpServlet {
         UserDAO dao = new UserDAO();
         List<User> list = dao.getUsersCRUD();
         int size = list.size();
-        int numperPage = 5;
+        int numperPage = 2;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;
@@ -55,9 +55,8 @@ public class UserCRUDServlet extends HttpServlet {
 
         request.setAttribute("num", numPage);
         request.setAttribute("listU", arr);
-        request.setAttribute("page", page);
-        
-        response.sendRedirect("UserCRUD.jsp");
+        request.setAttribute("page", page);      
+        request.getRequestDispatcher("UserCRUD.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
