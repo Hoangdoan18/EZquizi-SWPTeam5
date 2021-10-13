@@ -21,11 +21,18 @@
         <link rel="stylesheet" href="assets/css/icon-star-empty.css">
         <script>
             function check() {
-                var confirm = prompt("Enter your old password");
+                var password = document.getElementById("password").value;
                 var oldpass = document.getElementById("oldpass").value;
-                if (oldpass == confirm) {
-                    alert("Correct password, changes will be saved");
-                    return true;
+                var newpass = document.getElementById("newpass").value;
+                var confirm = document.getElementById("confirm").value;
+                if (oldpass == password) {
+                    if (newpass == confirm) {
+                        alert("Password will be saved");
+                        return true;
+                    } else {
+                        alert("Confirm password not match! Change will not be saved");
+                        return false;
+                    }
                 } else {
                     alert("Wrong password! Change will not be saved");
                     return false;
@@ -36,7 +43,7 @@
     </head>
 
     <body id="page-top" >
-        
+
         <div id="wrapper" style="padding-top: 40px">
             <div class="d-flex flex-column" id="content-wrapper">
                 <div id="content">
@@ -137,10 +144,10 @@
                                                             <div class="form-group"><label for="username"><strong>Username</strong><br></label><input class="form-control" type="text" id="username" name="username" value="${account.username}" readonly></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="email" name="password" value="${account.password}" readonly></div>
+                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="password" name="password" value="${account.password}" readonly></div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Save Settings</button></div>
+                                                    <div class="form-group"><input class="btn btn-primary btn-sm" type="submit" value="Save Settings" /></div>
                                                 </form>
                                             </div>
                                         </div>
@@ -149,17 +156,17 @@
                                                 <p class="text-primary m-0 font-weight-bold">Change password</p>
                                             </div>
                                             <div class="card-body">
-                                                <form action="AccountServlet?action=pass" method="post"> 
-                                                    <div class="form-group"><label for="address"><strong>Old password</strong></label><input class="form-control" type="text" id="oldpass" name="oldpass"></div>
+                                                <form action="AccountServlet?action=pass" method="post" onsubmit="return check()"> 
+                                                    <div class="form-group"><label for="address"><strong>Old password</strong></label><input class="form-control" type="password" id="oldpass" name="oldpass" required></div>
                                                     <div class="form-row">
                                                         <div class="col">
-                                                            <div class="form-group"><label for="city"><strong>New password</strong><br></label><input class="form-control" type="text" id="city" name="newpass"></div>
+                                                            <div class="form-group"><label for="city"><strong>New password</strong><br></label><input class="form-control" type="password" id="newpass" name="newpass" required></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="country"><strong>Confirm password</strong></label><input class="form-control" type="text" id="country" name="confirmpass"></div>
+                                                            <div class="form-group"><label for="country"><strong>Confirm password</strong></label><input class="form-control" type="password" id="confirm" name="confirm" required></div>
                                                         </div>
                                                     </div>
-                                                    <div class="form-group"><button class="btn btn-primary btn-sm" type="submit">Change password</button></div>
+                                                    <div class="form-group"><input class="btn btn-primary btn-sm" type="submit" value="Change password" /></div>
                                                 </form>
                                             </div>
                                         </div>

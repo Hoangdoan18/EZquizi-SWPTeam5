@@ -33,7 +33,6 @@ public class UserLoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,7 +41,7 @@ public class UserLoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet UsersLoginServlet</title>");            
+            out.println("<title>Servlet UsersLoginServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet UsersLoginServlet at " + request.getContextPath() + "</h1>");
@@ -100,22 +99,41 @@ public class UserLoginServlet extends HttpServlet {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();
-            session.setAttribute("account", a);
-            //luu tren Cookie
-            Cookie u = new Cookie("userC", username);
-            Cookie p = new Cookie("passC", password);
-            //set age
-            u.setMaxAge(24 * 60 * 60);
+            if (a.getAdmin() != 1) {
 
-            if (remember != null) {
-                p.setMaxAge(24 * 60 * 60);
+                session.setAttribute("account", a);
+                //luu tren Cookie
+                Cookie u = new Cookie("userC", username);
+                Cookie p = new Cookie("passC", password);
+                //set age
+                u.setMaxAge(24 * 60 * 60);
+
+                if (remember != null) {
+                    p.setMaxAge(24 * 60 * 60);
+                } else {
+                    p.setMaxAge(0);
+                }
+                //luu tren web
+                response.addCookie(u);
+                response.addCookie(p);
+                response.sendRedirect("index.jsp");
             } else {
-                p.setMaxAge(0);
+                session.setAttribute("admin", a);
+                Cookie u = new Cookie("userC", username);
+                Cookie p = new Cookie("passC", password);
+                //set age
+                u.setMaxAge(24 * 60 * 60);
+
+                if (remember != null) {
+                    p.setMaxAge(24 * 60 * 60);
+                } else {
+                    p.setMaxAge(0);
+                }
+                //luu tren web
+                response.addCookie(u);
+                response.addCookie(p);
+                response.sendRedirect("index.jsp");
             }
-            //luu tren web
-            response.addCookie(u);
-            response.addCookie(p);
-            response.sendRedirect("index.jsp");
         }
     }
 

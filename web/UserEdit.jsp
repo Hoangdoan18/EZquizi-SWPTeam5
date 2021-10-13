@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <jsp:useBean id="p" class="dal.UsersDAO" scope="request"></jsp:useBean>
+        <jsp:useBean id="p" class="dal.UserDAO" scope="request"></jsp:useBean>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,7 +29,7 @@
         <title>Edit</title>
     </head>
     <body>
-        <form class="container" action="UsersEdit?username=${param.username}" method="post">
+        <form class="container" action="adminUsersEdit?username=${param.username}" method="post">
             <h3>Edit User's Information</h3>
             <div class="form-group">
                 <label>Username</label>

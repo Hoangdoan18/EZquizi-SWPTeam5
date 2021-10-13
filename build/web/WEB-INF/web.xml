@@ -6,7 +6,7 @@
     </filter>
     <filter-mapping>
         <filter-name>AdminFilter</filter-name>
-        <url-pattern>/admin/*</url-pattern>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>UsersCRUDServlet</servlet-name>
@@ -45,19 +45,19 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>UsersCRUDServlet</servlet-name>
-        <url-pattern>/admin/UsersCRUD</url-pattern>
+        <url-pattern>/adminUserCRUD</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersAddServlet</servlet-name>
-        <url-pattern>/admin/UsersAdd</url-pattern>
+        <url-pattern>/adminUserAdd</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersEditServlet</servlet-name>
-        <url-pattern>/admin/UsersEdit</url-pattern>
+        <url-pattern>/adminUserEdit</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UsersDeleteServlet</servlet-name>
-        <url-pattern>/admin/UsersDelete</url-pattern>
+        <url-pattern>/adminUserDelete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AccountServlet</servlet-name>
