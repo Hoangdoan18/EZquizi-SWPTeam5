@@ -21,7 +21,6 @@
     <body>
         <jsp:include page="header.jsp"/>
         <div class="container" style="padding-top: 40px;">
-            <div class="row">
                 <div class="wrapper wrapper-content animated fadeInUp">
                     <div class="ibox">
                         <div class="ibox-content">
@@ -37,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-lg-5">
+                                <div class="col-lg-7">
                                     <dl class="dl-horizontal">
 
                                         <dt>Created by:</dt> <dd><a href="#" class="text-navy">${requestScope.subject.username}</a></dd>
@@ -46,7 +45,7 @@
                                         <dt>Last Updated:</dt> <dd>${requestScope.subject.date}</dd>
                                     </dl>
                                 </div>
-                                <div class="col-lg-7" id="cluster_info">
+                                <div class="col-lg-5" id="cluster_info">
                                     <dl class="dl-horizontal">
                                         <dt>Learning by:</dt> <dd><a href="#" class="text-navy">Flashcard</a></dd>
                                         <dt></dt> <dd><a href="#" class="text-navy">Multiple choice</a></dd>
@@ -91,8 +90,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Term</th>
-                                <th scope="col">Definition</th>
+                                <th scope="col" class="col-3">Term</th>
+                                <th scope="col" class="col-9">Definition</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -105,7 +104,6 @@
                         </tbody>
                     </table> 
                 </div>
-            </div>
         </div>
         <%@include file="footer.jsp" %>
     </body>
