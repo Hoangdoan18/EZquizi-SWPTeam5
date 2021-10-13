@@ -119,7 +119,10 @@ public class AdminFilter implements Filter {
                 } else if (session.getAttribute("account") != null) {
                     res.sendRedirect("index.jsp");
                 }
-            } else {
+            } else if((session.getAttribute("admin") != null || session.getAttribute("account") != null) && url.contains("login")){
+                res.sendRedirect("index.jsp");
+            } else
+            {
                 chain.doFilter(request, response);
             }
 
