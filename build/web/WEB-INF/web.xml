@@ -43,6 +43,22 @@
         <servlet-name>SubjectDetailServlet</servlet-name>
         <servlet-class>controller.subject.SubjectDetailServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubscribeServlet</servlet-name>
+        <servlet-class>controller.subject.SubscribeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UnsubscribeServlet</servlet-name>
+        <servlet-class>controller.subject.UnsubscribeServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubscribeListServlet</servlet-name>
+        <servlet-class>controller.subject.SubscribeListServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <servlet-class>controller.user.ChangePassServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsersCRUDServlet</servlet-name>
         <url-pattern>/adminUserCRUD</url-pattern>
@@ -74,6 +90,22 @@
     <servlet-mapping>
         <servlet-name>SubjectDetailServlet</servlet-name>
         <url-pattern>/SubjectDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubscribeServlet</servlet-name>
+        <url-pattern>/subscribe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UnsubscribeServlet</servlet-name>
+        <url-pattern>/unSubscribe</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubscribeListServlet</servlet-name>
+        <url-pattern>/subscribeList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassServlet</servlet-name>
+        <url-pattern>/changePass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

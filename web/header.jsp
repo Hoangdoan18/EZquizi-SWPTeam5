@@ -38,7 +38,7 @@
                 <div class="fluid-container" style="padding: 0px;">
                     <c:if test="${account!=null}">
                         <nav class="navbar navbar-light navbar-expand-md sticky-top navigation-clean white-links" style="background: rgb(82,58,133); color: white;">
-                            <div class="container"><a class="navbar-brand" id="company-name" href="index.jsp">AURORA</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="SetNavBackground();"><span class="sr-only">Toggle navigation</span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" style="color: white;font-size: 30px;">
+                            <div class="container"><a class="navbar-brand" id="company-name" href="index.jsp">EZquizi</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1" onclick="SetNavBackground();"><span class="sr-only">Toggle navigation</span><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" style="color: white;font-size: 30px;">
                             <path d="M2 6C2 5.44772 2.44772 5 3 5H21C21.5523 5 22 5.44772 22 6C22 6.55228 21.5523 7 21 7H3C2.44772 7 2 6.55228 2 6Z" fill="currentColor"></path>
                             <path d="M2 12.0322C2 11.4799 2.44772 11.0322 3 11.0322H21C21.5523 11.0322 22 11.4799 22 12.0322C22 12.5845 21.5523 13.0322 21 13.0322H3C2.44772 13.0322 2 12.5845 2 12.0322Z" fill="currentColor"></path>
                             <path d="M3 17.0645C2.44772 17.0645 2 17.5122 2 18.0645C2 18.6167 2.44772 19.0645 3 19.0645H21C21.5523 19.0645 22 18.6167 22 18.0645C22 17.5122 21.5523 17.0645 21 17.0645H3Z" fill="currentColor"></path>
@@ -59,11 +59,11 @@
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="UserSubjectServlet?username=${account.username}" style="color: rgb(0,0,0);">First Item</a>
-                                                <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
+                                                <a class="dropdown-item" href="subscribeList" style="color: rgb(0,0,0);">Subscribe Subjects</a>
                                                 <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
                                         </li>
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Hello ${account.name}</a>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="UserSubjectServlet?username=${account.username}" style="color: rgb(0,0,0);">Profile</a>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="UserProfile.jsp" style="color: rgb(0,0,0);">Profile</a>
                                                 <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
                                                 <a class="dropdown-item" href="logout" style="color: rgb(0,0,0);">Log_out</a></div>
                                         </li>

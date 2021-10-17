@@ -1,0 +1,1 @@
+' 2javaX:hrsrc/java/model/Rating.java

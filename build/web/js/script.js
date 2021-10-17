@@ -11,3 +11,10 @@ $(function () {
     $("#forgot-box").hide();
   });
 });
+$('#test').click(function() {
+    var s = $(this);
+    $('#extra').slideToggle('fast', function(){
+        s.html(s.text() == 'Subscribe' ? 'Subscribed' : 'Subscribe');
+    });
+    return false;
+});

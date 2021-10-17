@@ -534,4 +534,56 @@ public class SubjectDAO {
         }
         return r;
     }
+    
+    public void getSubscribe(String username, String sid) {
+        String query = "insert into [Subscribe]\n"
+                + "values(?,?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, sid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void unSubscribe(String username, String sid) {
+        String query = "delete from [Subscribe]\n"
+                + "where Username =? and SubjectID=?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, sid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public List<Subject> getSubscribeSubject(String username) {
+        String query = "SELECT a.*,COUNT(f.subjectID) FROM [Subject] a\n" +
+                "LEFT JOIN [Subscribe] f ON f.subjectID = a.subjectID\n" +
+                "WHERE f.username = ?\n" +
+                "GROUP BY a.subjectID,a.subjectTitle,a.cateID,a.username,a.[date]\n" +
+                "ORDER BY a.SubjectID DESC";
+
+        List<Subject> list = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Subject(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5)));
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }
