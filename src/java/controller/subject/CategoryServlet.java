@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.subject;
 
 import dal.SubjectDAO;
 import java.io.IOException;
@@ -38,11 +38,11 @@ public class CategoryServlet extends HttpServlet {
            response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
             String username = request.getParameter("username");
-            String cateID = request.getParameter("cid");
+            String cateID = request.getParameter("cateID");
             SubjectDAO sdao = new SubjectDAO();
             List<Subject> listS = sdao.getSubjectByCategory(cateID,username);
              int size = listS.size();
-        int numperPage = 5;
+        int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;
@@ -58,11 +58,14 @@ public class CategoryServlet extends HttpServlet {
         List<Subject> arr = sdao.getSubjectByPage(listS, start, end);  
      
         List<Category> ListC = sdao.getCategory();
+        String catePage = "true";
         
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
+        request.setAttribute("catePage", catePage);
+        request.setAttribute("cateID", cateID);
         if(username == null || username.trim().length()==0){
             request.getRequestDispatcher("SubjectList.jsp").forward(request, response);
         }else{

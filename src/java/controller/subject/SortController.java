@@ -8,6 +8,7 @@ package controller.subject;
 import dal.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,9 +40,32 @@ public class SortController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
             String username = request.getParameter("username");
             SubjectDAO sdao = new SubjectDAO();
-            List<Subject> listS = sdao.getSubjectByDate(username);
+            String cateID = request.getParameter("cateID") == null ? "":request.getParameter("cateID");
+            String sortDate = request.getParameter("sortDate") == null ? "": request.getParameter("sortDate");
+            String sortRatting = request.getParameter("sortRatting")== null ? "": request.getParameter("sortRatting"); 
+            List<Subject> listS = new ArrayList<>();
+            
+                if (cateID == null || cateID.length() == 0){
+                    if(Integer.parseInt(sortDate) == 1){
+                        listS = sdao.getSubjectByDate(username);
+                    }else if (Integer.parseInt(sortRatting) == 1){
+                        listS = sdao.SortRatting(username);
+                    }
+                }else{
+                    if(Integer.parseInt(sortDate) == 1){
+                        listS = sdao.SortCateDate(cateID, username);
+                    }else if (Integer.parseInt(sortRatting) == 1){
+                        listS = sdao.SortCateRatting(cateID, username);
+                    }
+                }
+            
+            
+           
+           
+            
+            
              int size = listS.size();
-        int numperPage = 5;
+        int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;
@@ -55,13 +79,29 @@ public class SortController extends HttpServlet {
         start = (page - 1) * numperPage;
         end = Math.min(size, page * numperPage);
         List<Subject> arr = sdao.getSubjectByPage(listS, start, end);  
-     
-        List<Category> ListC = sdao.getCategory();
         
+        List<Category> ListC = sdao.getCategory();
+        String sortPage = "true";
+        String catePage = "true";
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
+        
+        request.setAttribute("cateID", cateID);
+       
+            request.setAttribute("sortDate", sortDate);
+        if(cateID.length() > 0){
+            request.setAttribute("catePage", catePage);
+        }
+  
+            request.setAttribute("sortRatting", sortRatting);
+ 
+        
+        request.setAttribute("sortPage", sortPage);
+        
+        
+        
         if(username == null || username.trim().length()==0){
             request.getRequestDispatcher("SubjectList.jsp").forward(request, response);
         }else{

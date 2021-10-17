@@ -41,7 +41,7 @@ public class SubjectListServlet extends HttpServlet {
             List<Subject> listS = pdao.getSubjectCRUD();
             
              int size = listS.size();
-        int numperPage = 5;
+        int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;

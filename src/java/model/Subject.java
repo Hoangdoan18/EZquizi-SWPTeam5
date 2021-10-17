@@ -13,11 +13,39 @@ public class Subject {
 
     private int subjectID, cateID;
     private String subjectTitle, username, date;
-    private int numOfTerm;
     private float rating;
+    private String cateName;
+    private int NumOfTerm;
 
+    public int getNumOfTerm() {
+        return NumOfTerm;
+    }
+
+    public void setNumOfTerm(int NumOfTerm) {
+        this.NumOfTerm = NumOfTerm;
+    }
     public Subject() {
     }
+
+    public String getCateName() {
+        return cateName;
+    }
+
+    public void setCateName(String cateName) {
+        this.cateName = cateName;
+    }
+
+    public Subject(int subjectID,String subjectTitle, String username, int cateID, String cateName, float rating, String date) {
+        this.subjectID = subjectID;
+        this.cateID = cateID;
+        this.subjectTitle = subjectTitle;
+        this.username = username;
+        this.date = date;
+        this.rating = rating;
+        this.cateName = cateName;
+    }
+
+
 
     public Subject(int subjectID, String subjectTitle, int cateID, String username, String date) {
         this.subjectID = subjectID;
@@ -25,10 +53,6 @@ public class Subject {
         this.subjectTitle = subjectTitle;
         this.username = username;
         this.date = date;
-    }
-
-    public Subject(int numOfTerm) {
-        this.numOfTerm = numOfTerm;
     }
 
     public Subject(float rating) {
@@ -75,14 +99,6 @@ public class Subject {
         this.date = date;
     }
 
-    public int getNumOfTerm() {
-        return numOfTerm;
-    }
-
-    public void setNumOfTerm(int numOfTerm) {
-        this.numOfTerm = numOfTerm;
-    }
-
     public float getRating() {
         return rating;
     }
@@ -93,6 +109,8 @@ public class Subject {
 
     @Override
     public String toString() {
-        return "Subject{" + "subjectID=" + subjectID + ", cateID=" + cateID + ", subjectTitle=" + subjectTitle + ", username=" + username + ", date=" + date + ", numOfTerm=" + numOfTerm + ", rating=" + rating + '}';
+        return "Subject{" + "subjectID=" + subjectID + ", cateID=" + cateID + ", subjectTitle=" + subjectTitle + ", username=" + username + ", date=" + date + ", rating=" + rating + ", cateName=" + cateName + '}';
     }
+
+    
 }

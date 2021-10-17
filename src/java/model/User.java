@@ -13,7 +13,7 @@ public class User {
 
     private String username, password, email, phone, name;
     private int age, active, admin;
-
+    
     public User() {
     }
 

@@ -41,7 +41,7 @@ public class UserSubjectServlet extends HttpServlet {
             SubjectDAO sdao = new SubjectDAO();
             List<Subject> listS = sdao.getSubjectByUsername(username);
             int size = listS.size();
-        int numperPage = 5;
+        int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;
