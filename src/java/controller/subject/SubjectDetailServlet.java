@@ -6,6 +6,7 @@
 package controller.subject;
 
 import dal.CategoryDAO;
+import dal.RatingDAO;
 import dal.SubjectDAO;
 import dal.TermDAO;
 import java.io.IOException;
@@ -38,33 +39,6 @@ public class SubjectDetailServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SubjectDetailServlet</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SubjectDetailServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
         String subjectID = request.getParameter("subjectID");
         String termsort = request.getParameter("termsort");
         SubjectDAO sdetail = new SubjectDAO();
@@ -73,7 +47,26 @@ public class SubjectDetailServlet extends HttpServlet {
         Subject r = sdetail.getRating(Integer.parseInt(subjectID));
         CategoryDAO cdetail = new CategoryDAO();
         Category nc = cdetail.getCateName(s.getCateID());
-        //            
+
+        /**
+         * *********************************
+         */
+        //GET USER RATE OF SUBJECT//
+        HttpSession session = request.getSession();
+        User ac = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
+        RatingDAO rtd = new RatingDAO();
+        if (ac != null) {
+            int rate = rtd.GetLastRating(ac.getUsername(), Integer.parseInt(subjectID));
+            session.setAttribute("rate", rate);
+        } else if (ad != null) {
+            int rate = rtd.GetLastRating(ad.getUsername(), Integer.parseInt(subjectID));
+            session.setAttribute("rate", rate);
+        }
+        /**
+         * ***************************
+         */
+
         List<Term> listT;
         TermDAO tdao = new TermDAO();
 //        listT = tdao.getTermByID(Integer.parseInt(subjectID));
@@ -90,6 +83,21 @@ public class SubjectDetailServlet extends HttpServlet {
         request.getRequestDispatcher("SubjectDetail.jsp").forward(request, response);
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -101,30 +109,9 @@ public class SubjectDetailServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String subjectID = request.getParameter("subjectID");
-//        String termsort = request.getParameter("termsort");
-//        SubjectDAO sdetail = new SubjectDAO();
-//        Subject s = sdetail.getSubjectByID(Integer.parseInt(subjectID));
-//        Subject n = sdetail.getNumOfTerm(Integer.parseInt(subjectID));
-//        Subject r = sdetail.getRating(Integer.parseInt(subjectID));
-//        CategoryDAO cdetail = new CategoryDAO();
-//        Category nc = cdetail.getCateName(s.getCateID());
-//        //            
-//        List<Term> listT;
-//        TermDAO tdao = new TermDAO();
-//        listT = tdao.getTermByID(Integer.parseInt(subjectID));
-////        if (termsort.equals("0")) {
-////            listT = tdao.getTermByID(Integer.parseInt(subjectID));
-////        } else {
-////            listT = tdao.getTermByIDsorted(Integer.parseInt(subjectID));
-////        }
-//        request.setAttribute("subject", s);
-//        request.setAttribute("num", n);
-//        request.setAttribute("rate", r);
-//        request.setAttribute("cate", nc);
-//        request.setAttribute("listT", listT);
-//        request.getRequestDispatcher("SubjectDetail.jsp").forward(request, response);
+        
         processRequest(request, response);
+
     }
 
     /**
