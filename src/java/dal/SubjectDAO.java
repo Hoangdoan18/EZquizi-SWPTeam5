@@ -396,7 +396,7 @@ public class SubjectDAO {
 
     public void addSubject(String subjectTitle, int cateID, String username) {
         String query = "insert into Subject(subjectTitle,cateID,username,[date]) values"
-                + "(N?,?,?,CAST( GETDATE() AS Date ))";
+                + "(?,?,?,CAST( GETDATE() AS Date ))";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);

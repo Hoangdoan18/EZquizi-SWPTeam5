@@ -53,7 +53,7 @@
                                     </dl>
                                 </div>
                             </div>
-                            <div class="row">
+<!--                            <div class="row">
                                 <div class="col-lg-12">
                                     <dl class="dl-horizontal">
                                         <dt>Completed:</dt>
@@ -65,7 +65,7 @@
                                         </dd>
                                     </dl>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                 </div>
