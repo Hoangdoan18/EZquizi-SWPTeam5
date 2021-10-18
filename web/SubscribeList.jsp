@@ -77,7 +77,7 @@ Author     : Admin
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
                         <c:forEach begin="1" end="${requestScope.num}" var="i">
-                            <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}">${i}</a></li>
+                            <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="subscribeList?page=${i}">${i}</a></li>
                             </c:forEach>
                     </ul>
                 </nav>
@@ -182,7 +182,7 @@ Author     : Admin
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                <li class="page-item"><a class="page-link ${requestScope.page==i?" ":"active "}" href="SubjectListServlet?page=${i}">${i}</a></li>
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?" ":"active "}" href="subscribeList?page=${i}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>

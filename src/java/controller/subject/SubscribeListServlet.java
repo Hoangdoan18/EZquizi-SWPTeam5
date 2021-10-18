@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.Category;
-import model.Subject;
+import model.Subscribe;
 import model.User;
 
 /**
@@ -41,7 +41,7 @@ public class SubscribeListServlet extends HttpServlet {
         HttpSession session = request.getSession();
         SubjectDAO pdao = new SubjectDAO();
         User a = (User) session.getAttribute("account");
-        List<Subject> listF = pdao.getSubscribeSubject(a.getUsername());
+        List<Subscribe> listF = pdao.getSubscribeSubject(a.getUsername());
         request.setAttribute("listF", listF);
         int size = listF.size();
         int numperPage = 5;
@@ -57,7 +57,7 @@ public class SubscribeListServlet extends HttpServlet {
         int start, end;
         start = (page - 1) * numperPage;
         end = Math.min(size, page * numperPage);
-        List<Subject> arr = pdao.getSubjectByPage(listF, start, end);
+        List<Subscribe> arr = pdao.getSubscribeByPage(listF, start, end);
         List<Category> ListC = pdao.getCategory();
 
         request.setAttribute("num", numPage);

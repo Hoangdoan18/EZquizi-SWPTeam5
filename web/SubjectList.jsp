@@ -128,11 +128,13 @@ Author     : Admin
                                     <!--                                            <a href="#" class="btn btn-primary pull-right"><span>Subscribe</span></a>-->
                                     <!--                                            <button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
                                     <c:if test="${sessionScope.account != null}">
-                                        <a href="subscribe?subjectID=${o.subjectID}" id="test" class="btn btn-primary pull-right">Subscribe</a>
+
+                                        <button onclick="change()" id="test"><a href="subscribe?subjectID=${o.subjectID}" style="text-decoration: none; border: 1px;">Subscribe</a></button>
                                         <div id="extra"></div>
                                     </c:if>
                                     <c:if test="${sessionScope.account == null}">
-                                        <a href="login.jsp" class="btn btn-primary pull-right">Subscribe</a>
+                                        <!--                                        <a href="login.jsp" class="btn btn-primary pull-right">Subscribe</a>-->
+                                        <button ><a href="login.jsp" style="text-decoration: none; border: 1px;">Subscribe</a></button>
                                     </c:if>
                                 </div>
                                 <div class="card-sub-title" style="font-family: LucateIDa Bright; font-weight: bold; color: #008512"> ${o.cateName}

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Category;
 import model.Subject;
+import model.Subscribe;
 
 /**
  *
@@ -559,32 +560,6 @@ public class SubjectDAO {
         }
     }
 
-    public List<Subject> getSubscribeSubject(String username) {
-        String query = "SELECT a.*,COUNT(f.subjectID) FROM [Subject] a\n"
-                + "LEFT JOIN [Subscribe] f ON f.subjectID = a.subjectID\n"
-                + "WHERE f.username = ?\n"
-                + "GROUP BY a.subjectID,a.subjectTitle,a.cateID,a.username,a.[date]\n"
-                + "ORDER BY a.SubjectID DESC";
-
-        List<Subject> list = new ArrayList<>();
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1),
-                        rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
-    }
-
     public Subject getLastSubject() {
         String query = "SELECT top 1 * from Subject order by subjectID desc";
         Subject s = new Subject();
@@ -602,5 +577,34 @@ public class SubjectDAO {
         } catch (Exception e) {
         }
         return s;
+    }
+    
+    public List<Subscribe> getSubscribeByPage(List<Subscribe> list, int start, int end) {
+        List<Subscribe> s = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            s.add(list.get(i));
+        }
+        return s;
+    }
+
+
+    public List<Subscribe> getSubscribeSubject(String username) {
+        String query = "Select s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, r.rating, [date] from Subject s \n"
+                + "INNER JOIN Category c on s.cateID = c.cateID LEFT JOIN Rating r on s.subjectID = r.subjectID LEFT JOIN [Subscribe] f ON f.subjectID = s.subjectID\n"
+                + "WHERE f.username = ?";
+
+        List<Subscribe> list = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Subscribe(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getFloat(6), rs.getString(7)));
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

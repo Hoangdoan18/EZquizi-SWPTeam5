@@ -135,3 +135,6 @@ body {
   font-size:0.85rem;
   line-height:17px;
 }
+.checked{
+    color:orange;
+}

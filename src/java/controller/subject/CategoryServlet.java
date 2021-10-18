@@ -62,6 +62,7 @@ public class CategoryServlet extends HttpServlet {
         
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
+        request.setAttribute("listF", arr);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
         request.setAttribute("catePage", catePage);
