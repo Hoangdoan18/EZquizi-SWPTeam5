@@ -63,6 +63,19 @@ public class TermDAO {
         return null;
 
     }
+    
+    public void addTerm(int subjectID, String term, String definition) {
+        String query = "insert into SubjectDetail (subjectID,term,definition) values (?,?,?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            ps.setString(2, term);
+            ps.setString(3, definition);
+            ps.executeUpdate();
+        } catch (Exception SQLException) {
+        }
+    }
 
     public static void main(String[] args) {
         TermDAO dao = new TermDAO();

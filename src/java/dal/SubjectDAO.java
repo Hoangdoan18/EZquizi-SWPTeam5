@@ -24,8 +24,8 @@ public class SubjectDAO {
     ResultSet rs = null;
 
     public List<Subject> getSubjectCRUD() {
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] from Subject s \n" +
-"inner join Category c on s.cateID = c.cateID left join Rating r on s.subjectID=r.subjectID ";
+        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] from Subject s \n"
+                + "inner join Category c on s.cateID = c.cateID left join Rating r on s.subjectID=r.subjectID ";
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
@@ -46,30 +46,30 @@ public class SubjectDAO {
         return null;
 
     }
-    
+
     public List<Subject> SortCateDate(String cateID, String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? order by date desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ? order by date desc";
-        
+        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? order by date desc";
+
+        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? and s.username = ? order by date desc";
+
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
+            if (username == null || username.trim().length() == 0) {
                 ps = conn.prepareStatement(query);
-            ps.setString(1, cateID);
-             }else{
-                 ps = conn.prepareStatement(query2);
-            ps.setString(1, cateID);
-            ps.setString(2, username);
-             }
-            
+                ps.setString(1, cateID);
+            } else {
+                ps = conn.prepareStatement(query2);
+                ps.setString(1, cateID);
+                ps.setString(2, username);
+            }
+
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Subject(rs.getInt(1), rs.getString(2),
@@ -86,32 +86,30 @@ public class SubjectDAO {
         return null;
 
     }
-    
+
     public List<Subject> SortCateRatting(String cateID, String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? order by rating desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ? order by rating desc";
-        
-        
+        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? order by rating desc";
+
+        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? and s.username = ? order by rating desc";
+
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
-                 ps = conn.prepareStatement(query);
-                 ps.setString(1, cateID);
-             }else{
-                 ps = conn.prepareStatement(query2);
-                 ps.setString(1, cateID);
-                 ps.setString(2, username);
-             }
-             
-            
+            if (username == null || username.trim().length() == 0) {
+                ps = conn.prepareStatement(query);
+                ps.setString(1, cateID);
+            } else {
+                ps = conn.prepareStatement(query2);
+                ps.setString(1, cateID);
+                ps.setString(2, username);
+            }
+
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Subject(rs.getInt(1), rs.getString(2),
@@ -128,26 +126,26 @@ public class SubjectDAO {
         return null;
 
     }
-    
+
     public List<Subject> SortRatting(String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"order by rating desc";
-        
-        String query2 ="select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ? order by rating desc";
+        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "order by rating desc";
+
+        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.username = ? order by rating desc";
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
-                  ps = conn.prepareStatement(query);
-             }else{
-                 ps = conn.prepareStatement(query2);
-                 ps.setString(1, username);
-             }
+            if (username == null || username.trim().length() == 0) {
+                ps = conn.prepareStatement(query);
+            } else {
+                ps = conn.prepareStatement(query2);
+                ps.setString(1, username);
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
                 list.add(new Subject(rs.getInt(1), rs.getString(2),
@@ -166,15 +164,15 @@ public class SubjectDAO {
     }
 
     public List<Subject> getSubjectByDate(String username) { // worked
-        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ? order by date desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"order by date desc ";
+        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.username = ? order by date desc";
+
+        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "order by date desc ";
         List<Subject> list = new ArrayList<>();
         if (username == null || username.trim().length() == 0) {
             try {
@@ -183,12 +181,12 @@ public class SubjectDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
+                            rs.getString(3),
+                            rs.getInt(4),
+                            rs.getString(5),
+                            rs.getFloat(6),
+                            rs.getString(7)
+                    ));
                 }
                 return list;
             } catch (Exception e) {
@@ -201,12 +199,12 @@ public class SubjectDAO {
                 rs = ps.executeQuery();
                 while (rs.next()) {
                     list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
+                            rs.getString(3),
+                            rs.getInt(4),
+                            rs.getString(5),
+                            rs.getFloat(6),
+                            rs.getString(7)
+                    ));
                 }
                 return list;
             } catch (Exception e) {
@@ -216,13 +214,11 @@ public class SubjectDAO {
 
     }
 
-   
-
     public List<Subject> getSubjectByUsername(String username) {
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date]\n" +
-"from Subject s inner join Category c on s.cateID = c.cateID\n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ?";
+        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date]\n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID\n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.username = ?";
         List<Subject> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
@@ -230,7 +226,7 @@ public class SubjectDAO {
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
-               list.add(new Subject(rs.getInt(1), rs.getString(2),
+                list.add(new Subject(rs.getInt(1), rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
@@ -244,22 +240,24 @@ public class SubjectDAO {
         return null;
 
     }
- public static void main(String[] args) {
+
+    public static void main(String[] args) {
         SubjectDAO sdao = new SubjectDAO();
-        List<Subject> list = sdao.getSubjectByCategory("3","");
+        List<Subject> list = sdao.getSubjectByCategory("3", "");
         for (Subject o : list) {
             System.out.println(o);
         }
     }
+
     public List<Subject> getSubjectByCategory(String cid, String username) {
-        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ?";
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? ";
+        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? and s.username = ?";
+        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n"
+                + "from Subject s inner join Category c on s.cateID = c.cateID \n"
+                + "left join Rating r on s.subjectID=r.subjectID \n"
+                + "where s.cateID = ? ";
         List<Subject> list = new ArrayList<>();
         if (username == null || username.trim().length() == 0) {
             try {
@@ -268,13 +266,13 @@ public class SubjectDAO {
                 ps.setString(1, cid);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                   list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getString(3),
+                            rs.getInt(4),
+                            rs.getString(5),
+                            rs.getFloat(6),
+                            rs.getString(7)
+                    ));
                 }
                 return list;
             } catch (Exception e) {
@@ -287,13 +285,13 @@ public class SubjectDAO {
                 ps.setString(2, username);
                 rs = ps.executeQuery();
                 while (rs.next()) {
-                  list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
+                    list.add(new Subject(rs.getInt(1), rs.getString(2),
+                            rs.getString(3),
+                            rs.getInt(4),
+                            rs.getString(5),
+                            rs.getFloat(6),
+                            rs.getString(7)
+                    ));
                 }
                 return list;
             } catch (Exception e) {
@@ -534,7 +532,7 @@ public class SubjectDAO {
         }
         return r;
     }
-    
+
     public void getSubscribe(String username, String sid) {
         String query = "insert into [Subscribe]\n"
                 + "values(?,?)";
@@ -547,7 +545,7 @@ public class SubjectDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public void unSubscribe(String username, String sid) {
         String query = "delete from [Subscribe]\n"
                 + "where Username =? and SubjectID=?";
@@ -560,13 +558,13 @@ public class SubjectDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public List<Subject> getSubscribeSubject(String username) {
-        String query = "SELECT a.*,COUNT(f.subjectID) FROM [Subject] a\n" +
-                "LEFT JOIN [Subscribe] f ON f.subjectID = a.subjectID\n" +
-                "WHERE f.username = ?\n" +
-                "GROUP BY a.subjectID,a.subjectTitle,a.cateID,a.username,a.[date]\n" +
-                "ORDER BY a.SubjectID DESC";
+        String query = "SELECT a.*,COUNT(f.subjectID) FROM [Subject] a\n"
+                + "LEFT JOIN [Subscribe] f ON f.subjectID = a.subjectID\n"
+                + "WHERE f.username = ?\n"
+                + "GROUP BY a.subjectID,a.subjectTitle,a.cateID,a.username,a.[date]\n"
+                + "ORDER BY a.SubjectID DESC";
 
         List<Subject> list = new ArrayList<>();
         try {
@@ -585,5 +583,24 @@ public class SubjectDAO {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public Subject getLastSubject() {
+        String query = "SELECT top 1 * from Subject order by subjectID desc";
+        Subject s = new Subject();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                s.setSubjectID(rs.getInt(1));
+                s.setSubjectTitle(rs.getString(2));
+                s.setCateID(rs.getInt(3));
+                s.setUsername(rs.getString(4));
+                s.setDate(rs.getString(5));
+            }
+        } catch (Exception e) {
+        }
+        return s;
     }
 }
