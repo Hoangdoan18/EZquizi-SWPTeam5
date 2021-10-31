@@ -35,36 +35,58 @@
                         <c:forEach var="o" items="${ListC}">
 
                             <c:if test="${admin != null}">
-                                <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="UserSubjectServlet?c=${o.cateID}&u=${admin.username}&s=&sort=0"> ${o.cateName} </a></li>
+                                <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="ListDoingServlet?c=${o.cateID}&u=${admin.username}&sub=${sub}&d=${d}&sort=0"> ${o.cateName} </a></li>
                             </c:if>
                             <c:if test="${account != null}">
-                                <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="UserSubjectServlet?c=${o.cateID}&u=${account.username}&s=&sort=0"> ${o.cateName} </a></li>
+                                <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="ListDoingServlet?c=${o.cateID}&u=${account.username}&sub=${sub}&d=${d}&sort=0"> ${o.cateName} </a></li>
                             </c:if>
 
                         </c:forEach>
                     </div>
                 </div>
-                <!--Sort admin down-->
+
 
 
                 <div class="" style="float: right ">
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
-                                        <span class="caret"></span>
-                                    </button>
+                    <span class="caret"></span>
+                </button>
                         <ul class="dropdown-menu">
                             <c:if test="${admin != null}">
 
-                                <li><a href="UserSubjectServlet?c=${c}&u=${admin.username}&s=&sort=1">Date</a></li>
-                                <li><a href="UserSubjectServlet?c=${c}&u=${admin.username}&s=&sort=2">Ratting</a></li>
+                                <li><a href="ListDoingServlet?c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=1">Date</a></li>
+                                <li><a href="ListDoingServlet?c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=2">Ratting</a></li>
                             </c:if>
                             <c:if test="${account != null}">
 
-                                <li><a href="UserSubjectServlet?c=${c}&u=${admin.username}&s=&sort=1">Date</a></li>
-                                <li><a href="UserSubjectServlet?c=${c}&u=${admin.username}&s=&sort=2">Ratting</a></li>
+                                <li><a href="ListDoingServlet?c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=1">Date</a></li>
+                                <li><a href="ListDoingServlet?c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=2">Ratting</a></li>
                             </c:if>
                         </ul>
                     </div>
+                </div>
+
+
+                <div style="clear: both; float: left; margin-left: 10px">
+                    <c:if test="${sub==1}">
+                        <a href="ListDoingServlet?c=0&u=${admin.username}&sub=2&d=0&sort=0" class="btn btn-primary pull-right"><span>Show UnSubscribe Subject</span></a>
+                    </c:if>
+                    <c:if test="${sub==2}">
+
+                        <a href="ListDoingServlet?c=0&u=${admin.username}&sub=1&d=0&sort=0" class="btn btn-primary pull-right"><span>Show Subscribed Subject</span></a>
+                    </c:if>
+                    <c:if test="${d==2}">
+
+                        <a href="ListDoingServlet?c=0&u=${admin.username}&sub=0&d=1&sort=0" class="btn btn-primary pull-right"><span>Show Doing(Done) List Subject</span></a>
+                    </c:if>
+                    <c:if test="${d==1}">
+
+                        <a href="ListDoingServlet?c=0&u=${admin.username}&sub=0&d=2&sort=0" class="btn btn-primary pull-right"><span>Show Subject you didn't touch </span></a>
+                    </c:if>
+
+
+
                 </div>
 
 
@@ -82,12 +104,12 @@
                                 <c:if test="${admin != null}">
 
                                     <li class="page-item">
-                                        <a class="page-link ${requestScope.page==i?" active ":" "}" href="UserSubjectServlet?page=${i}&c=${c}&u=${admin.username}&s=&sort=${sort}">${i}</a></li>
+                                        <a class="page-link ${requestScope.page==i?" active ":" "}" href="ListDoingServlet?page=${i}&c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=${sort}">${i}</a></li>
                                 </c:if>
                                 <c:if test="${account != null}">
 
                                     <li class="page-item">
-                                        <a class="page-link ${requestScope.page==i?" active ":" "}" href="UserSubjectServlet?page=${i}&c=${c}&u=${account.username}&s=&sort=${sort}">${i}</a></li>
+                                        <a class="page-link ${requestScope.page==i?" active ":" "}" href="ListDoingServlet?page=${i}&c=${c}&u=${account.username}&sub=${sub}&d=${d}&sort=${sort}">${i}</a></li>
                                 </c:if>
 
                             </c:forEach>
@@ -123,16 +145,6 @@
 
                                         <div class=""> ${o.date}
                                         </div>
-
-                                        <div class="" style="font-size: 30px; position: absolute; top:1px; right:70px;">
-                                            <a href="#" onclick="delete${o.subjectID}" class="btn btn-primary pull-right" style="background-color: #ff4747;border: 0px;"><span>Delete</span></a>
-                                            <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
-                                        </div>
-                                        <div class="" style="font-size: 30px; position: absolute; top:1px;  right:10px;">
-                                            <a href="#" class="btn btn-primary pull-right" style="background-color: #47ff7e;border: 0px;"><span>Edit</span></a>
-                                            <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
-                                        </div>
-
                                         <div style="font-size: 30px; position: absolute; bottom: 35%; right: 10px ">
                                             <!--<b style="font-family: Helvetica, serif;">${o.rating} &#x2B50 </b>-->
                                             <b style="font-family: Helvetica, serif;">${o.rating} </b><span class="fa fa-star checked"></span>
@@ -154,12 +166,12 @@
                                     <c:if test="${admin != null}">
 
                                         <li class="page-item">
-                                            <a class="page-link ${requestScope.page==i?" active ":" "}" href="UserSubjectServlet?page=${i}&c=${c}&u=${admin.username}&s=&sort=${sort}">${i}</a></li>
+                                            <a class="page-link ${requestScope.page==i?" active ":" "}" href="ListDoingServlet?page=${i}&c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=${sort}">${i}</a></li>
                                     </c:if>
                                     <c:if test="${account != null}">
 
                                         <li class="page-item">
-                                            <a class="page-link ${requestScope.page==i?" active ":" "}" href="UserSubjectServlet?page=${i}&c=${c}&u=${account.username}&s=&sort=${sort}">${i}</a></li>
+                                            <a class="page-link ${requestScope.page==i?" active ":" "}" href="ListDoingServlet?page=${i}&c=${c}&u=${admin.username}&sub=${sub}&d=${d}&sort=${sort}">${i}</a></li>
                                     </c:if>
 
                                 </c:forEach>
@@ -178,13 +190,5 @@
                 <jsp:include page="footer.jsp" />
             </body>
 
-            <script>
-                function delete(subjectID) {
-                    var option = confirm('Are you sure to delete ?');
-                    if (option === true) {
-                        window.location.href = 'deleteSubject?subjectID=' + subjectID;
-                    }
-                }
-            </script>
 
             </html>

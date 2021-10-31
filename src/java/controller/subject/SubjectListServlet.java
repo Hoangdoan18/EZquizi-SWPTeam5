@@ -38,7 +38,17 @@ public class SubjectListServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
             SubjectDAO pdao = new SubjectDAO();
-            List<Subject> listS = pdao.getSubjectCRUD();
+            
+            String cate = request.getParameter("c") == null ? "0":request.getParameter("c");
+            int category = Integer.parseInt(cate);
+            String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
+            int sort = Integer.parseInt(s);
+            
+            String username = request.getParameter("u") == null ? "":request.getParameter("u");
+            String search = request.getParameter("s") == null ? "":request.getParameter("s");
+           
+            
+            List<Subject> listS = pdao.listQuery(category, username, search, sort);
             
              int size = listS.size();
         int numperPage = 9;
@@ -55,12 +65,17 @@ public class SubjectListServlet extends HttpServlet {
         start = (page - 1) * numperPage;
         end = Math.min(size, page * numperPage);
         List<Subject> arr = pdao.getSubjectByPage(listS, start, end);  
+       
         List<Category> ListC = pdao.getCategory();
         
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
+        request.setAttribute("c", category);
+        request.setAttribute("s", search);
+        request.setAttribute("sort", sort);
+        request.setAttribute("u", username);
         
         request.getRequestDispatcher("SubjectList.jsp").forward(request, response);
     }

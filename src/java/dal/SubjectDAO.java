@@ -8,8 +8,14 @@ package dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Category;
 import model.Subject;
 
@@ -23,352 +29,262 @@ public class SubjectDAO {
     PreparedStatement ps = null;
     ResultSet rs = null;
 
-    public List<Subject> getSubjectCRUD() {
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] from Subject s \n" +
-"inner join Category c on s.cateID = c.cateID left join Rating r on s.subjectID=r.subjectID ";
-        List<Subject> list = new ArrayList<>();
+    public List<Subject> listQuery(int category, String username, String search, int sort) {
+        List<Subject> subjects = new ArrayList<>();
         try {
+            int count = 1;
             conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
+            String Statement = "select \n"
+                    + "	s.subjectID,\n"
+                    + "	s.subjectTitle, \n"
+                    + "	s.username,\n"
+                    + "	s.cateID,\n"
+                    + "	s.[date],\n"
+                    + "	c.cateName,\n"
+                    + "	cast(sum(r.rating)/count(r.rating) as decimal(10,2)) as rating\n"
+                    + "from Subject s\n"
+                    + "inner join \n"
+                    + "Category c on s.cateID = c.cateID\n"
+                    + "left join Rating r\n"
+                    + "on s.subjectID = r.subjectID\n"
+                    + "where 1=1 ";
+            switch (category) {
+                case 0:
+                    break;
+                default:
+                    Statement += " AND s.cateID = ? ";
+                    break;
+            }
+
+            if (username.length() > 0) {
+                Statement += " AND s.username = ? ";
+            }
+            if (search.length() > 0) {
+                Statement += " AND s.subjectTitle like ? or s.username like ?";
+            }
+            Statement += " group by\n"
+                    + "	s.subjectID,\n"
+                    + "	s.subjectTitle, \n"
+                    + "	s.username,\n"
+                    + "	s.cateID,\n"
+                    + "	s.[date],\n"
+                    + "	c.cateName";
+            switch (sort) {
+                case 1:
+                    Statement += " order by s.date desc ";
+                    break;
+                case 2:
+                    Statement += " order by rating desc ";
+                    break;
+                default:
+                    break;
+            }
+
+            ps = conn.prepareStatement(Statement);
+            switch (category) {
+                case 0:
+                    break;
+                default:
+                    ps.setInt(count++, category);
+                    break;
+            }
+            if (username.length() > 0) {
+                ps.setString(count++, username);
+            }
+            if (search.length() > 0) {
+                ps.setString(count++, "%" + search + "%");
+                ps.setString(count++, "%" + search + "%");
+
+            }
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
+                Subject s = new Subject();
+                s.setSubjectID(rs.getInt("subjectID"));
+                s.setSubjectTitle(rs.getString("subjectTitle"));
+                s.setUsername(rs.getString("username"));
+                s.setCateID(rs.getInt("cateID"));
+                s.setCateName(rs.getString("cateName"));
+                s.setRating(rs.getDouble("rating"));
 
+                String date1 = rs.getString("date");
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = (Date) formatter.parse(date1);
+                SimpleDateFormat newFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                String finaldate = newFormat.format(date);
+
+                s.setDate(finaldate);
+
+                subjects.add(s);
+            }
+        } catch (Exception ex) {
+
+        }
+        return subjects;
     }
-    
-    public List<Subject> SortCateDate(String cateID, String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? order by date desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ? order by date desc";
-        
-        List<Subject> list = new ArrayList<>();
+
+    public List<Subject> listDoing(int category, String username, int Subscribe, int Doing, int sort) {
+        List<Subject> subjects = new ArrayList<>();
         try {
+            int count = 1;
             conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
-                ps = conn.prepareStatement(query);
-            ps.setString(1, cateID);
-             }else{
-                 ps = conn.prepareStatement(query2);
-            ps.setString(1, cateID);
-            ps.setString(2, username);
-             }
-            
+            String Statement = "select \n"
+                    + "	s.subjectID,\n"
+                    + "	s.subjectTitle, \n"
+                    + "	s.username,\n"
+                    + "	s.cateID,\n"
+                    + "	s.[date],\n"
+                    + "	c.cateName,\n"
+                    + "	cast(sum(r.rating)/count(r.rating) as decimal(10,2)) as rating\n"
+                    + "from Subject s\n"
+                    + "inner join \n"
+                    + "Category c on s.cateID = c.cateID\n"
+                    + "left join Rating r\n"
+                    + "on s.subjectID = r.subjectID ";
+            switch (Subscribe) {
+                case 1:
+                    Statement += " right join Subscribe sub\n"
+                            + "on s.subjectID = sub.subjectID ";
+                    break;
+                case 2:
+                    Statement += " left join Subscribe sub\n "
+                            + " on s.subjectID = sub.subjectID ";
+                    break;
+                default:
+                    break;
+            }
+
+            switch (Doing) {
+                case 1:
+                    Statement += " right join Progress p\n"
+                            + " on s.subjectID = p.subjectID ";
+                    break;
+                case 2:
+                    Statement += " left join Progress p\n"
+                            + " on s.subjectID = p.subjectID ";
+                    break;
+                default:
+                    break;
+            }
+
+            Statement += " where 1=1 ";
+
+            switch (category) {
+                case 0:
+                    break;
+                default:
+                    Statement += " AND s.cateID = ? ";
+                    break;
+            }
+
+            switch (Subscribe) {
+
+                case 1:
+                    Statement += " and sub.username = ? ";
+                    break;
+                case 2:
+                    Statement += " and sub.username != ? or sub.username is null ";
+                    break;
+                default:
+                    break;
+
+            }
+            switch (Doing) {
+                case 1:
+                    Statement += " and p.username = ? ";
+                    break;
+                case 2:
+                    Statement += " and p.username != ? or p.username is null ";
+                    break;
+                default:
+                    break;
+            }
+
+            Statement += " group by\n"
+                    + "	s.subjectID,\n"
+                    + "	s.subjectTitle, \n"
+                    + "	s.username,\n"
+                    + "	s.cateID,\n"
+                    + "	s.[date],\n"
+                    + "	c.cateName";
+            switch (sort) {
+                case 1:
+                    Statement += " order by s.date desc ";
+                    break;
+                case 2:
+                    Statement += " order by rating desc ";
+                    break;
+                default:
+                    break;
+            }
+
+            ps = conn.prepareStatement(Statement);
+
+            switch (category) {
+                case 0:
+                    break;
+                default:
+                    ps.setInt(count++, category);
+                    break;
+            }
+
+            switch (Subscribe) {
+                case 1:
+                    ps.setString(count++, username);
+                    break;
+                case 2:
+                    ps.setString(count++, username);
+                    break;
+
+                default:
+                    break;
+            }
+            switch (Doing) {
+                case 1:
+                    ps.setString(count++, username);
+                    break;
+                case 2:
+                    ps.setString(count++, username);
+                    break;
+                default:
+                    break;
+            }
+
             rs = ps.executeQuery();
             while (rs.next()) {
-                list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
+                Subject s = new Subject();
+                s.setSubjectID(rs.getInt("subjectID"));
+                s.setSubjectTitle(rs.getString("subjectTitle"));
+                s.setUsername(rs.getString("username"));
+                s.setCateID(rs.getInt("cateID"));
+                s.setCateName(rs.getString("cateName"));
+                s.setRating(rs.getDouble("rating"));
 
-    }
-    
-    public List<Subject> SortCateRatting(String cateID, String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? order by rating desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ? order by rating desc";
-        
-        
-        List<Subject> list = new ArrayList<>();
-        try {
-            conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
-                 ps = conn.prepareStatement(query);
-                 ps.setString(1, cateID);
-             }else{
-                 ps = conn.prepareStatement(query2);
-                 ps.setString(1, cateID);
-                 ps.setString(2, username);
-             }
-             
-            
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
+                String date1 = rs.getString("date");
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = (Date) formatter.parse(date1);
+                SimpleDateFormat newFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                String finaldate = newFormat.format(date);
 
-    }
-    
-    public List<Subject> SortRatting(String username) { //worked
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"order by rating desc";
-        
-        String query2 ="select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ? order by rating desc";
-        List<Subject> list = new ArrayList<>();
-        try {
-            conn = new DBContext().getConnection();
-             if (username == null || username.trim().length() == 0){
-                  ps = conn.prepareStatement(query);
-             }else{
-                 ps = conn.prepareStatement(query2);
-                 ps.setString(1, username);
-             }
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
+                s.setDate(finaldate);
 
+                subjects.add(s);
+            }
+        } catch (Exception ex) {
+
+        }
+        return subjects;
     }
 
-    public List<Subject> getSubjectByDate(String username) { // worked
-        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ? order by date desc";
-        
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"order by date desc ";
-        List<Subject> list = new ArrayList<>();
-        if (username == null || username.trim().length() == 0) {
-            try {
-                conn = new DBContext().getConnection();
-                ps = conn.prepareStatement(query2);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-                }
-                return list;
-            } catch (Exception e) {
-            }
-        } else {
-            try {
-                conn = new DBContext().getConnection();
-                ps = conn.prepareStatement(query1);
-                ps.setString(1, username);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                    list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-                }
-                return list;
-            } catch (Exception e) {
-            }
-        }
-        return null;
-
-    }
-
-   
-
-    public List<Subject> getSubjectByUsername(String username) {
-        String query = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date]\n" +
-"from Subject s inner join Category c on s.cateID = c.cateID\n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.username = ?";
-        List<Subject> list = new ArrayList<>();
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, username);
-            rs = ps.executeQuery();
-            while (rs.next()) {
-               list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
-
-    }
- public static void main(String[] args) {
+    public static void main(String[] args) {
         SubjectDAO sdao = new SubjectDAO();
-        List<Subject> list = sdao.getSubjectByCategory("3","");
+
+        List<Subject> list = sdao.listQuery(0, "", "", 1);
+
         for (Subject o : list) {
             System.out.println(o);
         }
-    }
-    public List<Subject> getSubjectByCategory(String cid, String username) {
-        String query1 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? and s.username = ?";
-        String query2 = "select s.subjectID, subjectTitle, s.username, s.cateID, cateName, r.rating, [date] \n" +
-"from Subject s inner join Category c on s.cateID = c.cateID \n" +
-"left join Rating r on s.subjectID=r.subjectID \n" +
-"where s.cateID = ? ";
-        List<Subject> list = new ArrayList<>();
-        if (username == null || username.trim().length() == 0) {
-            try {
-                conn = new DBContext().getConnection();
-                ps = conn.prepareStatement(query2);
-                ps.setString(1, cid);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                   list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-                }
-                return list;
-            } catch (Exception e) {
-            }
-        } else {
-            try {
-                conn = new DBContext().getConnection();
-                ps = conn.prepareStatement(query1);
-                ps.setString(1, cid);
-                ps.setString(2, username);
-                rs = ps.executeQuery();
-                while (rs.next()) {
-                  list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
-                ));
-                }
-                return list;
-            } catch (Exception e) {
-            }
-        }
-        return null;
 
     }
-//    public List<Subject> getSubjectByCategory(String cid, String username) {
-//        String query1 = "SELECT * from Subject where cateID = ? and username = ?";
-//        String query2 = "SELECT * from Subject where cateID = ?";
-//        List<Subject> list = new ArrayList<>();
-//        try {
-//            conn = new DBContext().getConnection();
-//             if(username == null || username.trim().length()==0){
-//                ps = conn.prepareStatement(query2);
-//                username = "linhtinh";
-//            }else{
-//                ps = conn.prepareStatement(query1);
-//             }
-//            
-//            ps.setString(1, cid);
-//            ps.setString(2, username);
-//            
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                list.add(new Subject(rs.getInt(1),rs.getString(2),
-//                        rs.getInt(3),
-//                        rs.getString(4),
-//                        rs.getString(5)));
-//            }
-//            return list;
-//        } catch (Exception e) {
-//        }
-//        return null;
-//
-//    }
-//    public static void main(String[] args) {
-//        SubjectDAO sdao = new SubjectDAO();
-//        List<Subject> list = sdao.getSubjectByCategory("1", null);
-//            for (Subject o : list) {
-//                System.out.println(o);
-//        
-//    }
-//    }
-
-    public List<Subject> searchSubject(String searchValue) {
-        String query = "   select * from Subject\n"
-                + "  where subjectTitle like ? or username like ? ";
-        List<Subject> list = new ArrayList<>();
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, "%" + searchValue + "%");
-            ps.setString(2, "%" + searchValue + "%");
-            rs = ps.executeQuery();
-            while (rs.next()) {
-                list.add(new Subject(rs.getInt(1), rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
-                        rs.getString(5)));
-            }
-            return list;
-        } catch (Exception e) {
-        }
-        return null;
-
-    }
-//    public static void main(String[] args) {
-//        SubjectDAO pdao = new SubjectDAO();
-//        List<Subject> list = pdao.getSubjectByUsername("bao");
-//        for (Subject o : list) {
-//            System.out.println(o);
-//        }
-//    }
 
     public List<Category> getCategory() {
         String query = "SELECT * from Category";
@@ -410,54 +326,6 @@ public class SubjectDAO {
         }
     }
 
-//    public void edit(String NewProjectName, String NewAuthor, String NewDate, int NewSubscribe, String ProjectName) {
-//        String query = "Update Projects set "
-//                + "ProjectName = N?, "
-//                + "Author = ?, "
-//                + "[date] = ?, "
-//                + "Subscribe = ? \n" +
-//                "where ProjectName =?";
-//        try {
-//            conn = new DBContext().getConnection();
-//            ps = conn.prepareStatement(query);
-//            ps.setString(1, NewProjectName);
-//            ps.setString(2, NewAuthor);
-//            ps.setString(3, NewDate);
-//            ps.setInt(4, NewSubscribe);
-//            ps.setString(5, ProjectName);
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//        }
-//    }
-//
-//    public Subject getProjectName(String ProjectName) {
-//        String query = "SELECT * FROM dbo.Projects WHERE ProjectName = N?";
-//        try {
-//            conn = new DBContext().getConnection();
-//            ps = conn.prepareStatement(query);
-//            ps.setString(1, ProjectName);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                return new Subject(rs.getString(2),
-//                        rs.getString(3),
-//                        rs.getString(4),
-//                        rs.getInt(5));
-//            }
-//        } catch (Exception e) {
-//        }
-//        return null;
-//    }
-//
-//    public void delete(String ProjectName) {
-//        String query = "DELETE FROM dbo.Projects WHERE ProjectName = N?";
-//        try {
-//            conn = new DBContext().getConnection();
-//            ps = conn.prepareStatement(query);
-//            ps.setString(1, ProjectName);
-//            ps.executeUpdate();
-//        } catch (Exception e) {
-//        }
-//    }
     public Subject getSubjectByID(int subjectID) {
         String query = "SELECT * from Subject where subjectID = ?";
         Subject s = new Subject();

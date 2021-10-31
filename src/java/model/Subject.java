@@ -13,7 +13,7 @@ public class Subject {
 
     private int subjectID, cateID;
     private String subjectTitle, username, date;
-    private float rating;
+    private double rating;
     private String cateName;
     private int NumOfTerm;
 
@@ -35,7 +35,7 @@ public class Subject {
         this.cateName = cateName;
     }
 
-    public Subject(int subjectID,String subjectTitle, String username, int cateID, String cateName, float rating, String date) {
+    public Subject(int subjectID,String subjectTitle, String username, int cateID, String cateName, double rating, String date) {
         this.subjectID = subjectID;
         this.cateID = cateID;
         this.subjectTitle = subjectTitle;
@@ -99,11 +99,11 @@ public class Subject {
         this.date = date;
     }
 
-    public float getRating() {
+    public double getRating() {
         return rating;
     }
 
-    public void setRating(float rating) {
+    public void setRating(double rating) {
         this.rating = rating;
     }
 

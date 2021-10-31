@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.subject;
+package controller.user;
 
 import dal.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +21,8 @@ import model.Subject;
  *
  * @author Admin
  */
-@WebServlet(name = "SortController", urlPatterns = {"/sort"})
-public class SortController extends HttpServlet {
+@WebServlet(name = "ListDoingServlet", urlPatterns = {"/ListDoingServlet"})
+public class ListDoingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,33 +35,23 @@ public class SortController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-            String username = request.getParameter("username");
-            SubjectDAO sdao = new SubjectDAO();
-            String cateID = request.getParameter("cateID") == null ? "":request.getParameter("cateID");
-            String sortDate = request.getParameter("sortDate") == null ? "": request.getParameter("sortDate");
-            String sortRatting = request.getParameter("sortRatting")== null ? "": request.getParameter("sortRatting"); 
-            List<Subject> listS = new ArrayList<>();
+            SubjectDAO pdao = new SubjectDAO();
             
-                if (cateID == null || cateID.length() == 0){
-                    if(Integer.parseInt(sortDate) == 1){
-                        listS = sdao.getSubjectByDate(username);
-                    }else if (Integer.parseInt(sortRatting) == 1){
-                        listS = sdao.SortRatting(username);
-                    }
-                }else{
-                    if(Integer.parseInt(sortDate) == 1){
-                        listS = sdao.SortCateDate(cateID, username);
-                    }else if (Integer.parseInt(sortRatting) == 1){
-                        listS = sdao.SortCateRatting(cateID, username);
-                    }
-                }
+            String cate = request.getParameter("c") == null ? "0":request.getParameter("c");
+            int category = Integer.parseInt(cate);
+            String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
+            int sort = Integer.parseInt(s);
             
+            String sub = request.getParameter("sub") == null ? "0":request.getParameter("sub");
+            int subscribe = Integer.parseInt(sub);
             
-           
-           
+            String d = request.getParameter("d") == null ? "0":request.getParameter("d");
+            int doing = Integer.parseInt(d);
             
+            String username = request.getParameter("u") == null ? "":request.getParameter("u");
+            List<Subject> listS = pdao.listDoing(category, username, subscribe, doing, sort);
             
              int size = listS.size();
         int numperPage = 9;
@@ -78,35 +67,22 @@ public class SortController extends HttpServlet {
         int start, end;
         start = (page - 1) * numperPage;
         end = Math.min(size, page * numperPage);
-        List<Subject> arr = sdao.getSubjectByPage(listS, start, end);  
+        List<Subject> arr = pdao.getSubjectByPage(listS, start, end);  
+       
+        List<Category> ListC = pdao.getCategory();
         
-        List<Category> ListC = sdao.getCategory();
-        String sortPage = "true";
-        String catePage = "true";
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
         
-        request.setAttribute("cateID", cateID);
-       
-            request.setAttribute("sortDate", sortDate);
-        if(cateID.length() > 0){
-            request.setAttribute("catePage", catePage);
-        }
-  
-            request.setAttribute("sortRatting", sortRatting);
- 
+        request.setAttribute("c", category);
+        request.setAttribute("sub", subscribe);
+        request.setAttribute("d", doing);
+        request.setAttribute("sort", sort);
+        request.setAttribute("u", username);
         
-        request.setAttribute("sortPage", sortPage);
-        
-        
-        
-        if(username == null || username.trim().length()==0){
-            request.getRequestDispatcher("SubjectList.jsp").forward(request, response);
-        }else{
-            request.getRequestDispatcher("UserList.jsp").forward(request, response);
-        }
+        request.getRequestDispatcher("ListDoing.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

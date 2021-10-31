@@ -32,7 +32,9 @@
                     <div style=" border: 10px; border-color: #f83600; padding: 5px;">
                         <div style="font-size: 20">Category</div>
                         <c:forEach var="o" items="${ListC}">
-                            <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="category?cateID=${o.cateID}"> ${o.cateName} </a></li>
+
+                            <li> <a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="SubjectListServlet?c=${o.cateID}&u=&sort=0&s=${s}"> ${o.cateName} </a></li>
+
                         </c:forEach>
                     </div>
                 </div>
@@ -44,73 +46,29 @@
                 <!--        --------------------------- -->
 
                 <section class="flex-sect">
-                    <c:if test="${sortPage!=null && cateID ==null}">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                    <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="sort?page=${i}&sortDate=${sortDate}&sortRatting=${sortRatting}">${i}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:if>
-                    <c:if test="${sortPage!=null && cateID !=null}">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                    <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="sort?page=${i}&sortDate=${sortDate}&sortRatting=${sortRatting}&cateID=${cateID}">${i}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:if>
 
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <c:forEach begin="1" end="${requestScope.num}" var="i">
+                                <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}&c=${c}&u=&s=${s}&sort=${sort}">${i}</a></li>
+                            </c:forEach>
+                        </ul>
+                    </nav>
 
-                    <c:if test="${catePage!=null && sortPage==null}">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                    <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="category?page=${i}&cateID=${cateID}">${i}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </nav>
-                    </c:if>
-                    <c:if test="${sortPage == null && catePage == null}">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                    <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}">${i}</a></li>
-                                </c:forEach>
-                            </ul>
-                        </nav>
-
-                    </c:if>
                     <!--        /page-->
 
-                    <c:if test="${catePage==null}">
-                        <div class="" style="float: right ">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
+
+                    <div class="" style="float: right ">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
                                         <span class="caret"></span>
                                     </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="sort?sortDate=1&sortRatting=0">Date == null</a></li>
-                                    <li><a href="sort?sortRatting=1&sortDate=0">Ratting  == null</a></li>
-                                </ul>
-                            </div>
+                            <ul class="dropdown-menu">
+                                <li><a href="SubjectListServlet?c=${c}&s=${s}&u=&sort=1">Date </a></li>
+                                <li><a href="SubjectListServlet?c=${c}&s=${s}&u=&sort=2">Ratting  </a></li>
+                            </ul>
                         </div>
-                    </c:if>
-                    <c:if test="${catePage!=null}">
-                        <div class="" style="float: right ">
-                            <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
-                                        <span class="caret"></span>
-                                    </button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="sort?cateID=${cateID}&sortDate=1&sortRatting=0">Date</a></li>
-                                    <li><a href="sort?cateID=${cateID}&sortRatting=1&sortDate=0">Ratting</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </c:if>
+                    </div>
 
 
                     <div class="container">
@@ -151,42 +109,13 @@
 
 
 
-                        <c:if test="${sortPage!=null && cateID ==null}">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                        <li class="page-item"><a class="page-link ${requestScope.page==i?" ":"active "}" href="sort?page=${i}">${i}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </c:if>
-                        <c:if test="${sortPage!=null && cateID !=null}">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                        <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="sort?page=${i}&sortDate=${sortDate}&sortRatting=${sortRatting}&cateID=${cateID}">${i}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </c:if>
-                        <c:if test="${catePage!=null && sortPage==null}">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                        <li class="page-item"><a class="page-link ${requestScope.page==i?" ":"active "}" href="category?page=${i}&cateID=${cateID}">${i}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </c:if>
-                        <c:if test="${sortPage == null && catePage == null}">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination">
-                                    <c:forEach begin="1" end="${requestScope.num}" var="i">
-                                        <li class="page-item"><a class="page-link ${requestScope.page==i?" ":"active "}" href="SubjectListServlet?page=${i}">${i}</a></li>
-                                    </c:forEach>
-                                </ul>
-                            </nav>
-                        </c:if>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <c:forEach begin="1" end="${requestScope.num}" var="i">
+                                    <li class="page-item"><a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}&c=${c}&u=&s=${s}&sort=${sort}">${i}</a></li>
+                                </c:forEach>
+                            </ul>
+                        </nav>
                     </div>
                 </section>
 

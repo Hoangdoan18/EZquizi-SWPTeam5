@@ -37,10 +37,20 @@ public class UserSubjectServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-            String username = request.getParameter("username");
-            SubjectDAO sdao = new SubjectDAO();
-            List<Subject> listS = sdao.getSubjectByUsername(username);
-            int size = listS.size();
+            SubjectDAO pdao = new SubjectDAO();
+            
+            String cate = request.getParameter("c") == null ? "0":request.getParameter("c");
+            int category = Integer.parseInt(cate);
+            String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
+            int sort = Integer.parseInt(s);
+            
+            String username = request.getParameter("u") == null ? "":request.getParameter("u");
+            String search = request.getParameter("s") == null ? "":request.getParameter("s");
+           
+            
+            List<Subject> listS = pdao.listQuery(category, username, search, sort);
+            
+             int size = listS.size();
         int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
@@ -54,13 +64,19 @@ public class UserSubjectServlet extends HttpServlet {
         int start, end;
         start = (page - 1) * numperPage;
         end = Math.min(size, page * numperPage);
-        List<Subject> arr = sdao.getSubjectByPage(listS, start, end);  
-        List<Category> ListC = sdao.getCategory();
+        List<Subject> arr = pdao.getSubjectByPage(listS, start, end);  
+       
+        List<Category> ListC = pdao.getCategory();
         
         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
+        request.setAttribute("c", category);
+        request.setAttribute("s", search);
+        request.setAttribute("sort", sort);
+        request.setAttribute("u", username);
+        
         request.getRequestDispatcher("UserList.jsp").forward(request, response);
     }
 
