@@ -125,7 +125,8 @@
                                         </div>
 
                                         <div class="" style="font-size: 30px; position: absolute; top:1px; right:70px;">
-                                            <a href="#" onclick="delete${o.subjectID}" class="btn btn-primary pull-right" style="background-color: #ff4747;border: 0px;"><span>Delete</span></a>
+                                            <a onclick="delete()" class="btn btn-primary pull-right" style="background-color: #ff4747;border: 0px;"><span>Delete</span></a>
+                                            <!--<a onclick="return confirm('Are you sure you want to delete?')" class="btn btn-primary pull-right" style="background-color: #ff4747;border: 0px;"><span>Delete</span></a>-->
                                             <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
                                         </div>
                                         <div class="" style="font-size: 30px; position: absolute; top:1px;  right:10px;">
@@ -179,12 +180,16 @@
             </body>
 
             <script>
-                function delete(subjectID) {
-                    var option = confirm('Are you sure to delete ?');
-                    if (option === true) {
-                        window.location.href = 'deleteSubject?subjectID=' + subjectID;
-                    }
-                }
+                function delete() {
+                    var text;
+    var r = confirm("You clicked on a button to delete student recored. Clik ok ro proceed");
+    if (r == true) {
+       //code to delete student record.
+        text = "You clikced on ok. Student record deleted";
+    } else {
+        text = "You clicked on cancel. transaction cancelled.";
+    }
+    document.getElementById("student").innerHTML = text;
             </script>
 
             </html>
