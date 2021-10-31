@@ -66,10 +66,9 @@ public class AccountServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        HttpSession session = request.getSession();
         UserDAO udao = new UserDAO();
         PrintWriter out = response.getWriter();
-        String action = request.getParameter("action");
-        if (action.equals("info")) {
             String newusername = request.getParameter("username");
             String newpassword = request.getParameter("pass");
             String newemail = request.getParameter("email");
@@ -77,11 +76,9 @@ public class AccountServlet extends HttpServlet {
             String newage = request.getParameter("age");
             String newphone = request.getParameter("phone");
             udao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), newphone, newusername);
-        } else if (action.equals("pass")) {
-            //udao.update(newusername, newpassword, newemail, newname, Integer.parseInt(newage), Integer.parseInt(newphone));
-            //response.sendRedirect("account");
-        } 
-        request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
+            User acc = udao.getUsername(newusername);
+            session.setAttribute("account", acc);
+        response.sendRedirect("UserProfile.jsp");
     }
 
     /**

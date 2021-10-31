@@ -18,6 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Category;
 import model.Subject;
+import model.Subscribe;
 
 /**
  *
@@ -314,7 +315,7 @@ public class SubjectDAO {
 
     public void addSubject(String subjectTitle, int cateID, String username) {
         String query = "insert into Subject(subjectTitle,cateID,username,[date]) values"
-                + "(N?,?,?,CAST( GETDATE() AS Date ))";
+                + "(?,?,?,CAST( GETDATE() AS Date ))";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -401,5 +402,79 @@ public class SubjectDAO {
         } catch (Exception e) {
         }
         return r;
+    }
+
+    public void getSubscribe(String username, String sid) {
+        String query = "insert into [Subscribe]\n"
+                + "values(?,?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, sid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public void unSubscribe(String username, String sid) {
+        String query = "delete from [Subscribe]\n"
+                + "where Username =? and SubjectID=?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, sid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+
+    public Subject getLastSubject() {
+        String query = "SELECT top 1 * from Subject order by subjectID desc";
+        Subject s = new Subject();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                s.setSubjectID(rs.getInt(1));
+                s.setSubjectTitle(rs.getString(2));
+                s.setCateID(rs.getInt(3));
+                s.setUsername(rs.getString(4));
+                s.setDate(rs.getString(5));
+            }
+        } catch (Exception e) {
+        }
+        return s;
+    }
+    
+    public List<Subscribe> getSubscribeByPage(List<Subscribe> list, int start, int end) {
+        List<Subscribe> s = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            s.add(list.get(i));
+        }
+        return s;
+    }
+
+
+    public List<Subscribe> getSubscribeSubject(String username) {
+        String query = "Select s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, r.rating, [date] from Subject s \n"
+                + "INNER JOIN Category c on s.cateID = c.cateID LEFT JOIN Rating r on s.subjectID = r.subjectID LEFT JOIN [Subscribe] f ON f.subjectID = s.subjectID\n"
+                + "WHERE f.username = ?";
+
+        List<Subscribe> list = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Subscribe(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getFloat(6), rs.getString(7)));
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
     }
 }

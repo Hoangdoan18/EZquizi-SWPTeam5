@@ -11,3 +11,6 @@ $(function () {
     $("#forgot-box").hide();
   });
 });
+function change() {
+  document.getElementById("test").innerHTML = "Subscribed";
+}

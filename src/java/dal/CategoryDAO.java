@@ -8,6 +8,8 @@ package dal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.Category;
 
 /**
@@ -36,5 +38,30 @@ public class CategoryDAO {
         } catch (Exception e) {
         }
         return nc;
+    }
+    public List<Category> getAllCategory() {
+        String query = "SELECT * from Category";
+        List<Category> list = new ArrayList<>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Category(rs.getInt(1),
+                        rs.getString(2)));
+            }
+            return list;
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        CategoryDAO sdao = new CategoryDAO();
+        List<Category> list = sdao.getAllCategory();
+        for (Category o : list) {
+            System.out.println(o);
+
+        }
     }
 }

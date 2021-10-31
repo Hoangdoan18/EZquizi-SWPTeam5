@@ -23,7 +23,7 @@ import javax.mail.internet.MimeMessage;
 
 public class EmailController {
      String d_email = "doquang938@gmail.com",
-            d_password = "Quangzolo001",
+            d_password = "Kuan0705",
             d_host = "smtp.gmail.com",
             d_port = "465",          
             m_subject = "Testing"
@@ -59,9 +59,9 @@ public class EmailController {
 "                </tr>\n" +
 "            </tbody>\n" +
 "        </table>";
-         send( d_email, d_host, d_port, ToMail, m_subject, m_text);
+            check( d_email, d_host, d_port, ToMail, m_subject, m_text);
      }
-    public void send(String from, String host, String port, String to, String subject, String text) {
+    public void check(String from, String host, String port, String to, String subject, String text) {
 
         Properties props = new Properties();
 
@@ -76,7 +76,7 @@ public class EmailController {
         props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
         props.put("mail.smtp.socketFactory.fallback", "false");
 
-        SecurityManager security = System.getSecurityManager();
+//        SecurityManager security = System.getSecurityManager();
 
         try {
             Authenticator auth = new SMTPAuthenticator();
@@ -84,7 +84,7 @@ public class EmailController {
             Message msg = new MimeMessage(session);
 
             msg.setContent(text,  "text/html;charset=UTF-8");
-            msg.setSubject("Reset Password");
+            msg.setSubject("SWP_Team5");
             msg.setFrom(new InternetAddress(from));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
             Transport.send(msg);

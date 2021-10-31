@@ -53,12 +53,12 @@
                                         <li class="nav-item"></li>
                                         <li class="nav-item"></li>
                                         <li class="nav-item"></li>
-                                        <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="#">Create</a></li>
+                                        <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="creator">Create</a></li>
                                         <li class="nav-item"></li>
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="UserSubjectServlet?username=${account.username}" style="color: rgb(0,0,0);">First Item</a>
-                                                <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
+                                                <a class="dropdown-item" href="subscribeList" style="color: rgb(0,0,0);">Subscribe Subjects</a>
                                                 <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Third Item</a></div>
                                         </li>
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">List Subject</a>
@@ -68,7 +68,7 @@
                                                 <a class="dropdown-item" href="ListDoingServlet?u=${account.username}&c=0&sort=0&sub=0&d=1" style="color: rgb(0,0,0);">Doing List</a></div>
                                         </li>
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">Hello ${account.name}</a>
-                                            <div class="dropdown-menu"><a class="dropdown-item" href="UserSubjectServlet?username=${account.username}" style="color: rgb(0,0,0);">Profile</a>
+                                            <div class="dropdown-menu"><a class="dropdown-item" href="UserProfile.jsp" style="color: rgb(0,0,0);">Profile</a>
                                                 <a class="dropdown-item" href="#" style="color: rgb(0,0,0);">Second Item</a>
                                                 <a class="dropdown-item" href="logout" style="color: rgb(0,0,0);">Log_out</a></div>
                                         </li>
@@ -95,7 +95,7 @@
                                         <li class="nav-item"></li>
                                         <li class="nav-item"></li>
                                         <li class="nav-item"></li>
-                                        <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="#">Create</a></li>
+                                        <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="creator">Create</a></li>
                                         <li class="nav-item"></li>
                                         <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">List Subject</a>
                                             <div class="dropdown-menu">

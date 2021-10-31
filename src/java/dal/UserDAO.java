@@ -177,6 +177,29 @@ public class UserDAO {
         } catch (Exception e) {
         }
     }
+    
+    public User getUsernamebyPass(String username, String pass) {
+        String query = "SELECT * FROM dbo.Users WHERE username = ? and password = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setString(2, pass);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new User(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getInt(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 //    public static void main(String[] args) {
 //        UserDAO dao = new UserDAO();
 //        dao.getAcc("admin");

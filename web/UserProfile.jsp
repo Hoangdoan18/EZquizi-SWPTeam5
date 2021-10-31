@@ -27,14 +27,14 @@
                 var confirm = document.getElementById("confirm").value;
                 if (oldpass == password) {
                     if (newpass == confirm) {
-                        alert("Password will be saved");
+                        alert("Password will be changed");
                         return true;
                     } else {
-                        alert("Confirm password not match! Change will not be saved");
+                        alert("Confirm password not match! Change will not be changed");
                         return false;
                     }
                 } else {
-                    alert("Wrong password! Change will not be saved");
+                    alert("Wrong password! Change will not be changed");
                     return false;
                 }
             }
@@ -122,7 +122,7 @@
                                                 <p class="text-primary m-0 font-weight-bold">User Settings</p>
                                             </div>
                                             <div class="card-body">
-                                                <form action="AccountServlet?action=info" method="post">
+                                                <form action="AccountServlet" method="post">
                                                     <div class="form-row">
                                                         <div class="col">
                                                             <div class="form-group"><label for="name"><strong>Name</strong><br></label><input class="form-control" type="text" id="username" name="name" value="${account.name}" ></div>
@@ -144,7 +144,7 @@
                                                             <div class="form-group"><label for="username"><strong>Username</strong><br></label><input class="form-control" type="text" id="username" name="username" value="${account.username}" readonly></div>
                                                         </div>
                                                         <div class="col">
-                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="password" name="password" value="${account.password}" readonly></div>
+                                                            <div class="form-group"><label for="email"><strong>Password</strong></label><input class="form-control" type="password" id="password" name="pass" value="${account.password}" readonly></div>
                                                         </div>
                                                     </div>
                                                     <div class="form-group"><input class="btn btn-primary btn-sm" type="submit" value="Save Settings" /></div>
@@ -156,8 +156,8 @@
                                                 <p class="text-primary m-0 font-weight-bold">Change password</p>
                                             </div>
                                             <div class="card-body">
-                                                <form action="AccountServlet?action=pass" method="post" onsubmit="return check()"> 
-                                                    <div class="form-group"><label for="address"><strong>Old password</strong></label><input class="form-control" type="password" id="oldpass" name="oldpass" required></div>
+                                                <form action="changePass" method="post"> 
+                                                      <div class="form-group"><label for="address"><strong>Old password</strong></label><input class="form-control" type="password" id="oldpass" name="oldpass"  required></div>
                                                     <div class="form-row">
                                                         <div class="col">
                                                             <div class="form-group"><label for="city"><strong>New password</strong><br></label><input class="form-control" type="password" id="newpass" name="newpass" required></div>
@@ -166,6 +166,7 @@
                                                             <div class="form-group"><label for="country"><strong>Confirm password</strong></label><input class="form-control" type="password" id="confirm" name="confirm" required></div>
                                                         </div>
                                                     </div>
+                                                    ${mess}
                                                     <div class="form-group"><input class="btn btn-primary btn-sm" type="submit" value="Change password" /></div>
                                                 </form>
                                             </div>
@@ -177,8 +178,9 @@
                         <div class="card shadow mb-5"></div>
                     </div>
                 </div>
+
                 <jsp:include page="footer.jsp"/>
-            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+            </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>         
         </div>
         <script src="assets/js/jquery.min.js"></script>
         <script src="assets/bootstrap/js/bootstrap.min.js"></script>
