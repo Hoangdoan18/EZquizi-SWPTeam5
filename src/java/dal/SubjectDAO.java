@@ -387,9 +387,7 @@ public class SubjectDAO {
     }
 
     public Subject getRating(int subjectID) {
-        String query = "SELECT cast(AVG(rating) as decimal(2,1))\n"
-                + "FROM Rating\n"
-                + "WHERE SubjectID = ?";
+        String query = "SELECT cast(AVG(rating) as decimal(10,2)) FROM Rating WHERE SubjectID =? group by subjectID";
         Subject r = new Subject();
         try {
             conn = new DBContext().getConnection();

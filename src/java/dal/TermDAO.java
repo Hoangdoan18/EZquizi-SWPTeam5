@@ -77,6 +77,14 @@ public class TermDAO {
         }
     }
 
+    public List<Term> getTermByPage(List<Term> listT, int start, int end) {
+        List<Term> t = new ArrayList<>();
+        for (int i = start; i < end; i++) {
+            t.add(listT.get(i));
+        }
+        return t;
+    }
+    
     public static void main(String[] args) {
         TermDAO dao = new TermDAO();
         List<Term> s = dao.getTermByID(3);
