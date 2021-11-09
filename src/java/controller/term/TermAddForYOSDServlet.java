@@ -3,31 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.learning;
+package controller.term;
 
-import dal.CategoryDAO;
-import dal.SubjectDAO;
 import dal.TermDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.Category;
-import model.Subject;
-import model.Term;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name = "FlashcardServlet", urlPatterns = {"/flashcard"})
-public class FlashcardServlet extends HttpServlet {
+@WebServlet(name = "TermAddForSubjectDetailServlet", urlPatterns = {"/termadding"})
+public class TermAddForYOSDServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,10 +38,10 @@ public class FlashcardServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FlashcardServlet</title>");            
+            out.println("<title>Servlet TermAddForSubjectDetailServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FlashcardServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet TermAddForSubjectDetailServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,14 +59,7 @@ public class FlashcardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Object u = session.getAttribute("account");
-        Object a = session.getAttribute("admin");
-        if (u != null || a != null ) {
-            doPost(request, response);
-        } else {
-            response.sendRedirect("login.jsp");
-        }
+        processRequest(request, response);
     }
 
     /**
@@ -88,31 +73,15 @@ public class FlashcardServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+       request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
         String subjectID = request.getParameter("subjectID");
-        String display = request.getParameter("display");
-        List<Term> listT;
+        String term = request.getParameter("term");
+        String definition = request.getParameter("definition");
         TermDAO tdao = new TermDAO();
-        listT = tdao.getTermByID(Integer.parseInt(subjectID));
-        int size = listT.size();
-        int numperPage = 1;
-        int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
-        String spage = request.getParameter("page");
-        int page;
-        if (spage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(spage);
-        }
-        int start, end;
-        start = (page - 1) * numperPage;
-        end = Math.min(size, page * numperPage);
-        List<Term> arr = tdao.getTermByPage(listT, start, end);
-        request.setAttribute("num", numPage);
-        request.setAttribute("listT", arr);
-        request.setAttribute("page", page);
-        request.setAttribute("subjectID", subjectID);
-        request.setAttribute("display", display);
-        request.getRequestDispatcher("Flashcard.jsp").forward(request, response);
+        tdao.addTerm(Integer.parseInt(subjectID),term, definition);
+        response.sendRedirect("UserOwnSubjectDetailServlet?subjectID="+subjectID+"&termsort=0");
     }
 
     /**

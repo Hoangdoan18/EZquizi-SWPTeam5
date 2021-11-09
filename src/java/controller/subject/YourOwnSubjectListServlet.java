@@ -1,9 +1,9 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.subject;
 
 import dal.SubjectDAO;
 import java.io.IOException;
@@ -19,10 +19,10 @@ import model.Subject;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-@WebServlet(name = "ListDoingServlet", urlPatterns = {"/ListDoingServlet"})
-public class ListDoingServlet extends HttpServlet {
+@WebServlet(name = "YourOwnSubjectListServlet", urlPatterns = {"/YourOwnSubject"})
+public class YourOwnSubjectListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,14 +44,11 @@ public class ListDoingServlet extends HttpServlet {
             String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
             int sort = Integer.parseInt(s);
             
-            String sub = request.getParameter("sub") == null ? "0":request.getParameter("sub");
-            int subscribe = Integer.parseInt(sub);
-            
-            String d = request.getParameter("d") == null ? "0":request.getParameter("d");
-            int doing = Integer.parseInt(d);
-            
             String username = request.getParameter("u") == null ? "":request.getParameter("u");
-            List<Subject> listS = pdao.listDoing(category, username, subscribe, doing, sort);
+            String search = request.getParameter("s") == null ? "":request.getParameter("s");
+           
+            
+            List<Subject> listS = pdao.listQuery(category, username, search, sort);
             
              int size = listS.size();
         int numperPage = 9;
@@ -75,14 +72,12 @@ public class ListDoingServlet extends HttpServlet {
         request.setAttribute("ListC", ListC);
         request.setAttribute("listS", arr);
         request.setAttribute("page", page);
-        
         request.setAttribute("c", category);
-        request.setAttribute("sub", subscribe);
-        request.setAttribute("d", doing);
+        request.setAttribute("s", search);
         request.setAttribute("sort", sort);
         request.setAttribute("u", username);
         
-        request.getRequestDispatcher("ListDoing.jsp").forward(request, response);
+        request.getRequestDispatcher("YourOwnSubjectList.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

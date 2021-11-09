@@ -1,28 +1,25 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.subject;
 
 import dal.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.Category;
-import model.Subject;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-@WebServlet(name = "ListDoingServlet", urlPatterns = {"/ListDoingServlet"})
-public class ListDoingServlet extends HttpServlet {
+@WebServlet(name = "SubjectDeleteForYOSDServlet", urlPatterns = {"/SubjectDeleteForYOSD"})
+public class SubjectDeleteForYOSDServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,54 +32,14 @@ public class ListDoingServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-            SubjectDAO pdao = new SubjectDAO();
-            
-            String cate = request.getParameter("c") == null ? "0":request.getParameter("c");
-            int category = Integer.parseInt(cate);
-            String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
-            int sort = Integer.parseInt(s);
-            
-            String sub = request.getParameter("sub") == null ? "0":request.getParameter("sub");
-            int subscribe = Integer.parseInt(sub);
-            
-            String d = request.getParameter("d") == null ? "0":request.getParameter("d");
-            int doing = Integer.parseInt(d);
-            
-            String username = request.getParameter("u") == null ? "":request.getParameter("u");
-            List<Subject> listS = pdao.listDoing(category, username, subscribe, doing, sort);
-            
-             int size = listS.size();
-        int numperPage = 9;
-        int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
-        String spage = request.getParameter("page");
-        int page;
-        if (spage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(spage);
-        }
-
-        int start, end;
-        start = (page - 1) * numperPage;
-        end = Math.min(size, page * numperPage);
-        List<Subject> arr = pdao.getSubjectByPage(listS, start, end);  
-       
-        List<Category> ListC = pdao.getCategory();
-        
-        request.setAttribute("num", numPage);
-        request.setAttribute("ListC", ListC);
-        request.setAttribute("listS", arr);
-        request.setAttribute("page", page);
-        
-        request.setAttribute("c", category);
-        request.setAttribute("sub", subscribe);
-        request.setAttribute("d", doing);
-        request.setAttribute("sort", sort);
-        request.setAttribute("u", username);
-        
-        request.getRequestDispatcher("ListDoing.jsp").forward(request, response);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String username = request.getParameter("username");
+        String subjectID = request.getParameter("subjectID");
+        SubjectDAO dao = new SubjectDAO();
+        dao.deleteSubject(Integer.parseInt(subjectID));
+        response.sendRedirect("YourOwnSubject?u="+username+"&c=0&sort=0&sub=0&s=");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

@@ -1,0 +1,127 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package controller.user;
+
+import dal.CategoryDAO;
+import dal.RatingDAO;
+import dal.SubjectDAO;
+import dal.TermDAO;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Category;
+import model.Subject;
+import model.Term;
+import model.User;
+
+/**
+ *
+ * @author ADMIN
+ */
+@WebServlet(name = "UserOwnSubjectDetailServlet", urlPatterns = {"/UserOwnSubjectDetailServlet"})
+public class UserOwnSubjectDetailServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String subjectID = request.getParameter("subjectID");
+        String termsort = request.getParameter("termsort");
+        SubjectDAO sdetail = new SubjectDAO();
+        Subject s = sdetail.getSubjectByID(Integer.parseInt(subjectID));
+        Subject n = sdetail.getNumOfTerm(Integer.parseInt(subjectID));
+        Subject r = sdetail.getRating(Integer.parseInt(subjectID));
+        CategoryDAO cdetail = new CategoryDAO();
+        Category nc = cdetail.getCateName(s.getCateID());
+
+        /**
+         * *********************************
+         */
+        //GET USER RATE OF SUBJECT//
+        HttpSession session = request.getSession();
+        User ac = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
+        RatingDAO rtd = new RatingDAO();
+        if (ac != null) {
+            int rate = rtd.GetLastRating(ac.getUsername(), Integer.parseInt(subjectID));
+            session.setAttribute("rate", rate);
+        } else if (ad != null) {
+            int rate = rtd.GetLastRating(ad.getUsername(), Integer.parseInt(subjectID));
+            session.setAttribute("rate", rate);
+        }
+        /**
+         * ***************************
+         */
+
+        List<Term> listT;
+        TermDAO tdao = new TermDAO();
+        if (termsort.equals("0")) {
+            listT = tdao.getTermByID(Integer.parseInt(subjectID));
+        } else {
+            listT = tdao.getTermByIDsorted(Integer.parseInt(subjectID));
+        }
+        request.setAttribute("subject", s);
+        request.setAttribute("num", n);
+        request.setAttribute("rate", r);
+        request.setAttribute("cate", nc);
+        request.setAttribute("listT", listT);
+        request.getRequestDispatcher("UserOwnSubjectDetail.jsp").forward(request, response);
+    }
+
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+        public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

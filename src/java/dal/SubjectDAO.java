@@ -326,6 +326,37 @@ public class SubjectDAO {
         } catch (Exception SQLException) {
         }
     }
+    
+    public void editSubject(int subjectID, String subjectTitle, int cateID, String username) {
+         String query = "UPDATE Subject \n"
+                + "SET [subjectTitle] = ?,\n"
+                + "[cateID] = ?,\n"
+                + "username = ?,\n"
+                + "[date] = CAST( GETDATE() AS Date) \n"
+                + "WHERE subjectID =?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, subjectTitle);
+            ps.setInt(2, cateID);
+            ps.setString(3, username);
+            ps.setInt(4, subjectID);
+            ps.executeUpdate();
+        } catch (Exception SQLException) {
+        }
+    }
+    
+    public void deleteSubject(int subjectID) {
+        String query = "DELETE FROM dbo.Subject WHERE subjectID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+       
+        }            
+    }
 
     public Subject getSubjectByID(int subjectID) {
         String query = "SELECT * from Subject where subjectID = ?";
@@ -340,7 +371,12 @@ public class SubjectDAO {
                 s.setSubjectTitle(rs.getString(2));
                 s.setCateID(rs.getInt(3));
                 s.setUsername(rs.getString(4));
-                s.setDate(rs.getString(5));
+                String date1 = rs.getString(5);
+                DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = (Date) formatter.parse(date1);
+                SimpleDateFormat newFormat = new SimpleDateFormat("dd-MMM-yyyy");
+                String finaldate = newFormat.format(date);
+                s.setDate(finaldate);
             }
         } catch (Exception e) {
         }

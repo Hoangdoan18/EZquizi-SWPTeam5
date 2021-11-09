@@ -19,7 +19,7 @@
         <link href="css/rating_style.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        
+
 
     </head>
     <body>
@@ -29,14 +29,20 @@
                 <div class="ibox">
                     <div class="ibox-content">
                         <div class="row">
-                            <div class="col-lg-12">
-                                <div class="m-b-md">
-                                    <a href="#" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
-                                    <h1>${requestScope.subject.subjectTitle}</h1>
-                                </div>
+                            <div class="col-lg-10">
+                                <h1>${requestScope.subject.subjectTitle}</h1>
                                 <dl class="dl-horizontal">
                                     <dt>Rating</dt> <dd><a href="#" class="label label-primary">${requestScope.rate.rating} / 5.0</a></dd>
                                 </dl>
+                            </div>
+                            <div class="col-lg-2">
+                                <a href="SubjectEditForYOSD?subjectID=${requestScope.subject.subjectID}">
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                </a>
+
+                                <a href="SubjectDeleteForYOSD?subjectID=${requestScope.subject.subjectID}&username=${requestScope.subject.username}" onclick="return confirm('Are you sure you want to delete this subject?')">
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </a>
                             </div>
                         </div>
                         <div class="row">
@@ -85,7 +91,7 @@
                         <span class="close">&times;</span>
                         <h3 style="color: #1CB94E">Leave your rate here:</h3>
 
-                    <form action="AddRatingServlet?subjectID=${requestScope.subject.subjectID}" method="post">
+                        <form action="AddRatingServlet?subjectID=${requestScope.subject.subjectID}" method="post">
                             <div class="rate-star">
 
                                 <c:forEach begin="1" end="5" var="i">
@@ -107,16 +113,21 @@
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
-                        <div class="col-sm-10 text-left">
+                        <div class="col-sm-8 text-left">
                             <h3>Terms in this subject</h3>
                         </div>
                         <div class="col-sm-2 text-right">
+                            <a href="TermAddForYOSD.jsp?subjectID=${requestScope.subject.subjectID}">
+                                <button type="button" class="btn btn-success">Add new term</button>
+                            </a>
+                        </div>
+                        <div class="col-sm-2 text-left">
                             <div class="dropdown">
                                 <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort by
                                     <span class="caret"></span></button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="SubjectDetail?subjectID=${requestScope.subject.subjectID}&termsort=0">Original</a></li>
-                                    <li><a href="SubjectDetail?subjectID=${requestScope.subject.subjectID}&termsort=1">Alphabet</a></li>
+                                    <li><a href="UserOwnSubjectDetailServlet?subjectID=${requestScope.subject.subjectID}&termsort=0">Original</a></li>
+                                    <li><a href="UserOwnSubjectDetailServlet?subjectID=${requestScope.subject.subjectID}&termsort=1">Alphabet</a></li>
                                 </ul>
                             </div>					
                         </div>
@@ -127,7 +138,8 @@
                     <thead>
                         <tr>
                             <th scope="col" class="col-3">Term</th>
-                            <th scope="col" class="col-9">Definition</th>
+                            <th scope="col" class="col-6">Definition</th>
+                            <th scope="col" class="col-3">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -135,6 +147,15 @@
                             <tr>
                                 <td>${o.term}</td>
                                 <td>${o.definition}</td>
+                                <td>
+                                    <a href="TermEditForYOSD.jsp?subjectID=${requestScope.subject.subjectID}&questionID=${o.questionID}">
+                                        <button type="button" class="btn btn-primary">Edit</button>
+                                    </a>
+
+                                    <a href="termdeleting?subjectID=${requestScope.subject.subjectID}&questionID=${o.questionID}" onclick="return confirm('Are you sure you want to delete this term?')">
+                                        <button type="button" class="btn btn-danger">Delete</button>
+                                    </a>
+                                </td>
                             </tr>
                         </c:forEach>
                     </tbody>
@@ -177,3 +198,4 @@
         </script>
     </body>
 </html>
+

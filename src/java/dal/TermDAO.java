@@ -65,7 +65,7 @@ public class TermDAO {
     }
     
     public void addTerm(int subjectID, String term, String definition) {
-        String query = "insert into SubjectDetail (subjectID,term,definition) values (?,?,?)";
+        String query = "insert into SubjectDetail (subjectID,term,[definition]) values (?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -76,7 +76,53 @@ public class TermDAO {
         } catch (Exception SQLException) {
         }
     }
-
+    public void editTerm(int questionID, int subjectID, String term, String definition) {
+        String query = "UPDATE SubjectDetail \n"
+                + "SET subjectID = ?,\n"
+                + "term = ?,\n"
+                + "[definition] = ? \n"
+                + "WHERE questionID =?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            ps.setString(2, term);
+            ps.setString(3, definition);
+            ps.setInt(4, questionID);
+            ps.executeUpdate();
+        } catch (Exception SQLException) {
+        }
+    }
+    public void deleteTerm(int questionID) {
+        String query = "DELETE FROM dbo.SubjectDetail WHERE questionID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, questionID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+       
+        }            
+    }
+    
+    public Term getTermByQuestionID(int questionID) {
+        String query = "SELECT * from SubjectDetail where questionID = ?";
+        Term t = new Term();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, questionID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                t.setQuestionID(rs.getInt(1));
+                t.setSubjectID(rs.getInt(2));
+                t.setTerm(rs.getString(3));
+                t.setDefinition(rs.getString(4));
+            }
+        } catch (Exception e) {
+        }
+        return t;
+    }
     public List<Term> getTermByPage(List<Term> listT, int start, int end) {
         List<Term> t = new ArrayList<>();
         for (int i = start; i < end; i++) {
@@ -87,8 +133,8 @@ public class TermDAO {
     
     public static void main(String[] args) {
         TermDAO dao = new TermDAO();
-        List<Term> s = dao.getTermByID(3);
-        System.out.println(s);
+        dao.editTerm(1, 3, "human", "con người");
+
 
     }
 }

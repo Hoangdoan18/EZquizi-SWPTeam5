@@ -1,10 +1,11 @@
-    /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.user;
+package controller.subject;
 
+import dal.CategoryDAO;
 import dal.SubjectDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,15 +15,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Category;
 import model.Subject;
 
 /**
  *
- * @author Admin
+ * @author ADMIN
  */
-@WebServlet(name = "ListDoingServlet", urlPatterns = {"/ListDoingServlet"})
-public class ListDoingServlet extends HttpServlet {
+@WebServlet(name = "SubjectEditForYOSDServlet", urlPatterns = {"/SubjectEditForYOSD"})
+public class SubjectEditForYOSDServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,53 +38,18 @@ public class ListDoingServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setCharacterEncoding("UTF-8");
-            SubjectDAO pdao = new SubjectDAO();
-            
-            String cate = request.getParameter("c") == null ? "0":request.getParameter("c");
-            int category = Integer.parseInt(cate);
-            String s =request.getParameter("sort") == null ? "0":request.getParameter("sort");
-            int sort = Integer.parseInt(s);
-            
-            String sub = request.getParameter("sub") == null ? "0":request.getParameter("sub");
-            int subscribe = Integer.parseInt(sub);
-            
-            String d = request.getParameter("d") == null ? "0":request.getParameter("d");
-            int doing = Integer.parseInt(d);
-            
-            String username = request.getParameter("u") == null ? "":request.getParameter("u");
-            List<Subject> listS = pdao.listDoing(category, username, subscribe, doing, sort);
-            
-             int size = listS.size();
-        int numperPage = 9;
-        int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
-        String spage = request.getParameter("page");
-        int page;
-        if (spage == null) {
-            page = 1;
-        } else {
-            page = Integer.parseInt(spage);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SubjectEditForYOSDServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SubjectEditForYOSDServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-
-        int start, end;
-        start = (page - 1) * numperPage;
-        end = Math.min(size, page * numperPage);
-        List<Subject> arr = pdao.getSubjectByPage(listS, start, end);  
-       
-        List<Category> ListC = pdao.getCategory();
-        
-        request.setAttribute("num", numPage);
-        request.setAttribute("ListC", ListC);
-        request.setAttribute("listS", arr);
-        request.setAttribute("page", page);
-        
-        request.setAttribute("c", category);
-        request.setAttribute("sub", subscribe);
-        request.setAttribute("d", doing);
-        request.setAttribute("sort", sort);
-        request.setAttribute("u", username);
-        
-        request.getRequestDispatcher("ListDoing.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -97,7 +64,18 @@ public class ListDoingServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+        String subjectID = request.getParameter("subjectID");
+        Object u = session.getAttribute("account");
+        Object a = session.getAttribute("admin");
+        if (u != null || a != null ) {
+            CategoryDAO cdao = new CategoryDAO();
+            List<Category> list = cdao.getAllCategory();
+            request.setAttribute("listC", list);
+            request.getRequestDispatcher("SubjectEditForYOSD.jsp?subjectID="+subjectID).forward(request, response);
+        } else {
+            response.sendRedirect("login.jsp");
+        }
     }
 
     /**
@@ -111,7 +89,16 @@ public class ListDoingServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String subjectID = request.getParameter("subjectID");
+        String subjectTitle = request.getParameter("subjectTitle");
+        String cateID = request.getParameter("cateID");
+        String username = request.getParameter("username");
+        SubjectDAO sdao = new SubjectDAO();
+        sdao.editSubject(Integer.parseInt(subjectID),subjectTitle, Integer.parseInt(cateID), username);
+        response.sendRedirect("UserOwnSubjectDetailServlet?subjectID="+subjectID+"&termsort=0");
     }
 
     /**
