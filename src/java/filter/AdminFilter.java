@@ -113,7 +113,7 @@ public class AdminFilter implements Filter {
             HttpServletResponse res = (HttpServletResponse) response;
             HttpSession session = req.getSession();
             String url = req.getServletPath();
-            if (session.getAttribute("admin") == null && (url.endsWith("AdminDashboard.jsp") || url.contains("UserEdit") || url.contains("UserCRUD") || url.contains("UserDelete"))) {
+            if (session.getAttribute("admin") == null && (url.endsWith("AdminDashboard.jsp") || url.contains("AdminSubject") || url.contains("AdminTerm") || url.contains("UserEdit") || url.contains("UserCRUD") || url.contains("UserDelete"))) {
                 if (session.getAttribute("account") == null) {
                     res.sendRedirect("login.jsp");
                 } else if (session.getAttribute("account") != null) {

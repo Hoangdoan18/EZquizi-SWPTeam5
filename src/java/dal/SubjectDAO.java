@@ -357,6 +357,17 @@ public class SubjectDAO {
        
         }            
     }
+    
+        public void deleSubject2(String sid) {
+        String query = "delete from [Subject] where subjectID = ?";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, sid);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     public Subject getSubjectByID(int subjectID) {
         String query = "SELECT * from Subject where subjectID = ?";

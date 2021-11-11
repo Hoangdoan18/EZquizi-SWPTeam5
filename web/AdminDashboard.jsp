@@ -28,7 +28,7 @@
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="AdminDashboard.jsp"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="adminUserCRUD"><i class="fas fa-user"></i><span>User CRUD</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="UserSubjectServlet?username=${admin.username}"><i class="fas fa-table"></i><span>Subject CRUD</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="adminSubject?username=${admin.username}&c=0&sort=0&sub=0&s="><i class="fas fa-table"></i><span>Subject CRUD</span></a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-user-circle"></i><span>More</span></a></li>
                 </ul>

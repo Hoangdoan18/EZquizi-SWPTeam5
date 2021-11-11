@@ -59,6 +59,34 @@
         <servlet-name>ChangePassServlet</servlet-name>
         <servlet-class>controller.user.ChangePassServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SubjectCRUDServlet</servlet-name>
+        <servlet-class>controller.admin.SubjectCRUDServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminSubjectDetailServlet</servlet-name>
+        <servlet-class>controller.admin.SubjectDetailForAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectDeleServlet</servlet-name>
+        <servlet-class>controller.admin.SubjectDeleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TermAddForAdminServlet</servlet-name>
+        <servlet-class>controller.admin.TermAddForAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TermEditForAdminServlet</servlet-name>
+        <servlet-class>controller.admin.TermEditForAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TermDeleteForAdminServlet</servlet-name>
+        <servlet-class>controller.admin.TermDeleteForAdminServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubjectEditForAdminServlet</servlet-name>
+        <servlet-class>controller.admin.SubjectEditForAdminServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UsersCRUDServlet</servlet-name>
         <url-pattern>/adminUserCRUD</url-pattern>
@@ -106,6 +134,34 @@
     <servlet-mapping>
         <servlet-name>ChangePassServlet</servlet-name>
         <url-pattern>/changePass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectCRUDServlet</servlet-name>
+        <url-pattern>/adminSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminSubjectDetailServlet</servlet-name>
+        <url-pattern>/adminSubjectDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectDeleServlet</servlet-name>
+        <url-pattern>/deleSubject</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TermAddForAdminServlet</servlet-name>
+        <url-pattern>/adminTermAdd</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TermEditForAdminServlet</servlet-name>
+        <url-pattern>/adminTermEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TermDeleteForAdminServlet</servlet-name>
+        <url-pattern>/adminTermDele</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubjectEditForAdminServlet</servlet-name>
+        <url-pattern>/adminSubjectEdit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

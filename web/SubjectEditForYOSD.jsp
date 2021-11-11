@@ -40,7 +40,7 @@
                 <h1 style="color: var(--purple);font-weight: bold;font-size: 60px;">Update your subject:</h1>
             </div>
             <div><c:if test="${admin != null}">
-                    <form action="SubjectEditForYOSD?username=${admin.username}&subjectID=${param.subjectID}" method="post">
+                    <form action="adminSubjectEdit?username=${admin.username}&subjectID=${param.subjectID}" method="post">
                         <div class="form-row" style="border-style: none;">
                             <div class="col-xl-10 offset-xl-0" style="border-style: none;">
                                 <div class="form-group"><label style="font-size: 30px;">Subject Title</label><input class="form-control" value="${s.getSubjectByID(param.subjectID).subjectTitle}" name="subjectTitle" type="text" placeholder="Enter a title" required=""></div>
@@ -55,8 +55,8 @@
                                         </c:forEach>
                                     </select></div>
                             </div>
-                            <div class="col-xl-3 text-center align-self-center" style="margin-top: 25px;"><button class="btn btn-secondary" type="submit" value="submit" style="background: var(--purple);width: 160px;height: 50px;font-family: Nunito, sans-serif;font-size: 25px;">Create</button></div>
-                            <div class="col-xl-2 text-center align-self-center" style="margin-top: 25px;"><a class="btn btn-danger" href="UserOwnSubjectDetailServlet?subjectID=${param.subjectID}&termsort=0" role="button" style="background: var(--pink);width: 140px;height: 50px;font-size: 25px;">Cancel</a></div>
+                            <div class="col-xl-3 text-center align-self-center" style="margin-top: 25px;"><button class="btn btn-secondary" type="submit" value="submit" style="background: var(--purple);width: 160px;height: 50px;font-family: Nunito, sans-serif;font-size: 25px;">Edit</button></div>
+                            <div class="col-xl-2 text-center align-self-center" style="margin-top: 25px;"><a class="btn btn-danger" href="adminSubjectDetail?subjectID=${param.subjectID}&termsort=0" role="button" style="background: var(--pink);width: 140px;height: 50px;font-size: 25px;">Cancel</a></div>
                         </div>
                     </form>
                 </c:if>   
@@ -76,7 +76,7 @@
                                         </c:forEach>
                                     </select></div>
                             </div>
-                            <div class="col-xl-3 text-center align-self-center" style="margin-top: 25px;"><button class="btn btn-secondary" type="submit" value="submit" style="background: var(--purple);width: 160px;height: 50px;font-family: Nunito, sans-serif;font-size: 25px;">Create</button></div>
+                            <div class="col-xl-3 text-center align-self-center" style="margin-top: 25px;"><button class="btn btn-secondary" type="submit" value="submit" style="background: var(--purple);width: 160px;height: 50px;font-family: Nunito, sans-serif;font-size: 25px;">Edit</button></div>
                             <div class="col-xl-2 text-center align-self-center" style="margin-top: 25px;"><a class="btn btn-danger" href="UserOwnSubjectDetailServlet?subjectID=${param.subjectID}&termsort=0" role="button" style="background: var(--pink);width: 140px;height: 50px;font-size: 25px;">Cancel</a></div>
                         </div>
                     </form>
