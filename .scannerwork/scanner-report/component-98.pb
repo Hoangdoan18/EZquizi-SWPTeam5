@@ -1,1 +1,0 @@
-b 2jspX/hrweb/resetPass.jsp

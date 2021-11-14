@@ -1,1 +1,0 @@
-1 2cssXhr"web/assets/css/icon-star-empty.css

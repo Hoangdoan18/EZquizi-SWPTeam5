@@ -1,1 +1,0 @@
-g 2jspX=hrweb/UserAdd.jsp
