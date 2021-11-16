@@ -78,7 +78,7 @@ Author     : Admin
                                         </div>
 
                                         <div class="card-title" style="font-size: 30px; position: absolute; bottom:20px; right:10px;">
-                                            <a href="#" class="btn btn-primary pull-right"><span>Subscribe</span></a>
+<!--                                            <a href="#" class="btn btn-primary pull-right"><span>Subscribe</span></a>-->
                                             <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
                                         </div>
                                         <div class="card-sub-title" style="font-family: LucateIDa Bright; font-weight: bold; color: #008512"> ${o.cateName}
