@@ -48,7 +48,7 @@ public class UserDAO {
     }
     
     public void changePass(String newpassword, String username){
-        String query = "  UPDATE dbo.[Users] SET [password] = ?  WHERE [username]= ?";
+        String query = "  UPDATE Users SET [password] = ?  WHERE [username]= ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);

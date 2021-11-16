@@ -40,7 +40,7 @@ public class SubjectDAO {
                     + "	s.subjectTitle, \n"
                     + "	s.username,\n"
                     + "	s.cateID,\n"
-                    + "	s.[date],\n"
+                    + "	s.date,\n"
                     + "	c.cateName,\n"
                     + "	cast(sum(r.rating)/count(r.rating) as decimal(10,2)) as rating\n"
                     + "from Subject s\n"
@@ -276,17 +276,6 @@ public class SubjectDAO {
         return subjects;
     }
 
-    public static void main(String[] args) {
-        SubjectDAO sdao = new SubjectDAO();
-
-        List<Subject> list = sdao.listQuery(0, "", "", 1);
-
-        for (Subject o : list) {
-            System.out.println(o);
-        }
-
-    }
-
     public List<Category> getCategory() {
         String query = "SELECT * from Category";
         List<Category> list = new ArrayList<>();
@@ -314,8 +303,7 @@ public class SubjectDAO {
     }
 
     public void addSubject(String subjectTitle, int cateID, String username) {
-        String query = "insert into Subject(subjectTitle,cateID,username,[date]) values"
-                + "(?,?,?,CAST( GETDATE() AS Date ))";
+        String query = "insert into subject(subjectTitle,cateID,username,date) values(?,?,?,CURDATE())";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -326,14 +314,9 @@ public class SubjectDAO {
         } catch (Exception SQLException) {
         }
     }
-    
+
     public void editSubject(int subjectID, String subjectTitle, int cateID, String username) {
-         String query = "UPDATE Subject \n"
-                + "SET [subjectTitle] = ?,\n"
-                + "[cateID] = ?,\n"
-                + "username = ?,\n"
-                + "[date] = CAST( GETDATE() AS Date) \n"
-                + "WHERE subjectID =?";
+        String query = "UPDATE Subject SET subjectTitle = ?,cateID = ?,username = ?,date = CURDATE() WHERE subjectID =?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -345,28 +328,25 @@ public class SubjectDAO {
         } catch (Exception SQLException) {
         }
     }
-    
+
     public void deleteSubject(int subjectID) {
-        String query = "DELETE FROM dbo.Subject WHERE subjectID = ?";
+        String query = "DELETE FROM Subject WHERE subjectID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, subjectID);
             ps.executeUpdate();
         } catch (Exception e) {
-       
-        }            
-    }
-    
-        public void deleSubject2(String sid) {
-        String query = "delete from [Subject] where subjectID = ?";
-        try {
-            conn = new DBContext().getConnection();
-            ps = conn.prepareStatement(query);
-            ps.setString(1, sid);
-            ps.executeUpdate();
-        } catch (Exception e) {
+
         }
+    }
+
+    public static void main(String[] args) {
+        SubjectDAO sdao = new SubjectDAO();
+        Subject r = new Subject();
+        r = sdao.getRating(3);
+        System.out.println(r);
+
     }
 
     public Subject getSubjectByID(int subjectID) {
@@ -434,7 +414,7 @@ public class SubjectDAO {
     }
 
     public Subject getRating(int subjectID) {
-        String query = "SELECT cast(AVG(rating) as decimal(10,2)) FROM Rating WHERE SubjectID =? group by subjectID";
+        String query = "SELECT ROUND(AVG(rating),2) FROM Rating WHERE SubjectID =? group by subjectID";
         Subject r = new Subject();
         try {
             conn = new DBContext().getConnection();
@@ -450,7 +430,7 @@ public class SubjectDAO {
     }
 
     public void getSubscribe(String username, String sid) {
-        String query = "insert into [Subscribe]\n"
+        String query = "insert into Subscribe\n"
                 + "values(?,?)";
         try {
             conn = new DBContext().getConnection();
@@ -463,7 +443,7 @@ public class SubjectDAO {
     }
 
     public void unSubscribe(String username, String sid) {
-        String query = "delete from [Subscribe]\n"
+        String query = "delete from Subscribe\n"
                 + "where Username =? and SubjectID=?";
         try {
             conn = new DBContext().getConnection();
@@ -475,12 +455,13 @@ public class SubjectDAO {
         }
     }
 
-    public Subject getLastSubject() {
-        String query = "SELECT top 1 * from Subject order by subjectID desc";
+    public Subject getLastSubject(String username) {
+        String query = "SELECT * from Subject where username = ? order by subjectID desc limit 1";
         Subject s = new Subject();
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
+            ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
                 s.setSubjectID(rs.getInt(1));
@@ -493,7 +474,7 @@ public class SubjectDAO {
         }
         return s;
     }
-    
+
     public List<Subscribe> getSubscribeByPage(List<Subscribe> list, int start, int end) {
         List<Subscribe> s = new ArrayList<>();
         for (int i = start; i < end; i++) {
@@ -501,7 +482,6 @@ public class SubjectDAO {
         }
         return s;
     }
-
 
     public List<Subscribe> getSubscribeSubject(String username) {
         String query = "Select s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, r.rating, [date] from Subject s \n"

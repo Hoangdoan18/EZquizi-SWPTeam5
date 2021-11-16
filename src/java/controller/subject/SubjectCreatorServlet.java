@@ -85,7 +85,7 @@ public class SubjectCreatorServlet extends HttpServlet {
         String username = request.getParameter("username");
         SubjectDAO sdao = new SubjectDAO();
         sdao.addSubject(subjectTitle, Integer.parseInt(cateID), username);
-        Subject s = sdao.getLastSubject();
+        Subject s = sdao.getLastSubject(username);
         response.sendRedirect("TermAdd.jsp?subjectID=" + s.getSubjectID());
     }
 

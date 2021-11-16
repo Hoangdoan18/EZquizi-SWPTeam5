@@ -65,7 +65,7 @@ public class TermDAO {
     }
     
     public void addTerm(int subjectID, String term, String definition) {
-        String query = "insert into SubjectDetail (subjectID,term,[definition]) values (?,?,?)";
+        String query = "insert into SubjectDetail (subjectID,term,definition) values (?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -80,7 +80,7 @@ public class TermDAO {
         String query = "UPDATE SubjectDetail \n"
                 + "SET subjectID = ?,\n"
                 + "term = ?,\n"
-                + "[definition] = ? \n"
+                + "definition = ? \n"
                 + "WHERE questionID =?";
         try {
             conn = new DBContext().getConnection();
@@ -94,7 +94,7 @@ public class TermDAO {
         }
     }
     public void deleteTerm(int questionID) {
-        String query = "DELETE FROM dbo.SubjectDetail WHERE questionID = ?";
+        String query = "DELETE FROM SubjectDetail WHERE questionID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
