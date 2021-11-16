@@ -262,9 +262,41 @@ public class MultiplechoiceDAO {
         }
         return number;
     }
+    
+    public ArrayList<Question> GetTenTestQuestion(int subjectID){
+        
+        String query = "select top 10[questionID],[definition],[term] from [SubjectDetail] \n"
+                + "where [subjectID] = ? ORDER BY NEWID()";
+        ArrayList<Question> ques = new ArrayList<Question>();
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, subjectID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                ques.add(new Question(rs.getInt(1),rs.getString(2),rs.getString(3)));
+            }
+        } catch (Exception e) {
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(MultiplechoiceDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return ques;
+    }
 
     public static void main(String[] args) {
         MultiplechoiceDAO md = new MultiplechoiceDAO();
-        md.updateLearnedAll(md.GetAddListQuestion(3), "bao");
+        
     }
 }

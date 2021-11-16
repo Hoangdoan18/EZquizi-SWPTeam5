@@ -30,20 +30,10 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
-                                <c:if test="${sessionScope.account != null}">
-                                    <div class=m-b-md">
-                                        <a href="subscribe?subjectID=${o.subjectID}" class="btn btn-primary pull-right"><span>Subscribe</span></a>
-                                        <h1>${requestScope.subject.subjectTitle}</h1>
-                                        <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
-                                    </div>
-                                </c:if>
-                                <c:if test="${sessionScope.account == null}">
-                                    <div class=m-b-md">
-                                        <a href="login.jsp" class="btn btn-primary pull-right"><span>Subscribe</span></a>
-                                        <h1>${requestScope.subject.subjectTitle}</h1>
-                                        <!--<button ><a href="#" style="text-decoration: none; border: 1px;">Subscribe</a></button>-->
-                                    </div>
-                                </c:if>
+                                <div class="m-b-md">
+                                    <a href="#" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+                                    <h1>${requestScope.subject.subjectTitle}</h1>
+                                </div>
                                 <dl class="dl-horizontal">
                                     <dt>Rating</dt> <dd><a href="#" class="label label-primary">${requestScope.rate.rating} / 5.0</a></dd>
                                 </dl>
@@ -63,7 +53,7 @@
                                 <dl class="dl-horizontal">
                                     <dt>Learning by:</dt> <dd><a href="#" class="text-navy">Flashcard</a></dd>
                                     <dt></dt> <dd><a href="multiplechoice?subjectID=${requestScope.subject.subjectID}" class="text-navy">Multiple choice</a></dd>
-                                    <dt></dt> <dd><a href="#" class="text-navy">Test</a></dd>
+                                    <dt></dt> <dd><a href="test?subjectID=${requestScope.subject.subjectID}" class="text-navy">Test</a></dd>
                                 </dl>
                             </div>
                         </div>
@@ -182,8 +172,6 @@
                     modal.style.display = "none";
                 }
             }
-
-
         </script>
     </body>
 </html>

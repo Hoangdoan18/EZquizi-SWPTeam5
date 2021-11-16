@@ -6,7 +6,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -23,7 +22,8 @@ public class Question {
     public Question() {
     }
 
-    public Question(String Question, String answer) {
+    public Question(int questionID, String Question, String answer) {
+        this.questionID = questionID;
         this.Question = Question;
         this.answer = answer;
         rightanswer = false;
