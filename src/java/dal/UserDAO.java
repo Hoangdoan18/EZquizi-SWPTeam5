@@ -24,7 +24,7 @@ public class UserDAO {
     ResultSet rs = null;
 
     public List<User> getUsersCRUD() {
-        String query = "SELECT * from Users";
+        String query = "SELECT * FROM dbo.users";
         List<User> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
@@ -48,7 +48,7 @@ public class UserDAO {
     }
     
     public void changePass(String newpassword, String username){
-        String query = "  UPDATE Users SET [password] = ?  WHERE [username]= ?";
+        String query = "UPDATE dbo.Users SET password = ?  WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -77,7 +77,7 @@ public class UserDAO {
     }
 
     public void addUser(String username, String password, String email, String name, int age, String phone) {
-        String query = "insert into Users\n"
+        String query = "insert into dbo.users(username, password, email, name, age, phone, active, admin) "
                 + "values(?,?,?,?,?,?,1,0)";
         try {
             conn = new DBContext().getConnection();
@@ -94,16 +94,15 @@ public class UserDAO {
     }
 
     public void edit(String newusername, String newpassword, String newemail, String newname, int newage, String newphone, String username) {
-        String query = "UPDATE Users \n"
-                + "SET [username] = ?,\n"
-                + "[password] = ?,\n"
+        String query = "UPDATE dbo.Users SET username = ?,\n"
+                + "password = ?,\n"
                 + "email = ?,\n"
                 + "name = ?,\n"
                 + "age = ?, \n"
                 + "phone = ?, \n"
                 + "active = 1, \n"
                 + "admin = 0 \n"
-                + "WHERE username =?";
+                + "WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -120,7 +119,7 @@ public class UserDAO {
     }
 
     public User getUsername(String username) {
-        String query = "SELECT * FROM dbo.Users WHERE username = ?";
+        String query = "SELECT * FROM dbo.users WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -153,16 +152,15 @@ public class UserDAO {
         }            
     }
     public void updatePass(User acc){
-        String query = "UPDATE Users \n"
-                + "SET [username] = ?,\n"
-                + "[password] = ?,\n"
+        String query = "UPDATE dbo.Users SET username = ?,\n"
+                + "password = ?,\n"
                 + "email = ?,\n"
                 + "name = ?,\n"
                 + "age = ?, \n"
                 + "phone = ?, \n"
                 + "active = 1, \n"
                 + "admin = 0 \n"
-                + "WHERE username =?";
+                + "WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);

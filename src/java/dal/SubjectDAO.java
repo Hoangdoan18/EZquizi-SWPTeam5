@@ -430,7 +430,7 @@ public class SubjectDAO {
     }
 
     public void getSubscribe(String username, String sid) {
-        String query = "insert into Subscribe\n"
+        String query = "insert into Subscribe(username, subjectID)\n"
                 + "values(?,?)";
         try {
             conn = new DBContext().getConnection();
@@ -444,7 +444,7 @@ public class SubjectDAO {
 
     public void unSubscribe(String username, String sid) {
         String query = "delete from Subscribe\n"
-                + "where Username =? and SubjectID=?";
+                + "where username =? and subjectID=?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
