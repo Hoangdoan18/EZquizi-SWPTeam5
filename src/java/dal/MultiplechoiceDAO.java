@@ -29,7 +29,7 @@ public class MultiplechoiceDAO {
 
     public boolean isAdded(int subjectID, String username) {
         boolean added = true;
-        String query = "SELECT COUNT(questionID) FROM [SWP391].[dbo].[MultipleChoice] WHERE subjectID = ? AND [username] = ?";
+        String query = "SELECT COUNT(questionID) FROM dbo.MultipleChoice WHERE subjectID = ? AND username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -47,8 +47,7 @@ public class MultiplechoiceDAO {
 
     public void AddMultipleChoiceLearn(ArrayList<Question> list, String username) {
         for (Question item : list) {
-            String query = "INSERT INTO [dbo].[MultipleChoice] ([username],[questionID],[subjectID],[Learned]) \n"
-                    + "VALUES (?,?,?,?)";
+            String query = "INSERT INTO dbo.MultipleChoice (username,questionID,subjectID,Learned) VALUES (?,?,?,?)";
             try {
 
                 conn = new DBContext().getConnection();
@@ -65,7 +64,7 @@ public class MultiplechoiceDAO {
 
 
     public void updateLearned(String username, int questionID, boolean Learned) {
-        String query = "UPDATE dbo.[MultipleChoice] SET [Learned] = ?  WHERE [username]= ? and [questionID] = ?";
+        String query = "UPDATE dbo.MultipleChoice SET Learned = ?  WHERE username= ? and questionID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -94,7 +93,7 @@ public class MultiplechoiceDAO {
     
      public void updateLearnedAll(ArrayList<Question> list, String username){
          for (Question item : list) {
-            String query = "UPDATE dbo.[MultipleChoice] SET [Learned] = 0  WHERE [username]= ? and [questionID] = ?";
+            String query = "UPDATE dbo.MultipleChoice SET Learned = 0  WHERE username= ? and questionID = ?";
             try {
                 conn = new DBContext().getConnection();
                 ps = conn.prepareStatement(query);
@@ -107,8 +106,7 @@ public class MultiplechoiceDAO {
      }
 
     public ArrayList<String> GetListAnswer(int SubjectId, int questionID) {
-        String query = "select top 3 [term] from [SubjectDetail] "
-                + "where [subjectID] = ? and NOT [questionID] = ? order by NEWID()";
+        String query = "select term from SubjectDetail where subjectID = ? and NOT questionID = ? order by RAND() Limit 3";
         ArrayList<String> answer = new ArrayList<String>();
         try {
 
@@ -141,8 +139,7 @@ public class MultiplechoiceDAO {
 
     public ArrayList<Question> GetAddListQuestion(int SubjectId) {
 
-        String query = "select [questionID],[definition],[term] from [SubjectDetail] \n"
-                + "where [subjectID] = ?";
+        String query = "select questionID,definition,term from SubjectDetail where subjectID = ?";
         ArrayList<Question> ques = new ArrayList<Question>();
         try {
             conn = new DBContext().getConnection();
@@ -172,9 +169,9 @@ public class MultiplechoiceDAO {
     }
     
     public Question getQuestion(int subjectID, String username){
-        String query = "select top 1 m.[questionID],[term],[definition] from [MultipleChoice] m inner join [SubjectDetail] s \n" +
-                        "on m.questionID = s.questionID where m.[subjectID] = ? and m.[username] = ? and m.[Learned] = 0 "
-                        + "order by NEWID()";
+        String query = "select m.questionID,term,definition from MultipleChoice m inner join "
+                + "SubjectDetail s on m.questionID = s.questionID where m.subjectID = ? and m.username = ? and m.Learned = 0"
+                + "order by RAND() limit 1";
         Question ques = new Question();
         MultiplechoiceDAO md = new MultiplechoiceDAO();
         try{
@@ -197,8 +194,7 @@ public class MultiplechoiceDAO {
 
     public int GetCountQuestionNotLearned(int SubjectId, String username) {
 
-        String query = "select COUNT([questionID]) from [MultipleChoice] \n"
-                + "where [subjectID] = ? and [Learned] = 0 and [username] = ?";
+        String query = "select COUNT(questionID) from MultipleChoice where subjectID = ? and Learned = 0 and username = ?";
         int number = 0;
         try {
 
@@ -231,8 +227,8 @@ public class MultiplechoiceDAO {
     
     public int GetCountQuestionbySubject(int SubjectId, String username) {
 
-        String query = "select COUNT([questionID]) from [MultipleChoice] \n"
-                + "where [subjectID] = ? and [username] = ?";
+        String query = "select COUNT(questionID) from MultipleChoice \n"
+                + "where subjectID = ? and username = ?";
         int number = 0;
         try {
 
@@ -265,8 +261,7 @@ public class MultiplechoiceDAO {
     
     public ArrayList<Question> GetTenTestQuestion(int subjectID){
         
-        String query = "select top 10[questionID],[definition],[term] from [SubjectDetail] \n"
-                + "where [subjectID] = ? ORDER BY NEWID()";
+        String query = "select questionID,definition,term from SubjectDetail where subjectID = ? ORDER BY RAND() limit 10";
         ArrayList<Question> ques = new ArrayList<Question>();
         try {
             conn = new DBContext().getConnection();

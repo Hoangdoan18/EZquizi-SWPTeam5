@@ -26,7 +26,7 @@ public class TestSummaryDAO {
     ResultSet rs = null;
     
     public void AddTest(String username, int subjectID){
-        String query = "insert into SubjectDetail ([username],[subjectID]) values (?,?,?)";
+        String query = "insert into SubjectDetail (username,subjectID) values (?,?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -39,7 +39,7 @@ public class TestSummaryDAO {
     
     public void AddTestSummary(ArrayList<Test> list, int TestID){
         for (Test item : list) {
-            String query = "INSERT INTO [dbo].[TestSummary] ([TestID],[questionID],[TestCheck],[TestResult]) \n"
+            String query = "INSERT INTO dbo.TestSummary (TestID,questionID,TestCheck,TestResult) \n"
                     + "VALUES (?,?,?,?)";
              try {
             conn = new DBContext().getConnection();
@@ -55,8 +55,8 @@ public class TestSummaryDAO {
     }
     
     public ArrayList<Test> getTestSummary(int TestID){
-        String query = "select * from [TestSummary] \n"
-                + "where [TestID] = ?";
+        String query = "select * from TestSummary \n"
+                + "where TestID = ?";
         ArrayList<Test> list = new ArrayList<Test>();
         try {
             conn = new DBContext().getConnection();
@@ -86,7 +86,7 @@ public class TestSummaryDAO {
     }
     
     public int getLastTestID(){
-        String query = "select COUNT([TestID]) from [Test]";
+        String query = "select COUNT(TestID) from Test";
         int count = 0;
         try {
             conn = new DBContext().getConnection();
