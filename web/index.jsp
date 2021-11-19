@@ -23,9 +23,9 @@
             <div class="container-width">
                 <div class="clearfix">
                 </div>
-                <div class="lead-title">Build your templates without coding
+                <div class="lead-title">Easy for learning vocabulary
                 </div>
-                <div class="sub-lead-title">All text blocks could be edited easily with double clicking on it. You can create new text blocks with the command from the left panel
+                <div class="sub-lead-title">This website will change your future, join with us now!!!
                 </div>
                 <div class="lead-btn"> <a href="SubjectListServlet" >Getting started</a>
                 </div>

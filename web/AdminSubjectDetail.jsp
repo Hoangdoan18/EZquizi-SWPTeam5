@@ -79,37 +79,7 @@
                     </div>
                 </div>
             </div>
-            <c:if test="${admin!=null || account!=null}">
-                <!-- Trigger/Open The Modal -->
-                <button class="btn btn-success btn-green" id="myBtn">Leave a review</button>
-
-                <!-- The Modal -->
-                <div id="myModal" class="modal" >
-
-                    <!-- Modal content -->
-                    <div class="modal-content" style="width: 380px">
-                        <span class="close">&times;</span>
-                        <h3 style="color: #1CB94E">Leave your rate here:</h3>
-
-                        <form action="AddRatingServlet?subjectID=${requestScope.subject.subjectID}" method="post">
-                            <div class="rate-star">
-
-                                <c:forEach begin="1" end="5" var="i">
-                                    <c:if test="${sessionScope.rate == (6-i)}">
-                                        <input class="star star-${6-i}" id="star-${6-i}" type="radio" name="star" value="${6-i}" checked/>
-                                        <label class="star star-${6-i}" for="star-${6-i}"></label>
-                                    </c:if>
-                                    <c:if test="${sessionScope.rate != (6-i)}">
-                                        <input class="star star-${6-i}" id="star-${6-i}" type="radio" name="star" value="${6-i}" />
-                                        <label class="star star-${6-i}" for="star-${6-i}"></label>
-                                    </c:if>
-                                </c:forEach>
-                            </div>
-                            <button class="btn btn-success btn-green">Rate us</button>   
-                        </form>
-                    </div>
-                </div>
-            </c:if>
+            
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">

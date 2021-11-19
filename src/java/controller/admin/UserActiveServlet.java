@@ -9,6 +9,7 @@ import dal.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ADMIN
  */
-public class UserEditServlet extends HttpServlet {
+@WebServlet(name = "UserActiveServlet", urlPatterns = {"/UserActiveServlet"})
+public class UserActiveServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,20 +32,19 @@ public class UserEditServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String newusername = request.getParameter("username");
-        String newpassword = request.getParameter("password");
-        String newemail = request.getParameter("email");
-        String newname = request.getParameter("name");
-        String newage = request.getParameter("age");
-        String newphone = request.getParameter("phone");
-        String newrole = request.getParameter("admin");
-        String username = request.getParameter("username");
-        UserDAO dao = new UserDAO();
-        dao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), newphone,Integer.parseInt(newrole), username);
-        response.sendRedirect("adminUserCRUD");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UserActiveServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UserActiveServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,7 +59,16 @@ public class UserEditServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String active = request.getParameter("active");
+        String page = request.getParameter("page");
+        int check = Integer.parseInt(active);
+        UserDAO udao = new UserDAO();
+        if (check==1){
+            udao.inactiveUser(username);
+        }
+        else udao.activeUser(username);
+        request.getRequestDispatcher("adminUserCRUD?page="+page).forward(request, response);
     }
 
     /**

@@ -38,7 +38,7 @@ public class UserCRUDServlet extends HttpServlet {
         UserDAO dao = new UserDAO();
         List<User> list = dao.getUsersCRUD();
         int size = list.size();
-        int numperPage = 2;
+        int numperPage = 10;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;

@@ -15,10 +15,11 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
+        <jsp:include page="header.jsp"/>
         <div class="container">
-            
+
             <div class="table-wrapper">
-                
+
                 <div class="table-responsive">
                     <div class="table-title">
                         <div class="row">
@@ -60,10 +61,16 @@
                                         <a href="UserEdit.jsp?username=${o.username}">
                                             <button type="button" class="btn btn-primary">Edit</button>
                                         </a>
-
-                                        <a href="adminUserDelete?username=${o.username}" onclick="return confirm('Are you sure you want to delete this item?')">
-                                            <button type="button" class="btn btn-danger">Delete</button>
-                                        </a>
+                                        <c:if test="${o.active==1}">
+                                            <a href="UserActiveServlet?username=${o.username}&active=${o.active}&page=${requestScope.page}">
+                                                <button type="button" class="btn btn-danger">Inactive</button>
+                                            </a>
+                                        </c:if>
+                                        <c:if test="${o.active==0}">
+                                            <a href="UserActiveServlet?username=${o.username}&active=${o.active}&page=${requestScope.page}">
+                                                <button type="button" class="btn btn-success">Active</button>
+                                            </a>
+                                        </c:if>
                                     </td>
                                 </tr>
                             </c:forEach>

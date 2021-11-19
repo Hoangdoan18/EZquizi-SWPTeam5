@@ -24,7 +24,7 @@ public class UserDAO {
     ResultSet rs = null;
 
     public List<User> getUsersCRUD() {
-        String query = "SELECT * FROM dbo.users";
+        String query = "SELECT * FROM users";
         List<User> list = new ArrayList<>();
         try {
             conn = new DBContext().getConnection();
@@ -48,12 +48,34 @@ public class UserDAO {
     }
     
     public void changePass(String newpassword, String username){
-        String query = "UPDATE dbo.Users SET password = ?  WHERE username = ?";
+        String query = "UPDATE Users SET password = ?  WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, newpassword);
             ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void activeUser(String username){
+        String query = "UPDATE users SET active = 1 WHERE (username = ?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
+    
+    public void inactiveUser(String username){
+        String query = "UPDATE users SET active = 0 WHERE (username = ?)";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
             ps.executeUpdate();
         } catch (Exception e) {
         }
@@ -77,7 +99,7 @@ public class UserDAO {
     }
 
     public void addUser(String username, String password, String email, String name, int age, String phone) {
-        String query = "insert into dbo.users(username, password, email, name, age, phone, active, admin) "
+        String query = "insert into users(username, password, email, name, age, phone, active, admin) "
                 + "values(?,?,?,?,?,?,1,0)";
         try {
             conn = new DBContext().getConnection();
@@ -93,15 +115,15 @@ public class UserDAO {
         }
     }
 
-    public void edit(String newusername, String newpassword, String newemail, String newname, int newage, String newphone, String username) {
-        String query = "UPDATE dbo.Users SET username = ?,\n"
+    public void edit(String newusername, String newpassword, String newemail, String newname, int newage, String newphone, int newrole, String username) {
+        String query = "UPDATE Users SET username = ?,\n"
                 + "password = ?,\n"
                 + "email = ?,\n"
                 + "name = ?,\n"
                 + "age = ?, \n"
                 + "phone = ?, \n"
                 + "active = 1, \n"
-                + "admin = 0 \n"
+                + "admin = ? \n"
                 + "WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
@@ -112,14 +134,15 @@ public class UserDAO {
             ps.setString(4, newname);
             ps.setInt(5, newage);
             ps.setString(6, newphone);
-            ps.setString(7, username);
+            ps.setInt(7, newrole);
+            ps.setString(8, username);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
     public User getUsername(String username) {
-        String query = "SELECT * FROM dbo.users WHERE username = ?";
+        String query = "SELECT * FROM users WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -141,7 +164,7 @@ public class UserDAO {
     }
 
     public void delete(String username) {
-        String query = "DELETE FROM dbo.Users WHERE username = ?";
+        String query = "DELETE FROM Users WHERE username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -152,7 +175,7 @@ public class UserDAO {
         }            
     }
     public void updatePass(User acc){
-        String query = "UPDATE dbo.Users SET username = ?,\n"
+        String query = "UPDATE Users SET username = ?,\n"
                 + "password = ?,\n"
                 + "email = ?,\n"
                 + "name = ?,\n"
@@ -177,7 +200,7 @@ public class UserDAO {
     }
     
     public User getUsernamebyPass(String username, String pass) {
-        String query = "SELECT * FROM dbo.Users WHERE username = ? and password = ?";
+        String query = "SELECT * FROM Users WHERE username = ? and password = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);

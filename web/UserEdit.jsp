@@ -29,6 +29,7 @@
         <title>Edit</title>
     </head>
     <body>
+        <jsp:include page="header.jsp"/>
         <form class="container" action="adminUserEdit?username=${param.username}" method="post">
             <h3>Edit User's Information</h3>
             <div class="form-group">
@@ -57,6 +58,10 @@
             <div class="form-group">
                 <label>Phone</label>
                 <input type="text" class="form-control" name="phone" value="${p.getUsername(param.username).phone}">
+            </div>
+            <div class="form-group d-none">
+                <label>Admin</label>
+                <input type="text" class="form-control" name="admin" value="${p.getUsername(param.username).admin}">
             </div>
             <input type="submit" class="btn btn-primary" value="Save"/>
         </form>

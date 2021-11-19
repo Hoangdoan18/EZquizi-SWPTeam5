@@ -30,7 +30,8 @@ public class UserAddServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -39,7 +40,7 @@ public class UserAddServlet extends HttpServlet {
         String phone = request.getParameter("phone");
         UserDAO dao = new UserDAO();
         dao.addUser(username, password, email, name, Integer.parseInt(age), phone);
-        response.sendRedirect("UserCRUD.jsp");
+        request.getRequestDispatcher("adminUserCRUD").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

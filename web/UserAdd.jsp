@@ -28,7 +28,8 @@
         <title>Add</title>
     </head>
     <body>
-        <form class="container" action="adminUsersAdd" method="post">
+        <jsp:include page="header.jsp"/>
+        <form class="container" action="adminUserAdd" method="post">
             <h3>Add User's Information</h3>
             <div class="form-group">
                 <label>Username</label>

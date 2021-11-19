@@ -24,7 +24,7 @@ public class LoginSignupDAO {
     ResultSet rs = null;
 
     public User login(String username, String password) {
-        String query = "select * from dbo.users where username= ? and password = ?";
+        String query = "select * from users where username= ? and password = ? and active=1";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -47,7 +47,7 @@ public class LoginSignupDAO {
     }
 
     public boolean check(String username) {
-        String query = "SELECT * from dbo.users WHERE username=?";
+        String query = "SELECT * from users WHERE username=?";
             try {
                 conn = new DBContext().getConnection();
                 ps = conn.prepareStatement(query);
@@ -80,7 +80,7 @@ public class LoginSignupDAO {
     }
     
     public void addUser(String username, String password, String email, String name, int age, String phone) {
-        String query = "insert into dbo.users(username, password, email, name, age, phone, active, admin)"
+        String query = "insert into users(username, password, email, name, age, phone, active, admin)"
                 + "values(?,?,?,?,?,?,1,0)";
         try {
             conn = new DBContext().getConnection();

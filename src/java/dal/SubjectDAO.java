@@ -42,7 +42,7 @@ public class SubjectDAO {
                     + "	s.cateID,\n"
                     + "	s.date,\n"
                     + "	c.cateName,\n"
-                    + "	cast(sum(r.rating)/count(r.rating) as decimal(10,2)) as rating\n"
+                    + "	ROUND(AVG(rating),2) as rating\n"
                     + "from Subject s\n"
                     + "inner join \n"
                     + "Category c on s.cateID = c.cateID\n"
@@ -68,7 +68,7 @@ public class SubjectDAO {
                     + "	s.subjectTitle, \n"
                     + "	s.username,\n"
                     + "	s.cateID,\n"
-                    + "	s.[date],\n"
+                    + "	s.date,\n"
                     + "	c.cateName";
             switch (sort) {
                 case 1:
@@ -78,6 +78,7 @@ public class SubjectDAO {
                     Statement += " order by rating desc ";
                     break;
                 default:
+                    Statement += " order by subjectID asc ";
                     break;
             }
 
@@ -133,9 +134,9 @@ public class SubjectDAO {
                     + "	s.subjectTitle, \n"
                     + "	s.username,\n"
                     + "	s.cateID,\n"
-                    + "	s.[date],\n"
+                    + "	s.date,\n"
                     + "	c.cateName,\n"
-                    + "	cast(sum(r.rating)/count(r.rating) as decimal(10,2)) as rating\n"
+                    + "	ROUND(AVG(rating),2) as rating\n"
                     + "from Subject s\n"
                     + "inner join \n"
                     + "Category c on s.cateID = c.cateID\n"
@@ -205,7 +206,7 @@ public class SubjectDAO {
                     + "	s.subjectTitle, \n"
                     + "	s.username,\n"
                     + "	s.cateID,\n"
-                    + "	s.[date],\n"
+                    + "	s.date,\n"
                     + "	c.cateName";
             switch (sort) {
                 case 1:

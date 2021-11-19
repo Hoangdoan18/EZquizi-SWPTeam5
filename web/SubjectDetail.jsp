@@ -51,7 +51,7 @@
                             </div>
                             <div class="col-lg-5" id="cluster_info">
                                 <dl class="dl-horizontal">
-                                    <dt>Learning by:</dt> <dd><a href="#" class="text-navy">Flashcard</a></dd>
+                                    <dt>Learning by:</dt> <dd><a href="flashcard?subjectID=${requestScope.subject.subjectID}&page=1&display=term" class="text-navy">Flashcard</a></dd>
                                     <dt></dt> <dd><a href="multiplechoice?subjectID=${requestScope.subject.subjectID}" class="text-navy">Multiple choice</a></dd>
                                     <dt></dt> <dd><a href="test?subjectID=${requestScope.subject.subjectID}" class="text-navy">Test</a></dd>
                                 </dl>
