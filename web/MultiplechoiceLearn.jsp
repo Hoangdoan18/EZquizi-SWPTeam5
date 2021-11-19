@@ -43,11 +43,11 @@
                             <h6 class="text-primary font-weight-bold m-0">Status</h6>
                         </div>
                         <div class="card-body">
-                            <h4 class="small font-weight-bold">Correct answer<span class="float-right">${(requestScope.sum - requestScope.remain)/requestScope.sum*100}%</span></h4>
+                            <h4 class="small font-weight-bold">Correct answer<span class="float-right">${(requestScope.sum - requestScope.remain)} / ${requestScope.sum}</span></h4>
                             <div class="progress progress-sm mb-3">
                                 <div class="progress-bar bg-warning" aria-valuenow="${(requestScope.sum - requestScope.remain)/requestScope.sum*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${(requestScope.sum - requestScope.remain)/requestScope.sum*100}%;"><span class="sr-only">40%</span></div>
                             </div>
-                            <h4 class="small font-weight-bold">Remain<span class="float-right">${(requestScope.remain)/requestScope.sum*100}%</span></h4>
+                            <h4 class="small font-weight-bold">Remain<span class="float-right">${(requestScope.remain)} / ${requestScope.sum}</span></h4>
                             <div class="progress progress-sm mb-3">
                                 <div class="progress-bar bg-info" aria-valuenow="${(requestScope.remain)/requestScope.sum*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${(requestScope.remain)/requestScope.sum*100}%;"><span class="sr-only">80%</span></div>
                             </div>
