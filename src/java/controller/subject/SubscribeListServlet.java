@@ -41,10 +41,20 @@ public class SubscribeListServlet extends HttpServlet {
         HttpSession session = request.getSession();
         SubjectDAO pdao = new SubjectDAO();
         User a = (User) session.getAttribute("account");
+        
+        String cate = request.getParameter("c") == null ? "0" : request.getParameter("c");
+        int category = Integer.parseInt(cate);
+        String s = request.getParameter("sort") == null ? "0" : request.getParameter("sort");
+        int sort = Integer.parseInt(s);
+
+        String username = request.getParameter("u") == null ? "" : request.getParameter("u");
+        String search = request.getParameter("s") == null ? "" : request.getParameter("s");
+
+//        List<Subject> listS = pdao.listQuery(category, username, search, sort);
         List<Subscribe> listF = pdao.getSubscribeSubject(a.getUsername());
         request.setAttribute("listF", listF);
         int size = listF.size();
-        int numperPage = 5;
+        int numperPage = 9;
         int numPage = size / numperPage + (size % numperPage == 0 ? 0 : 1);
         String spage = request.getParameter("page");
         int page;
@@ -60,10 +70,14 @@ public class SubscribeListServlet extends HttpServlet {
         List<Subscribe> arr = pdao.getSubscribeByPage(listF, start, end);
         List<Category> ListC = pdao.getCategory();
 
-        request.setAttribute("num", numPage);
+         request.setAttribute("num", numPage);
         request.setAttribute("ListC", ListC);
         request.setAttribute("listF", arr);
         request.setAttribute("page", page);
+        request.setAttribute("c", category);
+        request.setAttribute("s", search);
+        request.setAttribute("sort", sort);
+        request.setAttribute("u", username);
 
         request.getRequestDispatcher("SubscribeList.jsp").forward(request, response);
     }

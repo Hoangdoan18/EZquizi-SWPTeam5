@@ -430,27 +430,27 @@ public class SubjectDAO {
         return r;
     }
 
-    public void getSubscribe(String username, String sid) {
+    public void getSubscribe(String username, int sid) {
         String query = "insert into Subscribe(username, subjectID)\n"
                 + "values(?,?)";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, username);
-            ps.setString(2, sid);
+            ps.setInt(2, sid);
             ps.executeUpdate();
         } catch (Exception e) {
         }
     }
 
-    public void unSubscribe(String username, String sid) {
+    public void unSubscribe(String username, int sid) {
         String query = "delete from Subscribe\n"
                 + "where username =? and subjectID=?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, username);
-            ps.setString(2, sid);
+            ps.setInt(2, sid);
             ps.executeUpdate();
         } catch (Exception e) {
         }

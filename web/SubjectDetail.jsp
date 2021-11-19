@@ -30,10 +30,18 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
+                                <c:if test="${account!=null}">
                                 <div class="m-b-md">
-                                    <a href="#" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+                                    <a href="subscribe?subjectID=${requestScope.subject.subjectID}" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
                                     <h1>${requestScope.subject.subjectTitle}</h1>
                                 </div>
+                                </c:if>
+                                <c:if test="${account==null}">
+                                <div class="m-b-md">
+                                    <a href="login.jsp" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+                                    <h1>${requestScope.subject.subjectTitle}</h1>
+                                </div>
+                                </c:if>
                                 <dl class="dl-horizontal">
                                     <dt>Rating</dt> <dd><a href="#" class="label label-primary">${requestScope.rate.rating} / 5.0</a></dd>
                                 </dl>

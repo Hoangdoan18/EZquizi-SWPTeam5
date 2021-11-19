@@ -170,7 +170,7 @@ public class MultiplechoiceDAO {
     
     public Question getQuestion(int subjectID, String username){
         String query = "select m.questionID,term,definition from MultipleChoice m inner join "
-                + "SubjectDetail s on m.questionID = s.questionID where m.subjectID = ? and m.username = ? and m.Learned = 0"
+                + "SubjectDetail s on m.questionID = s.questionID where m.subjectID = ? and m.username = ? and m.Learned = 0 "
                 + "order by RAND() limit 1";
         Question ques = new Question();
         MultiplechoiceDAO md = new MultiplechoiceDAO();

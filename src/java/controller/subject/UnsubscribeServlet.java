@@ -32,14 +32,14 @@ public class UnsubscribeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-         response.setContentType("text/html;charset=UTF-8");
         String subjectID = request.getParameter("subjectID");
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("account");
         SubjectDAO sdetail = new SubjectDAO();
-        sdetail.unSubscribe(a.getUsername(), subjectID);
+        sdetail.unSubscribe(a.getUsername(), Integer.parseInt(subjectID));
         response.sendRedirect("subscribeList");
     }
 

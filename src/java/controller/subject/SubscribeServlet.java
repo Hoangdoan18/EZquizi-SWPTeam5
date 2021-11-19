@@ -39,7 +39,7 @@ public class SubscribeServlet extends HttpServlet {
         HttpSession session = request.getSession();
         User a = (User) session.getAttribute("account");
         SubjectDAO sdetail = new SubjectDAO();
-        sdetail.getSubscribe(a.getUsername(), subjectID);
+        sdetail.getSubscribe(a.getUsername(), Integer.parseInt(subjectID));
         //request.getRequestDispatcher("SubjectListServlet").forward(request, response);
         response.sendRedirect("SubjectListServlet");
     }
