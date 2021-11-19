@@ -22,7 +22,11 @@
                     <thead>
                         <tr>
                             <th style="width: 200px;"></th>
-                            <th>Test</th>
+                            <th>
+                                <h3>Test:</h3>
+                                <br>
+                                You will test with random 10 question from subject.
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +40,7 @@
                                 <c:forEach begin="1" end="10" var="i">
                                     <div style="margin-left: 30px; margin-bottom: 30px;">
                                         <div>
-                                            <p>Question ${i}: ${sessionScope.test[i-1].question}&nbsp;</p>
+                                            <p style="font-weight: 900 ">Question ${i}: ${sessionScope.test[i-1].question}&nbsp;</p>
                                         </div>
                                         <div>
                                             <input type="text" name="answer${i-1}" id="FormInput" class="mdl-textfield__input" style="width: 70%;border-radius: 0px;border-bottom-color: rgba(0,0,0,0.5);" placeholder="Enter answer"/>

@@ -64,23 +64,23 @@
                             <table class="table">
                                 <tbody>
                                     <tr style="padding-bottom: 0px;">
-                                        <td style="margin-bottom: 0px;">
+                                        <td class="col-6">
                                             <input type="radio" class="btn-check" name="option" id="success-outlined1" autocomplete="off" value="0">
-                                            <label class="btn btn-outline-success" name="answer" for="success-outlined1" onclick="check(0)">A. ${sessionScope.question.listanswer[0]}</label>
+                                            <label class="btn btn-outline-success" name="answer" for="success-outlined1" onclick="check(0)" style="width: 90%; text-align: left;">A. ${sessionScope.question.listanswer[0]}</label>
                                         </td>
-                                        <td>
+                                        <td class="col-6">
                                             <input type="radio" class="btn-check" name="option" id="success-outlined2" autocomplete="off" value="1">
-                                            <label class="btn btn-outline-success" name="answer" for="success-outlined2" onclick="check(1)">B. ${sessionScope.question.listanswer[1]}</label>
+                                            <label class="btn btn-outline-success" name="answer" for="success-outlined2" onclick="check(1)" style="width: 90%; text-align: left;">B. ${sessionScope.question.listanswer[1]}</label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td> 
+                                        <td class="col-6"> 
                                             <input type="radio" class="btn-check" name="option" id="success-outlined3" autocomplete="off" value="2">
-                                            <label class="btn btn-outline-success" name="answer" for="success-outlined3" onclick="check(2)">C. ${sessionScope.question.listanswer[2]}</label>
+                                            <label class="btn btn-outline-success" name="answer" for="success-outlined3" onclick="check(2)" style="width: 90%; text-align: left;">C. ${sessionScope.question.listanswer[2]}</label>
                                         </td>
-                                        <td>
+                                        <td class="col-6">
                                             <input type="radio" class="btn-check" name="option" id="success-outlined4" autocomplete="off" value="3" >
-                                            <label class="btn btn-outline-success" name="answer" for="success-outlined4" onclick="check(3)">D. ${sessionScope.question.listanswer[3]}</label>
+                                            <label class="btn btn-outline-success" name="answer" for="success-outlined4" onclick="check(3)" style="width: 90%; text-align: left;">D. ${sessionScope.question.listanswer[3]}</label>
                                         </td>
                                     </tr>
                                     <tr>

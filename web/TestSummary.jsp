@@ -20,25 +20,25 @@
                 <thead>
                     <tr>
                         <th style="width: 200px;"></th>
-                        <th>Test</th>
+                        <th>Test Summary</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td style="width: 200px;border-right: 2px solid rgb(103,108,237) ;">
-                            <div style="font-size: 40px; color: #F62">${requestScope.point}</div>
+                            <div style="font-size: 40px; color: #F62">${requestScope.point}/10</div>
                             <br>
                         </td>
                         <td>
                             <c:forEach begin="1" end="10" var="i">
                                 <div style="margin-left: 30px; margin-bottom: 30px;">
                                     <div>
-                                        <p>Question ${sessionScope.test[i-1].question}: &nbsp;</p>
+                                        <p style="font-stretch: 900">Question ${sessionScope.test[i-1].question}: &nbsp;</p>
                                     </div>
-                                    <div>
+                                    <div style="text-decoration: underline">
                                         Your answer: ${requestScope.listanswer[i-1]}
                                     </div>
-                                    <div>
+                                    <div style="color: #1CB94E">
                                         Answer : ${sessionScope.test[i-1].answer}
                                     </div>
                                     <hr>

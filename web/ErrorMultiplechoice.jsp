@@ -19,7 +19,7 @@
                     <div>
                         <p class="text-secondary spectral font20"><em>Your Multiple Choice learning was completed, reset to learn it again?</em></p>
                         <hr class="mt-5 mb-4">
-                        <a href="">Back to subject</a>
+                        <a href="SubjectDetail?subjectID=${sessionScope.subjectID}&&termsort=0">Back to subject</a>
                         <a href="resetmultiplechoice?subjectID=${sessionScope.subjectID}">Reset</a>
                     </div>
                 </div>
