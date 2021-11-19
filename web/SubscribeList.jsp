@@ -28,30 +28,38 @@ Author     : Admin
         <!--        --------------------------- -->
         <jsp:include page="header.jsp" />
         <div class="container">
-            <!--        FORM IMAGE "GETTING STARTED"  -->
-            <div class=" col-12 " style="background-color: white ; margin-top: 5%; border: 10px; border-color: #f83600;">
-                <div style=" border: 10px; border-color: #f83600; padding: 5px;">
-                    <div style="font-size: 20">Category</div>
-                    <c:forEach var="o" items="${ListC}">
-
-                        <li><a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="subscribeList?c=${o.cateID}&u=&sort=0&s=${s}"> ${o.cateName} </a></li>
-
-                    </c:forEach>
-                </div>
-            </div>
-
-            <div class="row" style="float: right ">
-                <div class="dropdown">
-                    <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="subscribeList?c=${c}&u=&sort=1&s=${s}">Date</a></li>
-                        <li><a href="subscribeList?c=${c}&u=&sort=2&s=${s}">Ratting</a></li>
-                    </ul>
-                </div>
-            </div>
             <section class="flex-sect">
+                <!--        FORM IMAGE "GETTING STARTED"  -->
+                <div class="row">
+                    <div class="col-8"></div>
+                    <div class="col-2" style="float: right ">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Category
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="subscribeList?c=${c}&u=&sort=1&s=${s}">All</a></li>
+                                    <c:forEach var="o" items="${ListC}">
+
+                                    <li><a style="border: 3px; margin-right: 40px; font-size: 20px; text-decoration: none; " href="subscribeList?c=${o.cateID}&u=&sort=0&s=${s}"> ${o.cateName} </a></li>
+
+                                </c:forEach>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-2" style="float: right ">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" style="" type="button" data-toggle="dropdown">Sort by
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="subscribeList?c=${c}&u=&sort=1&s=${s}">Date</a></li>
+                                <li><a href="subscribeList?c=${c}&u=&sort=2&s=${s}">Ratting</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
 
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -74,10 +82,6 @@ Author     : Admin
                                 <div class="card-body">
                                     <div class="card-title text-truncate" style="font-size: 35px; margin-bottom: 10px; margin-top: 10px ">
                                         <a href="SubjectDetail?subjectID=${o.subjectID}&termsort=0">${o.subjectTitle}</a>
-                                    </div>
-
-                                    <div class="card-title" style="font-size: 30px; position: absolute; bottom:20px; right:10px;">
-                                        <a href="unSubscribe?subjectID=${o.subjectID}" class="btn btn-primary pull-right"><span>UnSubscribe</span></a>
                                     </div>
                                     <div class="card-sub-title" style="font-family: LucateIDa Bright; font-weight: bold; color: #008512"> ${o.cateName}
                                     </div>

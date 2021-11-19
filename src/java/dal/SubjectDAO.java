@@ -342,13 +342,7 @@ public class SubjectDAO {
         }
     }
 
-    public static void main(String[] args) {
-        SubjectDAO sdao = new SubjectDAO();
-        Subject r = new Subject();
-        r = sdao.getRating(3);
-        System.out.println(r);
 
-    }
 
     public Subject getSubjectByID(int subjectID) {
         String query = "SELECT * from Subject where subjectID = ?";
@@ -444,7 +438,7 @@ public class SubjectDAO {
     }
 
     public void unSubscribe(String username, int sid) {
-        String query = "delete from Subscribe\n"
+        String query = "delete from Subscribe \n"
                 + "where username =? and subjectID=?";
         try {
             conn = new DBContext().getConnection();
@@ -485,9 +479,9 @@ public class SubjectDAO {
     }
 
     public List<Subscribe> getSubscribeSubject(String username) {
-        String query = "Select s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, r.rating, date from Subject s \n"
+        String query = "Select s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, ROUND(AVG(rating),2) as rating, date from Subject s \n"
                 + "INNER JOIN Category c on s.cateID = c.cateID LEFT JOIN Rating r on s.subjectID = r.subjectID LEFT JOIN Subscribe f ON f.subjectID = s.subjectID\n"
-                + "WHERE f.username = ?";
+                + "WHERE f.username = ? group by s.subjectID, s.subjectTitle, s.cateID, s.username, c.cateName, date";
 
         List<Subscribe> list = new ArrayList<>();
         try {
@@ -503,4 +497,23 @@ public class SubjectDAO {
         }
         return null;
     }
+
+    public boolean checkSubscribe(String username, int subjectID) {
+        String query = "SELECT * from Subscribe WHERE username=? and subjectID=? ";
+        try {
+            conn = new DBContext().getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, username);
+            ps.setInt(2, subjectID);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(LoginSignupDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    
 }

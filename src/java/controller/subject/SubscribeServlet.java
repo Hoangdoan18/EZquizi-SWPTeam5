@@ -36,12 +36,11 @@ public class SubscribeServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
         String subjectID = request.getParameter("subjectID");
-        HttpSession session = request.getSession();
-        User a = (User) session.getAttribute("account");
+        String username = request.getParameter("username");
         SubjectDAO sdetail = new SubjectDAO();
-        sdetail.getSubscribe(a.getUsername(), Integer.parseInt(subjectID));
+        sdetail.getSubscribe(username, Integer.parseInt(subjectID));
         //request.getRequestDispatcher("SubjectListServlet").forward(request, response);
-        response.sendRedirect("SubjectListServlet");
+        response.sendRedirect("SubjectDetail?subjectID="+subjectID+"&termsort=0");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

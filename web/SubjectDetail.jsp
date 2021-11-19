@@ -10,8 +10,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>${requestScope.subject.subjectTitle}</title>
+        <jsp:useBean id="p" class="dal.SubjectDAO" scope="request"></jsp:useBean>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <title>${requestScope.subject.subjectTitle}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/startbootstrap-sb-admin-2/4.0.5/css/sb-admin-2.min.css" rel="stylesheet">
@@ -19,7 +20,7 @@
         <link href="css/rating_style.css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-        
+
 
     </head>
     <body>
@@ -30,17 +31,25 @@
                     <div class="ibox-content">
                         <div class="row">
                             <div class="col-lg-12">
-                                <c:if test="${account!=null}">
-                                <div class="m-b-md">
-                                    <a href="subscribe?subjectID=${requestScope.subject.subjectID}" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
-                                    <h1>${requestScope.subject.subjectTitle}</h1>
-                                </div>
+                                <c:if test="${admin!=null}">
+                                    <div class="m-b-md">
+                                        <c:if test="${p.checkSubscribe((admin!=null)?admin.username:account.username, requestScope.subject.subjectID)}">
+                                            <a href="unSubscribe?subjectID=${requestScope.subject.subjectID}&username=${admin!=null?admin.username:account.username}" class="btn btn-danger pull-right" ><span>Unsubscribe</span></a>
+
+                                        </c:if>
+                                        <c:if test="${!p.checkSubscribe((admin!=null)?admin.username:account.username, requestScope.subject.subjectID)}">
+                                            <a href="subscribe?subjectID=${requestScope.subject.subjectID}&username=${admin!=null?admin.username:account.username}" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+
+                                        </c:if>  
+                                        <h1>${requestScope.subject.subjectTitle}</h1>
+
+                                    </div>
                                 </c:if>
-                                <c:if test="${account==null}">
-                                <div class="m-b-md">
-                                    <a href="login.jsp" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
-                                    <h1>${requestScope.subject.subjectTitle}</h1>
-                                </div>
+                                <c:if test="${admin==null&&account==null}">
+                                    <div class="m-b-md">
+                                        <a href="login.jsp" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+                                        <h1>${requestScope.subject.subjectTitle}</h1>
+                                    </div>
                                 </c:if>
                                 <dl class="dl-horizontal">
                                     <dt>Rating</dt> <dd><a href="#" class="label label-primary">${requestScope.rate.rating} / 5.0</a></dd>
@@ -93,7 +102,7 @@
                         <span class="close">&times;</span>
                         <h3 style="color: #1CB94E">Leave your rate here:</h3>
 
-                    <form action="AddRatingServlet?subjectID=${requestScope.subject.subjectID}" method="post">
+                        <form action="AddRatingServlet?subjectID=${requestScope.subject.subjectID}" method="post">
                             <div class="rate-star">
 
                                 <c:forEach begin="1" end="5" var="i">

@@ -42,7 +42,7 @@ public class TestServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet TestServlet</title>");            
+            out.println("<title>Servlet TestServlet</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet TestServlet at " + request.getContextPath() + "</h1>");
@@ -63,18 +63,24 @@ public class TestServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        MultiplechoiceDAO md = new MultiplechoiceDAO();
-        int subjectID = Integer.parseInt(request.getParameter("subjectID"));
-        request.setAttribute("subjectID", subjectID);
-        ArrayList<Question> testlist = md.GetTenTestQuestion(subjectID);
         HttpSession session = request.getSession();
-        session.setAttribute("test", testlist);        
-        if(testlist.size() >= 10){
-            request.getRequestDispatcher("Test.jsp").forward(request, response);
-        }else{
-            response.sendRedirect("SubjectDetail?subjectID="+subjectID+"&termsort=0");
+        Object u = session.getAttribute("account");
+        Object a = session.getAttribute("admin");
+        if (u != null || a != null) {
+            MultiplechoiceDAO md = new MultiplechoiceDAO();
+            int subjectID = Integer.parseInt(request.getParameter("subjectID"));
+            request.setAttribute("subjectID", subjectID);
+            ArrayList<Question> testlist = md.GetTenTestQuestion(subjectID);
+            session.setAttribute("test", testlist);
+            if (testlist.size() >= 10) {
+                request.getRequestDispatcher("Test.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("SubjectDetail?subjectID=" + subjectID + "&termsort=0");
+            }
+        } else {
+            response.sendRedirect("login.jsp");
         }
-        
+
     }
 
     /**
