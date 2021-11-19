@@ -37,7 +37,7 @@ public class RatingDAO {
     }
 
     public void UpdateRating(String username, int subjectID, int rating) {
-        String query = "  UPDATE dbo.Rating SET rating = ?  WHERE username= ? and subjectID = ?";
+        String query = "  UPDATE Rating SET rating = ?  WHERE username= ? and subjectID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -51,7 +51,7 @@ public class RatingDAO {
     }
     
     public int GetLastRating(String username, int subjectID) {
-        String query = "SELECT * from dbo.Rating WHERE username= ? AND subjectID = ?";
+        String query = "SELECT * from Rating WHERE username= ? AND subjectID = ?";
         int rate = 0;
         try {
             conn = new DBContext().getConnection();
@@ -68,7 +68,7 @@ public class RatingDAO {
     }
     
     public boolean IsRatedbyUser(String username, int subjectID){
-        String query = "SELECT * from dbo.Users WHERE username= ? AND password = ?";
+        String query = "SELECT * from Users WHERE username= ? AND password = ?";
         Rating rate = new Rating();
         try {
             conn = new DBContext().getConnection();

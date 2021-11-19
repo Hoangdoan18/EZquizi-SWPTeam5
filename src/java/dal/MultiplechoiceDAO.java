@@ -29,7 +29,7 @@ public class MultiplechoiceDAO {
 
     public boolean isAdded(int subjectID, String username) {
         boolean added = true;
-        String query = "SELECT COUNT(questionID) FROM dbo.MultipleChoice WHERE subjectID = ? AND username = ?";
+        String query = "SELECT COUNT(questionID) FROM MultipleChoice WHERE subjectID = ? AND username = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -47,7 +47,7 @@ public class MultiplechoiceDAO {
 
     public void AddMultipleChoiceLearn(ArrayList<Question> list, String username) {
         for (Question item : list) {
-            String query = "INSERT INTO dbo.MultipleChoice (username,questionID,subjectID,Learned) VALUES (?,?,?,?)";
+            String query = "INSERT INTO MultipleChoice (username,questionID,subjectID,Learned) VALUES (?,?,?,?)";
             try {
 
                 conn = new DBContext().getConnection();
@@ -64,7 +64,7 @@ public class MultiplechoiceDAO {
 
 
     public void updateLearned(String username, int questionID, boolean Learned) {
-        String query = "UPDATE dbo.MultipleChoice SET Learned = ?  WHERE username= ? and questionID = ?";
+        String query = "UPDATE MultipleChoice SET Learned = ?  WHERE username= ? and questionID = ?";
         try {
             conn = new DBContext().getConnection();
             ps = conn.prepareStatement(query);
@@ -93,7 +93,7 @@ public class MultiplechoiceDAO {
     
      public void updateLearnedAll(ArrayList<Question> list, String username){
          for (Question item : list) {
-            String query = "UPDATE dbo.MultipleChoice SET Learned = 0  WHERE username= ? and questionID = ?";
+            String query = "UPDATE MultipleChoice SET Learned = 0  WHERE username= ? and questionID = ?";
             try {
                 conn = new DBContext().getConnection();
                 ps = conn.prepareStatement(query);

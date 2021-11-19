@@ -1,35 +1,10 @@
-<%-- 
-    Document   : ErrorMultiplechoice
-    Created on : Nov 11, 2021, 9:22:47 AM
-    Author     : USER
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <p>You have done the Subject learn</p><br>
-        <p>Want to reset it</p><br>
-        <a href="">Back to subject</a>
-        <a href="resetmultiplechoice?subjectID=${sessionScope.subjectID}">Reset</a>
-    </body>
-</html>
-<%-- 
-    Document   : ErrorMultiplechoice
-    Created on : Nov 11, 2021, 9:22:47 AM
-    Author     : USER
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Multiple choice</title>
         <<link rel="stylesheet" href="css/-Identity-Page-BS4-.css">
         <script src="js/-Identity-Page-BS4-.js"></script>
     </head>

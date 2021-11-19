@@ -39,7 +39,7 @@ public class TestSummaryDAO {
     
     public void AddTestSummary(ArrayList<Test> list, int TestID){
         for (Test item : list) {
-            String query = "INSERT INTO dbo.TestSummary (TestID,questionID,TestCheck,TestResult) \n"
+            String query = "INSERT INTO TestSummary (TestID,questionID,TestCheck,TestResult) \n"
                     + "VALUES (?,?,?,?)";
              try {
             conn = new DBContext().getConnection();

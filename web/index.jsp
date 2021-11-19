@@ -27,8 +27,9 @@
                 </div>
                 <div class="sub-lead-title">This website will change your future, join with us now!!!
                 </div>
-                <div class="lead-btn"> <a href="SubjectListServlet" >Getting started</a>
-                </div>
+                <a href="SubjectListServlet">
+                    <button class="lead-btn"> Getting started</button>
+                </a>
             </div>
         </header>
         <jsp:include page="footer.jsp"/>
