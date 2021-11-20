@@ -45,6 +45,20 @@
 
                                     </div>
                                 </c:if>
+                                <c:if test="${account!=null}">
+                                    <div class="m-b-md">
+                                        <c:if test="${p.checkSubscribe((admin!=null)?admin.username:account.username, requestScope.subject.subjectID)}">
+                                            <a href="unSubscribe?subjectID=${requestScope.subject.subjectID}&username=${admin!=null?admin.username:account.username}" class="btn btn-danger pull-right" ><span>Unsubscribe</span></a>
+
+                                        </c:if>
+                                        <c:if test="${!p.checkSubscribe((admin!=null)?admin.username:account.username, requestScope.subject.subjectID)}">
+                                            <a href="subscribe?subjectID=${requestScope.subject.subjectID}&username=${admin!=null?admin.username:account.username}" class="btn btn-primary pull-right" ><span>Subscribe</span></a>
+
+                                        </c:if>  
+                                        <h1>${requestScope.subject.subjectTitle}</h1>
+                                        
+                                    </div>
+                                </c:if>
                                 <c:if test="${admin==null&&account==null}">
                                     <div class="m-b-md">
                                         <a href="login.jsp" class="btn btn-primary pull-right" ><span>Subscribe</span></a>

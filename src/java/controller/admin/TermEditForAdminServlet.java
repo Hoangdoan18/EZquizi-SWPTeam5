@@ -30,15 +30,15 @@ public class TermEditForAdminServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-        String questionID = request.getParameter("questionID");
-        String subjectID = request.getParameter("subjectID");
-        String term = request.getParameter("term");
-        String definition = request.getParameter("definition");
-        TermDAO tdao = new TermDAO();
-        tdao.editTerm(Integer.parseInt(questionID),Integer.parseInt(subjectID), term, definition);
-        response.sendRedirect("adminSubjectDetail?subjectID="+subjectID+"&termsort=0");
+//       response.setCharacterEncoding("UTF-8");
+//        response.setContentType("text/html;charset=UTF-8");
+//        String questionID = request.getParameter("questionID");
+//        String subjectID = request.getParameter("subjectID");
+//        String term = request.getParameter("term");
+//        String definition = request.getParameter("definition");
+//        TermDAO tdao = new TermDAO();
+//        tdao.editTerm(Integer.parseInt(questionID),Integer.parseInt(subjectID), term, definition);
+//        response.sendRedirect("adminSubjectDetail?subjectID="+subjectID+"&termsort=0");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,7 +67,15 @@ public class TermEditForAdminServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
+        String questionID = request.getParameter("questionID");
+        String subjectID = request.getParameter("subjectID");
+        String term = request.getParameter("term");
+        String definition = request.getParameter("definition");
+        TermDAO tdao = new TermDAO();
+        tdao.editTerm(Integer.parseInt(questionID),Integer.parseInt(subjectID), term, definition);
+        response.sendRedirect("adminSubjectDetail?subjectID="+subjectID+"&termsort=0");
     }
 
     /**

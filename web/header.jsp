@@ -57,7 +57,7 @@
                                 <li class="nav-item"></li>
                                 <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="subscribeList" style="color: rgb(0,0,0);">Subscribe List</a>
+                                        <a class="dropdown-item" href="ListDoingServlet?u=${account.username}&c=0&sort=0&sub=1&d=0" style="color: rgb(0,0,0);">Subscribe List</a>
                                         <a class="dropdown-item" href="YourOwnSubject?u=${account.username}&c=0&sort=0&sub=0&s=" style="color: rgb(0,0,0);">My Own Subject</a>
                                 </li>
                                 <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="SubjectListServlet?c=0&u=&sort=0&s=">List Subject</a>
@@ -93,7 +93,7 @@
                                 <li class="nav-item"></li>
                                 <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#">My Subject</a>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="subscribeList" style="color: rgb(0,0,0);">Subscribe List</a>
+                                        <a class="dropdown-item" href="ListDoingServlet?u=${admin.username}&c=0&sort=0&sub=1&d=0" style="color: rgb(0,0,0);">Subscribe List</a>
                                         <a class="dropdown-item" href="YourOwnSubject?u=${admin.username}&c=0&sort=0&sub=0&s=" style="color: rgb(0,0,0);">My Own Subject</a>
                                 </li>
                                 <li class="nav-item"><a class="btn btn-info move-left-xs-sm-md mr-md-3 mb-3 mb-md-0" role="button" href="SubjectListServlet?c=0&u=&sort=0&s=">List Subject</a>
