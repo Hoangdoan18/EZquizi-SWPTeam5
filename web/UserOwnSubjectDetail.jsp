@@ -49,17 +49,17 @@
                             <div class="col-lg-7">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Created by:</dt> <dd><a href="#" class="text-navy">${requestScope.subject.username}</a></dd>
+                                    <dt>Created by:</dt> <dd><a href="YourOwnSubject?u=${requestScope.subject.username}&c=0&sort=0&sub=0&s=" class="text-navy">${requestScope.subject.username}</a></dd>
                                     <dt>Number of Terms</dt> <dd>${requestScope.num.numOfTerm}</dd>
-                                    <dt>Level</dt> <dd><a href="#" class="text-navy">${requestScope.cate.cateName}</a> </dd>
+                                    <dt>Level</dt> <dd><a href="YourOwnSubject?c=${requestScope.subject.cateID}&u=bao&sort=0&s=" class="text-navy">${requestScope.cate.cateName}</a> </dd>
                                     <dt>Last Updated:</dt> <dd>${requestScope.subject.date}</dd>
                                 </dl>
                             </div>
                             <div class="col-lg-5" id="cluster_info">
                                 <dl class="dl-horizontal">
                                     <dt>Learning by:</dt> <dd><a href="flashcard?subjectID=${requestScope.subject.subjectID}&page=1&display=term" class="text-navy">Flashcard</a></dd>
-                                    <dt></dt> <dd><a href="#" class="text-navy">Multiple choice</a></dd>
-                                    <dt></dt> <dd><a href="#" class="text-navy">Test</a></dd>
+                                    <dt></dt> <dd><a href="multiplechoice?subjectID=${requestScope.subject.subjectID}" class="text-navy">Multiple choice</a></dd>
+                                    <dt></dt> <dd><a href="test?subjectID=${requestScope.subject.subjectID}" class="text-navy">Test</a></dd>
                                 </dl>
                             </div>
                         </div>

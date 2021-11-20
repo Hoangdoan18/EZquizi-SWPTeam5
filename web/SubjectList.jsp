@@ -111,7 +111,7 @@ Author     : Admin
                         <ul class="pagination">
                             <c:forEach begin="1" end="${requestScope.num}" var="i">
                                 <li class="page-item">
-                                    <a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}&c=${c}&u=&s=${s}&sort=${sort}">${i}</a></li>
+                                    <a class="page-link ${requestScope.page==i?" active ":" "}" href="SubjectListServlet?page=${i}&c=${c}&u=${u}&s=${s}&sort=${sort}">${i}</a></li>
                                 </c:forEach>
                         </ul>
                     </nav>

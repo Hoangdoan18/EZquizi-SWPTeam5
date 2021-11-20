@@ -60,9 +60,9 @@
                             <div class="col-lg-7">
                                 <dl class="dl-horizontal">
 
-                                    <dt>Created by:</dt> <dd><a href="#" class="text-navy">${requestScope.subject.username}</a></dd>
+                                    <dt>Created by:</dt> <dd><a href="SubjectListServlet?u=${requestScope.subject.username}" class="text-navy">${requestScope.subject.username}</a></dd>
                                     <dt>Number of Terms</dt> <dd>${requestScope.num.numOfTerm}</dd>
-                                    <dt>Level</dt> <dd><a href="#" class="text-navy">${requestScope.cate.cateName}</a> </dd>
+                                    <dt>Level</dt> <dd><a href="SubjectListServlet?c=${requestScope.subject.cateID}&u=&sort=0&s=" class="text-navy">${requestScope.cate.cateName}</a> </dd>
                                     <dt>Last Updated:</dt> <dd>${requestScope.subject.date}</dd>
                                 </dl>
                             </div>
