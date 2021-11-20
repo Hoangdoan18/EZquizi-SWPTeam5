@@ -61,6 +61,7 @@ public class ChangePassServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User acc = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
         request.getRequestDispatcher("UsersProfile.jsp").forward(request, response);
     }
 
@@ -78,16 +79,21 @@ public class ChangePassServlet extends HttpServlet {
         UserDAO udao = new UserDAO();
         HttpSession session = request.getSession();
         User acc = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
 //        String username = request.getParameter("username");
         String oldpass = request.getParameter("oldpass");
         String newpass = request.getParameter("newpass");
         String confirm = request.getParameter("confirm");
-        if (oldpass.equals(acc.getPassword())) {
+        User term;
+        if (ad!=null)   {
+            term = ad;     
+        } else term = acc;
+        if (oldpass.equals(term.getPassword())) {
             if (!newpass.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{3,}$")) {
                 request.setAttribute("mess", "Password must contain one uppercase, one lowercase, one digit and have more than 3 letter");
                 request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
             } else if (newpass.equals(confirm)) {
-                udao.changePass(newpass, acc.getUsername());
+                udao.changePass(newpass, term.getUsername());
             } else {
                 request.setAttribute("mess", "Password does not match");
                 request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
@@ -97,8 +103,13 @@ public class ChangePassServlet extends HttpServlet {
             request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
         }
         request.setAttribute("mess", "Password changed");
-        acc = udao.getUsername(acc.getUsername());
-        session.setAttribute("account", acc);
+        if (ad != null) {
+            ad = udao.getUsername(ad.getUsername());
+            session.setAttribute("admin", ad);
+        } else {
+            acc = udao.getUsername(acc.getUsername());
+            session.setAttribute("account", acc);
+        }
         request.getRequestDispatcher("UserProfile.jsp").forward(request, response);
     }
 

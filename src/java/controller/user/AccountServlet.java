@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -51,6 +51,7 @@ public class AccountServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User acc = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
         request.getRequestDispatcher("UsersProfile.jsp").forward(request, response);
     }
 
@@ -67,6 +68,8 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
+        User acc = (User) session.getAttribute("account");
+        User ad = (User) session.getAttribute("admin");
         UserDAO udao = new UserDAO();
         PrintWriter out = response.getWriter();
             String newusername = request.getParameter("username");
@@ -77,8 +80,15 @@ public class AccountServlet extends HttpServlet {
             String newphone = request.getParameter("phone");
             String newrole = request.getParameter("admin");
             udao.edit(newusername, newpassword, newemail, newname, Integer.parseInt(newage), newphone, Integer.parseInt(newrole), newusername);
-            User acc = udao.getUsername(newusername);
-            session.setAttribute("account", acc);
+            if (ad!=null){
+                ad = udao.getUsername(newusername);
+                session.setAttribute("admin", ad);
+            }
+            else {
+                acc = udao.getUsername(newusername);
+                session.setAttribute("account", acc);
+            }
+            
         response.sendRedirect("UserProfile.jsp");
     }
 
